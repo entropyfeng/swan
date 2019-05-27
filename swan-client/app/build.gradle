@@ -9,6 +9,11 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
+            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86","x86_64"
+        }
     }
     buildTypes {
         release {
@@ -27,6 +32,10 @@ dependencies {
     implementation 'com.alibaba:fastjson:1.1.60.android'
     implementation 'com.specyci:residemenu:1.6'
     testImplementation 'junit:junit:4.12'
+  //  implementation 'com.amap.api:3dmap:latest.integration'
+    implementation 'com.amap.api:navi-3dmap:latest.integration'
+    implementation 'com.amap.api:search:latest.integration'
+    implementation 'com.amap.api:location:latest.integration'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }

@@ -1,0 +1,31 @@
+
+server:
+  port: 8082
+  address: 0.0.0.0
+
+
+mybatis:
+  # 指向实体类包路径
+  type-aliases-package: com.example.swan.swanserver.model.po
+  # mapper xml 文件地址
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    use-generated-keys: true
+    use-column-label: true
+    map-underscore-to-camel-case: true
+spring:
+  profiles:
+    active: dev
+
+
+---
+spring:
+    profiles: dev
+    datasource:
+      url: jdbc:mysql://127.0.0.1:3306/swan?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false&useAffectedRows=true
+      username: root
+      password: root
+      driver-class-name: com.mysql.cj.jdbc.Driver
+    redis:
+      host: 127.0.0.1
+      password:

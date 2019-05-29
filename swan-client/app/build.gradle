@@ -21,10 +21,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.squareup.okhttp3:okhttp:3.14.0'
@@ -32,7 +33,7 @@ dependencies {
     implementation 'com.alibaba:fastjson:1.1.60.android'
     implementation 'com.specyci:residemenu:1.6'
     testImplementation 'junit:junit:4.12'
-  //  implementation 'com.amap.api:3dmap:latest.integration'
+    //  implementation 'com.amap.api:3dmap:latest.integration'
     implementation 'com.amap.api:navi-3dmap:latest.integration'
     implementation 'com.amap.api:search:latest.integration'
     implementation 'com.amap.api:location:latest.integration'

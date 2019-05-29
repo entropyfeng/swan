@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+/**
+ * @author feng
+ * 消息控制类
+ */
 @RestController
 public class MessageController {
 

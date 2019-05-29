@@ -49,10 +49,8 @@ public class KaptchaInterceptor implements HandlerInterceptor {
 
     private boolean checkKaptcha(HttpServletRequest request) {
 
-
         String kaptchaToken = request.getParameter("kaptcha_token");
         String kaptcha = request.getParameter("kaptcha");
-
         return  redisService.checkKaptcha(kaptchaToken,kaptcha);
 
     }

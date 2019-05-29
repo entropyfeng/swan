@@ -3,7 +3,6 @@ package com.example.swan.config;
 /**
  * @author feng
  * 默认配置文件
- *
  */
 public class CommonConfig {
 

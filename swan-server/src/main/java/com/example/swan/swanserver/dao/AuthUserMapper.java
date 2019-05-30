@@ -3,6 +3,7 @@ package com.example.swan.swanserver.dao;
 
 import com.example.swan.swanserver.model.po.DefaultAuthUser;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @author feng
@@ -29,5 +30,12 @@ public interface AuthUserMapper {
 
     String selectUidByUsername(String username);
 
+    /**
+     * 根据userId 修改密码
+     * @param userId 用户id
+     * @param password 密码
+     * @return 受影响行数
+     */
+    int updatePasswordByUserId(@Param("userId") String userId, @Param("password") String password);
 
 }

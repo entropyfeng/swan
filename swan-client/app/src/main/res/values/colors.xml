@@ -3,4 +3,20 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <!--自定义颜色-->
+    <color name="colorLight">#ffffff</color>
+    <color name="colorTitle">#515151</color>
+    <color name="colorTextView">#365146</color>
+    <color name="colorBorder">#d8dee2</color>
+    <color name="colorBackground">#f9f9f9</color>
+    <color name="colorLoginBgStart">#34D058</color>
+    <color name="colorLoginBgCenter">#2fbd4f</color>
+    <color name="colorLoginBgEnd">#28a745</color>
+    <color name="colorSubmitBorder">#617079</color>
+    <color name="colorForget">#0366d6</color>
+    <color name="colorFocusBorder">#2188ff</color>
+    <color name="colorFocusShadowStart">#B3D1F3</color>
+    <color name="colorFocusShadowEnd">#C2DAF5</color>
+    <color name="colorTitleBg">#EDEDED</color>
+    <color name="colorActive">#08C261</color>
 </resources>

@@ -1,6 +1,5 @@
 package com.example.swan.swanserver.service.impl;
 
-import com.example.swan.swanserver.config.Constants;
 import com.example.swan.swanserver.service.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class RedisServiceImpl implements RedisService {
 
-
+    private static final String KAPTCHA_SUFFIX="KAPTCHA_TOKEN_";
     private static final Logger logger = LoggerFactory.getLogger(RedisServiceImpl.class);
     @Autowired
     StringRedisTemplate redisTemplate;
@@ -25,23 +24,23 @@ public class RedisServiceImpl implements RedisService {
     @Override
     public void setKaptcha(String kaptchaToken, String kaptcha) {
         //设置过期时间300秒，并加入redis
-        redisTemplate.opsForValue().set(Constants.KAPTCHA_SUFFIX + kaptchaToken, kaptcha, 5*60, TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set(KAPTCHA_SUFFIX + kaptchaToken, kaptcha, 5*60, TimeUnit.SECONDS);
     }
 
 
     private String getKaptcha(String kaptchaToken) {
 
-        return redisTemplate.opsForValue().get(Constants.KAPTCHA_SUFFIX + kaptchaToken);
+        return redisTemplate.opsForValue().get(KAPTCHA_SUFFIX + kaptchaToken);
 
     }
 
 
     private void removeKaptcha(String kaptchaToken) {
         //一用一弃
-        boolean res = redisTemplate.opsForValue().getOperations().delete(Constants.KAPTCHA_SUFFIX + kaptchaToken);
+        boolean res = redisTemplate.opsForValue().getOperations().delete(KAPTCHA_SUFFIX + kaptchaToken);
 
         if (!res) {
-            logger.warn(" redis delete key->{} error", Constants.KAPTCHA_SUFFIX + kaptchaToken);
+            logger.warn(" redis delete key->{} error", KAPTCHA_SUFFIX + kaptchaToken);
         }
     }
 

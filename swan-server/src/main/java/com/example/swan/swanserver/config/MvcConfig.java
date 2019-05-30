@@ -1,5 +1,6 @@
 package com.example.swan.swanserver.config;
 
+import com.example.swan.swanserver.config.interceptors.AuthTokenInterceptor;
 import com.example.swan.swanserver.config.interceptors.KaptchaInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,10 +20,15 @@ public class MvcConfig implements WebMvcConfigurer {
         return new KaptchaInterceptor();
     }
 
+    @Bean
+    AuthTokenInterceptor authTokenInterceptor(){
+        return new AuthTokenInterceptor();
+    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(kaptchaInterceptor()).order(0);
+        registry.addInterceptor(authTokenInterceptor()).order(1);
 
     }
 }

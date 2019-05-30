@@ -58,4 +58,9 @@
     <select id="selectUidByUsername" resultType="java.lang.String">
         select auth_user.user_id from auth_user where username=#{username};
     </select>
+
+    <update id="updatePasswordByUserId"  >
+
+        update auth_user set password =#{password} where user_Id=#{userId}
+    </update>
 </mapper>

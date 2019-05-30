@@ -18,5 +18,14 @@ public class CommonUtil {
 
     }
 
+    /**
+     * 生成全局唯一JWTid
+     * @return userId
+     */
+    public static String getJWTId(){
+        return UUID.randomUUID().toString();
+    }
+
+
 
 }

@@ -14,6 +14,7 @@ import com.amap.api.location.AMapLocationQualityReport;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
+import com.amap.api.maps.model.MyLocationStyle;
 import com.example.swan.util.Utils;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,8 +25,9 @@ public class MainActivity extends AppCompatActivity {
     private AMap aMap=null;
     private UiSettings uiSettings=null;//定义一个UiSettings对象
 
-    private AMapLocationClient locationClient = null;
-    private AMapLocationClientOption locationOption = null;
+    private MyLocationStyle myLocationStyle;
+    //private AMapLocationClient locationClient = null;
+    //private AMapLocationClientOption locationOption = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
      * 初始化定位
      */
     private void initMyLocation(){
+        /*
         //初始化client
         locationClient = new AMapLocationClient(this.getApplicationContext());
         locationOption = getDefaultOption();
@@ -84,13 +87,21 @@ public class MainActivity extends AppCompatActivity {
         locationClient.setLocationOption(locationOption);
         // 设置定位监听
         locationClient.setLocationListener(locationListener);
+        */
+
+        myLocationStyle = new MyLocationStyle();
+        myLocationStyle.interval(2000);
+        aMap.setMyLocationStyle(myLocationStyle);
+        aMap.setMyLocationEnabled(true);
+        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);
+        
     }
 
     /**
      * 默认的定位参数
      * @return
      */
-    private AMapLocationClientOption getDefaultOption(){
+    /*private AMapLocationClientOption getDefaultOption(){
         AMapLocationClientOption mOption = new AMapLocationClientOption();
         mOption.setLocationMode(AMapLocationMode.Hight_Accuracy);//可选，设置定位模式，可选的模式有高精度、仅设备、仅网络。默认为高精度模式
         mOption.setGpsFirst(false);//可选，设置是否gps优先，只在高精度模式下有效。默认关闭
@@ -105,12 +116,12 @@ public class MainActivity extends AppCompatActivity {
         mOption.setLocationCacheEnable(true); //可选，设置是否使用缓存定位，默认为true
         mOption.setGeoLanguage(AMapLocationClientOption.GeoLanguage.DEFAULT);//可选，设置逆地理信息的语言，默认值为默认语言（根据所在地区选择语言）
         return mOption;
-    }
+    }*/
 
     /**
      * 定位监听
      */
-    AMapLocationListener locationListener = new AMapLocationListener() {
+    /*AMapLocationListener locationListener = new AMapLocationListener() {
         @Override
         public void onLocationChanged(AMapLocation location) {
             if (null != location) {
@@ -163,14 +174,14 @@ public class MainActivity extends AppCompatActivity {
                 tvResult.setText("定位失败，loc is null");
             }
         }
-    };
+    };*/
 
     /**
      * 获取GPS状态的字符串
      * @param statusCode GPS状态码
      * @return
      */
-    private String getGPSStatusString(int statusCode){
+   /* private String getGPSStatusString(int statusCode){
         String str = "";
         switch (statusCode){
             case AMapLocationQualityReport.GPS_STATUS_OK:
@@ -191,4 +202,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return str;
     }
+    */
 }

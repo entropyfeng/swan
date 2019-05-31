@@ -72,7 +72,7 @@ public class HttpUtil {
         return resParams;
     }
 
-    public void synGetKaptcha(){
+    public void synGetKaptcha() throws IOException {
 
         OkHttpClient client=new OkHttpClient();
 

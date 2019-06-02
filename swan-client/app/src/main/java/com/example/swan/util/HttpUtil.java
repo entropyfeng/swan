@@ -19,67 +19,60 @@ import okhttp3.Response;
 
 public class HttpUtil {
 
-    public static void sendGetWithOkHttp(String address, Callback callback){
+    public static void sendGetWithOkHttp(String address, Callback callback) {
 
-        OkHttpClient client=new OkHttpClient();
-        Request request=new Request.Builder().url(address).build();
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(address).build();
         client.newCall(request).enqueue(callback);
 
     }
-    public static void asynchronizedPost(String address, Map<String,String> data, Callback callback){
+
+    public static void asynchronizedPost(String address, Map<String, String> data, Callback callback) {
 
 
-        OkHttpClient client=new OkHttpClient();
+        OkHttpClient client = new OkHttpClient();
 
-        FormBody.Builder builder=new FormBody.Builder();
+        FormBody.Builder builder = new FormBody.Builder();
         data.forEach(builder::add);
-        Request request=new Request.Builder().url(address).post(builder.build()).build();
+        Request request = new Request.Builder().url(address).post(builder.build()).build();
         client.newCall(request).enqueue(callback);
 
     }
-    public  static Map<String,String> sendRequestKaptcha(){
 
-        Map<String,String> resParams=new HashMap<>();
-        HttpUtil.sendGetWithOkHttp(CommonConfig.URL + "/request/kaptcha", new Callback() {
-            private   boolean resStatus = true;
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                resStatus=false;
-            }
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                if (response.isSuccessful() && response.body() != null) {
-                    try {
-                        Message message = JSON.parseObject(response.body().string(), Message.class);
-                        if (message != null && message.isSuccess()) {
-                            resParams.put("kaptcha_token",message.getParams().get("kaptcha_token"));
-                            resParams.put("img",message.getParams().get("img"));
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        resStatus = false;
+    /**
+     * 同步方式获取验证码
+     * @return
+     */
+    public Map<String,String> synGetKaptcha() {
+
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder().url(CommonConfig.URL + "/request/kaptcha").build();
+        Map<String, String> resParams = new HashMap<>();
+        try {
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful() && response.body() != null) {
+                try {
+                    Message message = JSON.parseObject(response.body().string(), Message.class);
+                    if (message != null && message.isSuccess()) {
+                       String kaptchaToken= message.getParams().get("kaptcha_token");
+                       String img=message.getParams().get("img");
+                       if(kaptchaToken!=null&&img!=null){
+                           resParams.put("kaptcha_token",kaptchaToken );
+                           resParams.put("img", img);
+                       }else {
+                           resParams=null;
+                       }
                     }
-                } else {
-                    resStatus = false;
-                }
-                //如果获取图形验证码为失败状态
-                if(!resStatus){
-                    resParams.clear();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    resParams=null;
                 }
             }
-
-        });
+        } catch (IOException e) {
+            e.printStackTrace();
+            resParams=null;
+        }
         return resParams;
     }
-
-    public void synGetKaptcha() throws IOException {
-
-        OkHttpClient client=new OkHttpClient();
-
-        Request request=new Request.Builder().url(CommonConfig.URL+"/request/kaptcha").build();
-
-        client.newCall(request).execute();
-
-    }
-
 }

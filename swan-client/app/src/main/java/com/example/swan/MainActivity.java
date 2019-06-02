@@ -1,7 +1,9 @@
 package com.example.swan;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
@@ -10,17 +12,19 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationClientOption.AMapLocationMode;
 import com.amap.api.location.AMapLocationClientOption.AMapLocationProtocol;
 import com.amap.api.location.AMapLocationListener;
-import com.amap.api.location.AMapLocationQualityReport;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.MyLocationStyle;
-import com.example.swan.util.Utils;
+import com.example.swan.activity.MenuActivity;
+import com.example.swan.activity.SearchActivity;
+import com.example.swan.widget.MainTitleView;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView tvResult;
 
+    private MainTitleView mainTitleView;
     private MapView mapView = null;
     private AMap aMap=null;
     private UiSettings uiSettings=null;//定义一个UiSettings对象
@@ -33,16 +37,27 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         getSupportActionBar().hide();
         //获取地图控件引用
         mapView = (MapView) findViewById(R.id.main_map);
+        mainTitleView=findViewById(R.id.main_title_view);
         //在activity执行onCreate时执行mapView.onCreate(savedInstanceState)，创建地图
         mapView.onCreate(savedInstanceState);
 
+        mainTitleView.setImageListener(view -> {
+            Intent intent =new Intent();
+            intent.setClass(MainActivity.this, MenuActivity.class);
+            startActivity(intent);
+        });
+        mainTitleView.setTextViewListener(view -> {
+            Intent intent=new Intent();
+            intent.setClass(MainActivity.this, SearchActivity.class);
+            startActivity(intent);
+        });
+
+
         if (aMap == null) {
             aMap = mapView.getMap();
-
             initMyLocation();
         }
     }

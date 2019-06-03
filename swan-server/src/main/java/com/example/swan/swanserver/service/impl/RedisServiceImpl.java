@@ -40,7 +40,7 @@ public class RedisServiceImpl implements RedisService {
         boolean res = redisTemplate.opsForValue().getOperations().delete(KAPTCHA_SUFFIX + kaptchaToken);
 
         if (!res) {
-            logger.warn(" redis delete key->{} error", KAPTCHA_SUFFIX + kaptchaToken);
+            logger.warn(" redis don't exist key->{}", KAPTCHA_SUFFIX + kaptchaToken);
         }
     }
 

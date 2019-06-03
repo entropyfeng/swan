@@ -41,9 +41,10 @@ public class HttpUtil {
 
     /**
      * 同步方式获取验证码
+     *
      * @return
      */
-    public Map<String,String> synGetKaptcha() {
+    public Map<String, String> synGetKaptcha() {
 
         OkHttpClient client = new OkHttpClient();
 
@@ -55,23 +56,23 @@ public class HttpUtil {
                 try {
                     Message message = JSON.parseObject(response.body().string(), Message.class);
                     if (message != null && message.isSuccess()) {
-                       String kaptchaToken= message.getParams().get("kaptcha_token");
-                       String img=message.getParams().get("img");
-                       if(kaptchaToken!=null&&img!=null){
-                           resParams.put("kaptcha_token",kaptchaToken );
-                           resParams.put("img", img);
-                       }else {
-                           resParams=null;
-                       }
+                        String kaptchaToken = message.getParams().get("kaptcha_token");
+                        String img = message.getParams().get("img");
+                        if (kaptchaToken != null && img != null) {
+                            resParams.put("kaptcha_token", kaptchaToken);
+                            resParams.put("img", img);
+                        } else {
+                            resParams = null;
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    resParams=null;
+                    resParams = null;
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
-            resParams=null;
+            resParams = null;
         }
         return resParams;
     }

@@ -19,4 +19,5 @@
     <color name="colorFocusShadowEnd">#C2DAF5</color>
     <color name="colorTitleBg">#EDEDED</color>
     <color name="colorActive">#08C261</color>
+    <color name="colorHint">#9E9E9E</color>
 </resources>

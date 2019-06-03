@@ -43,11 +43,6 @@ public class SearchActivity extends AppCompatActivity {
 
         topBar.addLeftImageButton(R.drawable.ic_icon_back, 0);
 
-//        EditText editText = new EditText(topBar.getContext());
-//        editText.setWidth(700);
-
-
-        //topBar.setCenterView(editText);
 
         QMUIButton searchButton = new QMUIButton(this);
         topBar.addRightTextButton("搜索", searchButton.getId());

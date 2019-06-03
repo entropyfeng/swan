@@ -13,6 +13,7 @@ import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.LatLng;
+import com.example.swan.activity.LoginActivity;
 import com.example.swan.activity.MenuActivity;
 import com.example.swan.activity.SearchActivity;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
@@ -141,7 +142,8 @@ public class MainActivity extends AppCompatActivity {
         topBar.addLeftImageButton(R.drawable.ic_icon_user, 0).setOnClickListener(v -> {
 
             Intent intent = new Intent();
-            intent.setClass(MainActivity.this, MenuActivity.class);
+            //intent.setClass(MainActivity.this, MenuActivity.class);
+            intent.setClass(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         });
         TextView textView = new TextView(topBar.getContext());

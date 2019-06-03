@@ -9,6 +9,7 @@ import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MyLocationStyle;
+import com.amap.api.services.poisearch.PoiSearch;
 
 import static android.support.v4.content.ContextCompat.startActivity;
 
@@ -38,7 +39,7 @@ public class FuncOfMap {
         mUiSettings.setZoomControlsEnabled(true);
     }
 
-    protected static void setCenterToGuiLin(AMap aMap){
+    protected static void searchPoi(AMap aMap){
 
     }
 }

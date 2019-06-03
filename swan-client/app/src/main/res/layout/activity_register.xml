@@ -1,38 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/colorBackground"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <!--头部的logo和标题-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:paddingTop="30dp"
             android:orientation="vertical"
-            >
+            android:paddingTop="30dp">
 
             <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/logo"
                 android:scaleType="fitCenter"
-                />
+                android:src="@drawable/logo" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
                 android:text="@string/register_title"
                 android:textColor="@color/colorTitle"
-                android:textSize="24sp"
-                android:layout_marginTop="22dp"
-                />
+                android:textSize="24sp" />
 
         </LinearLayout>
 
@@ -44,13 +41,12 @@
             android:layout_marginTop="25dp"
             android:layout_marginRight="30dp"
             android:background="@drawable/common_border"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:orientation="vertical"
             android:paddingLeft="30dp"
             android:paddingTop="25dp"
-            android:paddingRight="30dp"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            >
+            android:paddingRight="30dp">
 
             <!--账号文字-->
             <TextView
@@ -66,13 +62,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="10dp"
+                android:autofillHints="@string/common_username_title"
                 android:background="@drawable/common_edit_text_border"
                 android:hint="@string/common_username_tip"
                 android:inputType="number|phone"
                 android:padding="8dp"
-                android:textSize="14sp"
-                android:autofillHints="@string/common_username_title"
-                />
+                android:textSize="14sp" />
 
             <!--密码文字-->
             <TextView
@@ -81,8 +76,7 @@
                 android:text="@string/common_pwd_title"
                 android:textColor="@color/colorTextView"
                 android:textSize="14sp"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
             <!--密码输入框-->
             <EditText
@@ -90,13 +84,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="10dp"
+                android:autofillHints="@string/common_pwd_tip"
                 android:background="@drawable/common_edit_text_border"
                 android:hint="@string/common_pwd_tip"
                 android:inputType="textPassword"
                 android:padding="8dp"
-                android:textSize="14sp"
-                android:autofillHints="@string/common_pwd_tip"
-                />
+                android:textSize="14sp" />
 
             <!--确认密码文字-->
             <TextView
@@ -105,36 +98,74 @@
                 android:text="@string/register_confirm_pwd_title"
                 android:textColor="@color/colorTextView"
                 android:textSize="14sp"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
             <!--确认密码输入框-->
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="28dp"
+                android:layout_marginBottom="10dp"
+                android:autofillHints="@string/register_confirm_pwd_tip"
                 android:background="@drawable/common_edit_text_border"
                 android:hint="@string/register_confirm_pwd_tip"
                 android:inputType="textPassword"
                 android:padding="8dp"
+                android:textSize="14sp" />
+
+            <!--验证码文字-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/register_captcha_title"
+                android:textColor="@color/colorTextView"
                 android:textSize="14sp"
-                android:autofillHints="@string/register_confirm_pwd_tip"
+                android:textStyle="bold"
                 />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:paddingBottom="18dp"
+                >
+                <!--验证码输入框-->
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_weight="1"
+                    android:autofillHints="@string/register_captcha_tip"
+                    android:background="@drawable/common_edit_text_border"
+                    android:hint="@string/register_captcha_tip"
+                    android:inputType="number"
+                    android:padding="8dp"
+                    android:textSize="14sp"
+                   />
+                <!--图形验证码-->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_icon_captcha"
+                    android:scaleType="fitCenter"
+                    />
+            </LinearLayout>
+
         </LinearLayout>
 
         <!--注册按钮-->
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/register_submit_title"
-            android:textColor="@color/colorLight"
-            android:textSize="14sp"
             android:layout_margin="30dp"
             android:background="@drawable/common_submit_border"
             android:minHeight="0dp"
             android:padding="8dp"
-            android:textStyle="bold"
-            />
+            android:text="@string/register_submit_title"
+            android:textColor="@color/colorLight"
+            android:textSize="14sp"
+            android:textStyle="bold" />
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

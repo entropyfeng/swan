@@ -79,7 +79,7 @@ public class CommonUtil {
     }
 
     public static boolean isNullOrEmpty(String string){
-        return string!=null&&!"".equals(string);
+        return string==null||string.isEmpty();
     }
 
 }

@@ -11,8 +11,9 @@
         android:theme="@style/QMUI.Compat">
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="b9b4431d4beab68d49fe86b9f96899bf"/>
+            android:value="b9b4431d4beab68d49fe86b9f96899bf" />
         <service android:name="com.amap.api.location.APSService"></service>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,11 +21,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.MenuActivity" android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".activity.MenuActivity"
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".activity.SearchActivity" />
 
-        <activity android:name="com.amap.api.maps.offlinemap.OfflineMapActivity"
-            android:screenOrientation="portrait"  />
+        <activity
+            android:name="com.amap.api.maps.offlinemap.OfflineMapActivity"
+            android:screenOrientation="portrait" />
 
     </application>
     <!--允许程序打开网络套接字-->

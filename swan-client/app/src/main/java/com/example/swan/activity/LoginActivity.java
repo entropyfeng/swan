@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -59,6 +60,8 @@ public class LoginActivity extends AppCompatActivity {
 
             String username=usernameText.getText().toString();
             String password=passwordText.getText().toString();
+            Log.d("username",username);
+            Log.d("password",password);
             if(CommonUtil.isNullOrEmpty(username)){
                 QMUITipDialog tipDialog=   CommonUtil.getFailTipDialog(LoginActivity.this,"用户名不能为空");
                 handler.post(() -> {

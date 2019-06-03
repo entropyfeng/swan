@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         // 调用 onCreate方法 对 MapView LayoutParams 设置
         System.out.println("chenggong");
         mapView.onCreate(savedInstanceState);
-        
+
     }
 
     @Override

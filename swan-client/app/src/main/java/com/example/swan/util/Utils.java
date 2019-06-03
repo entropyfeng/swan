@@ -12,15 +12,16 @@ import android.text.TextUtils;
 
 /**
  * 辅助工具类
+ *
+ * @author 徐仕成
  * @创建时间： 2019年5月29日
  * @项目名称： swan-client
- * @author 徐仕成
  * @文件名称: Utils.java
  * @类型名称: Utils
  */
 public class Utils {
     /**
-     *  开始定位
+     * 开始定位
      */
     public final static int MSG_LOCATION_START = 0;
     /**
@@ -30,22 +31,24 @@ public class Utils {
     /**
      * 停止定位
      */
-    public final static int MSG_LOCATION_STOP= 2;
+    public final static int MSG_LOCATION_STOP = 2;
 
     public final static String KEY_URL = "URL";
     public final static String URL_H5LOCATION = "file:///android_asset/sdkLoc.html";
+
     /**
      * 根据定位结果返回定位信息的字符串
+     *
      * @param location
      * @return
      */
-    public synchronized static String getLocationStr(AMapLocation location){
-        if(null == location){
+    public synchronized static String getLocationStr(AMapLocation location) {
+        if (null == location) {
             return null;
         }
         StringBuffer sb = new StringBuffer();
         //errCode等于0代表定位成功，其他的为定位失败，具体的可以参照官网定位错误码说明
-        if(location.getErrorCode() == 0){
+        if (location.getErrorCode() == 0) {
             sb.append("定位成功" + "\n");
             sb.append("定位类型: " + location.getLocationType() + "\n");
             sb.append("经    度    : " + location.getLongitude() + "\n");
@@ -80,7 +83,8 @@ public class Utils {
     }
 
     private static SimpleDateFormat sdf = null;
-    public  static String formatUTC(long l, String strPattern) {
+
+    public static String formatUTC(long l, String strPattern) {
         if (TextUtils.isEmpty(strPattern)) {
             strPattern = "yyyy-MM-dd HH:mm:ss";
         }
@@ -97,6 +101,7 @@ public class Utils {
 
     /**
      * 获取app的名称
+     *
      * @param context
      * @return
      */
@@ -107,7 +112,7 @@ public class Utils {
             PackageInfo packageInfo = packageManager.getPackageInfo(
                     context.getPackageName(), 0);
             int labelRes = packageInfo.applicationInfo.labelRes;
-            appName =  context.getResources().getString(labelRes);
+            appName = context.getResources().getString(labelRes);
         } catch (Throwable e) {
             e.printStackTrace();
         }

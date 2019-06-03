@@ -1,36 +1,31 @@
 package com.example.swan;
 
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
-import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationClient;
-import com.amap.api.location.AMapLocationClientOption;
-import com.amap.api.location.AMapLocationClientOption.AMapLocationMode;
-import com.amap.api.location.AMapLocationClientOption.AMapLocationProtocol;
-import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.AMapOptions;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.LatLng;
-import com.amap.api.maps.model.MyLocationStyle;
 import com.example.swan.activity.MenuActivity;
 import com.example.swan.activity.SearchActivity;
-import com.example.swan.widget.MainTitleView;
+import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
+import com.qmuiteam.qmui.widget.QMUITopBar;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView tvResult;
 
-    private MainTitleView mainTitleView;
     private MapView mapView = null;
-    private AMap aMap=null;
-    private UiSettings uiSettings=null;//定义一个UiSettings对象
+    private AMap aMap = null;
+    private UiSettings uiSettings = null;//定义一个UiSettings对象
+
+    private QMUITopBar topBar;
 
     //private AMapLocationClient locationClient = null;
     //private AMapLocationClientOption locationOption = null;
@@ -42,20 +37,10 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         //获取地图控件引用
         mapView = (MapView) findViewById(R.id.main_map);
-        mainTitleView=findViewById(R.id.main_title_view);
+        initTopBar();;
         //在activity执行onCreate时执行mapView.onCreate(savedInstanceState)，创建地图
         mapView.onCreate(savedInstanceState);
 
-        mainTitleView.setImageListener(view -> {
-            Intent intent =new Intent();
-            intent.setClass(MainActivity.this, MenuActivity.class);
-            startActivity(intent);
-        });
-        mainTitleView.setTextViewListener(view -> {
-            Intent intent=new Intent();
-            intent.setClass(MainActivity.this, SearchActivity.class);
-            startActivity(intent);
-        });
 
 
         if (aMap == null) {
@@ -63,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         }
         initMyLocation();
         // 定义北京市经纬度坐标（此处以北京坐标为例）
-        LatLng centerBJPoint= new LatLng(25.273566,110.290195);
+        LatLng centerBJPoint = new LatLng(25.273566, 110.290195);
 // 定义了一个配置 AMap 对象的参数类
         AMapOptions mapOptions = new AMapOptions();
 // 设置了一个可视范围的初始化位置
@@ -117,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 初始化定位
      */
-    private void initMyLocation(){
+    private void initMyLocation() {
         /*
         //初始化client
         locationClient = new AMapLocationClient(this.getApplicationContext());
@@ -133,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         FuncOfMap.appearControls(aMap);
     }
 
-    private void setCenterToGuiLin(Bundle savedInstanceState){
+    private void setCenterToGuiLin(Bundle savedInstanceState) {
 
     }
 
@@ -218,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * 获取GPS状态的字符串
-     * @param statusCode GPS状态码
+     * @param
      * @return
      */
    /* private String getGPSStatusString(int statusCode){
@@ -243,4 +228,33 @@ public class MainActivity extends AppCompatActivity {
         return str;
     }
     */
+
+
+   private void initTopBar(){
+       topBar=findViewById(R.id.main_top_bar);
+       QMUIRadiusImageView imageView=new QMUIRadiusImageView(topBar.getContext());
+       imageView.setOnClickListener(v->{
+
+           Intent intent = new Intent();
+           intent.setClass(MainActivity.this, MenuActivity.class);
+           startActivity(intent);
+       }
+   );
+       imageView.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.ic_icon_user));
+       imageView.setCircle(true);
+       topBar.addLeftView(imageView,imageView.getId());
+
+       TextView textView=new TextView(topBar.getContext());
+       final String DEFAULT_LABEL_CONTENT="查找地点、公交、地铁";
+
+       textView.setOnClickListener(v->{
+           Intent intent = new Intent();
+           intent.setClass(MainActivity.this, SearchActivity.class);
+           startActivity(intent);
+       });
+       textView.setText(DEFAULT_LABEL_CONTENT);
+       topBar.addRightView(textView,textView.getId());
+
+   }
+
 }

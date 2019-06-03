@@ -5,13 +5,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
-
-    <com.example.swan.widget.MainTitleView
-        android:id="@+id/main_title_view"
-        android:layout_width="wrap_content"
+    
+    <com.qmuiteam.qmui.widget.QMUITopBar
+        android:id="@+id/main_top_bar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    </com.example.swan.widget.MainTitleView>
+    </com.qmuiteam.qmui.widget.QMUITopBar>
     <com.amap.api.maps.MapView
         android:id="@+id/main_map"
         android:layout_width="match_parent"

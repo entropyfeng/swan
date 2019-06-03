@@ -8,4 +8,5 @@
     <style name="MainTopBar" parent="QMUI.TopBar">
         <item name="qmui_topbar_bg_color">#FFFFFF</item>
     </style>
+
 </resources>

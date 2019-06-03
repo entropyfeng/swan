@@ -6,7 +6,7 @@ public class AccountHelper {
 
 
     public static boolean isLogin(Context context){
-       return CommonUtil.isNullOrEmpty(readAuthToken(context));
+       return !CommonUtil.isNullOrEmpty(readAuthToken(context));
     }
     public static void logout(Context context){
         context.getSharedPreferences("data",Context.MODE_PRIVATE).edit().remove("auth_token").apply();

@@ -9,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ThumbnailUtils;
 import android.support.v4.content.ContextCompat;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 
 import com.example.swan.R;
@@ -70,16 +71,21 @@ public class CommonUtil {
         Bitmap newBmp = Bitmap.createScaledBitmap(oldBmp, weight, height, true);
         return new BitmapDrawable(res, newBmp);
     }
-    public static QMUITipDialog getFailTipDialog(Context context, String message) {
-        return new QMUITipDialog.Builder(context).setIconType(QMUITipDialog.Builder.ICON_TYPE_FAIL).setTipWord(message).create();
-    }
 
-    public static QMUITipDialog getSuccessTipDialog(Context context, String message) {
-        return new QMUITipDialog.Builder(context).setIconType(QMUITipDialog.Builder.ICON_TYPE_SUCCESS).setTipWord(message).create();
-    }
 
     public static boolean isNullOrEmpty(String string){
         return string==null||string.isEmpty();
     }
+    public static Bitmap parseImage(String string) {
+        Bitmap bitmap = null;
+        try {
+            byte[] bytes = Base64.decode(string, Base64.DEFAULT);
+            bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        } catch (Exception e) {
+            e.printStackTrace();
+            bitmap = null;
+        }
 
+        return bitmap;
+    }
 }

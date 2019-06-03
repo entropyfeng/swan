@@ -5,7 +5,7 @@
     android:orientation="horizontal">
 
     <com.qmuiteam.qmui.widget.QMUIRadiusImageView
-        android:layout_margin="5dp"
+        android:layout_margin="10dp"
         android:id="@+id/main_title_view_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

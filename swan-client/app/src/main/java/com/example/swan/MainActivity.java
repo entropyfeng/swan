@@ -64,13 +64,7 @@ public class MainActivity extends AppCompatActivity {
         // 调用 onCreate方法 对 MapView LayoutParams 设置
         System.out.println("chenggong");
         mapView.onCreate(savedInstanceState);
-
-
-        //在Activity页面调用startActvity启动离线地图组件
-        //        startActivity(new Intent(MainActivity.getApplicationContext(),
-        //                com.amap.api.maps.offlinemap.OfflineMapActivity.class));
-
-
+        
     }
 
     @Override
@@ -120,30 +114,14 @@ public class MainActivity extends AppCompatActivity {
         FuncOfMap.appearControls(aMap);
     }
 
-    /*private void setCenterToGuiLin(Bundle savedInstanceState) {
-
-    }*/
 
     private void initTopBar() {
         topBar = findViewById(R.id.main_top_bar);
-        /*QMUIRadiusImageView imageView = new QMUIRadiusImageView(topBar.getContext());
 
-        imageView.setOnClickListener(v -> {
-
-                    Intent intent = new Intent();
-                    intent.setClass(MainActivity.this, MenuActivity.class);
-                    startActivity(intent);
-                }
-        );
-        imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_icon_user));
-        imageView.setCircle(true);*/
-
-        //topBar.addLeftView(imageView, imageView.getId());
         topBar.addLeftImageButton(R.drawable.ic_icon_user, 0).setOnClickListener(v -> {
 
             Intent intent = new Intent();
-            //intent.setClass(MainActivity.this, MenuActivity.class);
-            intent.setClass(MainActivity.this, LoginActivity.class);
+            intent.setClass(MainActivity.this, MenuActivity.class);
             startActivity(intent);
         });
         TextView textView = new TextView(topBar.getContext());
@@ -155,12 +133,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
         textView.setText(DEFAULT_LABEL_CONTENT);
-        //topBar.addRightView(textView, textView.getId());
         textView.setTextColor(Color.parseColor("#9E9E9E"));
-
-
         topBar.setCenterView(textView);
-
     }
 
 }

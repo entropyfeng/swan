@@ -34,7 +34,10 @@
             android:name="com.amap.api.maps.offlinemap.OfflineMapActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.AccountActivity" />
-        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.RegisterActivity"
+            android:label="@string/register"
+            android:parentActivityName=".activity.LoginActivity"
+            />
 
     </application>
     <!--允许程序打开网络套接字-->

@@ -13,8 +13,11 @@ import com.amap.api.location.AMapLocationClientOption.AMapLocationMode;
 import com.amap.api.location.AMapLocationClientOption.AMapLocationProtocol;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.AMapOptions;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
+import com.amap.api.maps.model.CameraPosition;
+import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.example.swan.activity.MenuActivity;
 import com.example.swan.activity.SearchActivity;
@@ -57,11 +60,29 @@ public class MainActivity extends AppCompatActivity {
 
         if (aMap == null) {
             aMap = mapView.getMap();
-            initMyLocation();
         }
+        initMyLocation();
+        // 定义北京市经纬度坐标（此处以北京坐标为例）
+        LatLng centerBJPoint= new LatLng(25.273566,110.290195);
+// 定义了一个配置 AMap 对象的参数类
+        AMapOptions mapOptions = new AMapOptions();
+// 设置了一个可视范围的初始化位置
+// CameraPosition 第一个参数： 目标位置的屏幕中心点经纬度坐标。
+// CameraPosition 第二个参数： 目标可视区域的缩放级别
+// CameraPosition 第三个参数： 目标可视区域的倾斜度，以角度为单位。
+// CameraPosition 第四个参数： 可视区域指向的方向，以角度为单位，从正北向顺时针方向计算，从0度到360度
+        mapOptions.camera(new CameraPosition(centerBJPoint, 10f, 0, 0));
+// 定义一个 MapView 对象，构造方法中传入 mapOptions 参数类
+        MapView mapView = new MapView(this, mapOptions);
+// 调用 onCreate方法 对 MapView LayoutParams 设置
+        System.out.println("chenggong");
+        mapView.onCreate(savedInstanceState);
+
+
         //在Activity页面调用startActvity启动离线地图组件
-        startActivity(new Intent(this.getApplicationContext(),
-                com.amap.api.maps.offlinemap.OfflineMapActivity.class));
+        //        startActivity(new Intent(MainActivity.getApplicationContext(),
+        //                com.amap.api.maps.offlinemap.OfflineMapActivity.class));
+
 
     }
 
@@ -106,8 +127,14 @@ public class MainActivity extends AppCompatActivity {
         // 设置定位监听
         locationClient.setLocationListener(locationListener);
         */
+        System.out.println("执行到了调用BluePot");
         FuncOfMap.appearBluePot(aMap);
         FuncOfMap.appearIndoorMap(aMap);
+        FuncOfMap.appearControls(aMap);
+    }
+
+    private void setCenterToGuiLin(Bundle savedInstanceState){
+
     }
 
     /**

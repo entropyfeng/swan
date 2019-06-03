@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     private AMap aMap=null;
     private UiSettings uiSettings=null;//定义一个UiSettings对象
 
-    private MyLocationStyle myLocationStyle;
     //private AMapLocationClient locationClient = null;
     //private AMapLocationClientOption locationOption = null;
 
@@ -60,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
             aMap = mapView.getMap();
             initMyLocation();
         }
+        //在Activity页面调用startActvity启动离线地图组件
+        startActivity(new Intent(this.getApplicationContext(),
+                com.amap.api.maps.offlinemap.OfflineMapActivity.class));
+
     }
 
     @Override
@@ -103,13 +106,8 @@ public class MainActivity extends AppCompatActivity {
         // 设置定位监听
         locationClient.setLocationListener(locationListener);
         */
-
-        myLocationStyle = new MyLocationStyle();
-        myLocationStyle.interval(2000);
-        aMap.setMyLocationStyle(myLocationStyle);
-        aMap.setMyLocationEnabled(true);
-        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);
-        
+        FuncOfMap.appearBluePot(aMap);
+        FuncOfMap.appearIndoorMap(aMap);
     }
 
     /**

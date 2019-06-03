@@ -23,6 +23,9 @@
         <activity android:name=".activity.MenuActivity" android:parentActivityName=".MainActivity" />
         <activity android:name=".activity.SearchActivity" />
 
+        <activity android:name="com.amap.api.maps.offlinemap.OfflineMapActivity"
+            android:screenOrientation="portrait"  />
+
     </application>
     <!--允许程序打开网络套接字-->
     <uses-permission android:name="android.permission.INTERNET" />

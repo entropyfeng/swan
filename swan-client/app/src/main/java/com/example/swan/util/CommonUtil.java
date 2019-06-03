@@ -14,6 +14,7 @@ import android.util.DisplayMetrics;
 import com.example.swan.R;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.util.QMUIViewHelper;
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 public class CommonUtil {
     public static Drawable formatDrawable(Context context, int id) {
@@ -68,6 +69,17 @@ public class CommonUtil {
         Bitmap oldBmp = BitmapFactory.decodeResource(res, resId);
         Bitmap newBmp = Bitmap.createScaledBitmap(oldBmp, weight, height, true);
         return new BitmapDrawable(res, newBmp);
+    }
+    public static QMUITipDialog getFailTipDialog(Context context, String message) {
+        return new QMUITipDialog.Builder(context).setIconType(QMUITipDialog.Builder.ICON_TYPE_FAIL).setTipWord(message).create();
+    }
+
+    public static QMUITipDialog getSuccessTipDialog(Context context, String message) {
+        return new QMUITipDialog.Builder(context).setIconType(QMUITipDialog.Builder.ICON_TYPE_SUCCESS).setTipWord(message).create();
+    }
+
+    public static boolean isNullOrEmpty(String string){
+        return string!=null&&!"".equals(string);
     }
 
 }

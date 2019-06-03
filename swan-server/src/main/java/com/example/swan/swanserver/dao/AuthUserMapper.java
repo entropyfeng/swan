@@ -38,4 +38,5 @@ public interface AuthUserMapper {
      */
     int updatePasswordByUserId(@Param("userId") String userId, @Param("password") String password);
 
+    int selectCountByUserId(String userId);
 }

@@ -59,6 +59,9 @@
         select auth_user.user_id from auth_user where username=#{username};
     </select>
 
+    <select id="selectCountByUserId" resultType="int">
+        select count(*) from auth_user where user_id=#{userId}
+    </select>
     <update id="updatePasswordByUserId"  >
 
         update auth_user set password =#{password} where user_Id=#{userId}

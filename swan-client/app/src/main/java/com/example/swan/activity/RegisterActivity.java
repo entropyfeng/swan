@@ -7,17 +7,15 @@ import android.support.v7.app.AppCompatActivity;
 import com.example.swan.R;
 
 /**
- * 登录activity
- * @author feng
+ * 注册activity
+ * @author xu
  */
-public class LoginActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register);
         getSupportActionBar().hide();
-
-
     }
 }

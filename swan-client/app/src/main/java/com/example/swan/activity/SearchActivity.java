@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import com.example.swan.R;
 import com.qmuiteam.qmui.layout.QMUIButton;
 import com.qmuiteam.qmui.widget.QMUITopBar;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -27,7 +28,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private void initTopBar(){
         topBar = findViewById(R.id.search_top_bar);
-        topBar.addLeftBackImageButton();
+        /*topBar.addLeftBackImageButton();
 
         QMUIButton backButton=new QMUIButton(topBar.getContext());
         topBar.addLeftImageButton(R.drawable.ic_icon_back,backButton.getId());
@@ -38,8 +39,9 @@ public class SearchActivity extends AppCompatActivity {
 
         topBar.addLeftView(imageView,imageView.getId());
         EditText editText=new EditText(topBar.getContext());
-        topBar.addLeftView(editText,editText.getId());
+        topBar.addLeftView(editText,editText.getId());*/
 
+        topBar.addLeftImageButton(R.drawable.ic_icon_back, 0);
 
 
         QMUIButton searchButton = new QMUIButton(this);

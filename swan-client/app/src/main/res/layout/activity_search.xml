@@ -4,15 +4,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.SearchActivity">
+
     <com.qmuiteam.qmui.widget.QMUIWindowInsetLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <com.qmuiteam.qmui.widget.QMUITopBar
             android:id="@+id/search_top_bar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/qmui_topbar_height"/>
+            android:layout_height="?attr/qmui_topbar_height" >
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/search_edit_text_border"
+                android:hint="@string/search_tip"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="5dp"
+                android:textSize="14sp"
+                android:layout_marginTop="14dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="58dp"
+                android:drawableStart="@drawable/ic_icon_search"
+                android:drawablePadding="5dp"
+                />
+        </com.qmuiteam.qmui.widget.QMUITopBar>
     </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>
-
 
 
 </LinearLayout>

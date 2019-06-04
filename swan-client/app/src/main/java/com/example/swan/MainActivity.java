@@ -1,7 +1,10 @@
 package com.example.swan;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -56,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements PoiSearch.OnPoiSe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
+        checkPermission();
         //获取地图控件引用
         mapView = (MapView) findViewById(R.id.main_map);
         initTopBar();
@@ -142,5 +146,13 @@ public class MainActivity extends AppCompatActivity implements PoiSearch.OnPoiSe
 
     }
 
+    private void checkPermission(){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            //申请WRITE_EXTERNAL_STORAGE权限
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION},
+                   10086);//自定义的code
+        }
+    }
 
 }

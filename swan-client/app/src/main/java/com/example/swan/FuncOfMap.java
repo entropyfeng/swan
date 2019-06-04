@@ -21,6 +21,7 @@ public class FuncOfMap {
         myLocationStyle = new MyLocationStyle();
         myLocationStyle.interval(2000);
         aMap.setMyLocationStyle(myLocationStyle);
+        aMap.getUiSettings().setMyLocationButtonEnabled(true);  //设置默认定位按钮是否显示
         aMap.setMyLocationEnabled(true);
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);
         myLocationStyle.showMyLocation(true);

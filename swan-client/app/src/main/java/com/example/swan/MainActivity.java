@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements PoiSearch.OnPoiSe
     private UiSettings uiSettings = null;//定义一个UiSettings对象
 
     private QMUITopBar topBar;
-    private  PoiSearch poiSearch;
+    private PoiSearch poiSearch;
     private PoiSearch.Query query;
     private PoiResult poiResult;
 
@@ -131,6 +131,8 @@ public class MainActivity extends AppCompatActivity implements PoiSearch.OnPoiSe
         });
         textView.setText(DEFAULT_LABEL_CONTENT);
         textView.setTextColor(Color.parseColor("#9E9E9E"));
+        textView.setBackgroundColor(Color.parseColor("#9E9E9E"));
+        textView.setBackgroundResource(R.drawable.main_top_bar_text_view_border);
         topBar.setCenterView(textView);
     }
 

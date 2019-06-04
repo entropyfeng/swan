@@ -113,7 +113,8 @@ public class LoginActivity extends AppCompatActivity {
                     String errInfo=null;
                     if (response.isSuccessful() && response.body() != null) {
                         try {
-                            Message message = JSON.parseObject(response.body().toString(), Message.class);
+
+                            Message message = JSON.parseObject(response.body().string(), Message.class);
                             if (message.isSuccess()) {
                                 AccountHelper.writeAuthToken(LoginActivity.this,message.getParams().get("auth_token"));
                                 Intent intent =new Intent();

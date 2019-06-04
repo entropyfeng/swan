@@ -36,7 +36,7 @@ dependencies {
     implementation 'com.qmuiteam:qmui:1.2.0'
     implementation 'com.alibaba:fastjson:1.1.60.android'
     implementation 'com.specyci:residemenu:1.6'
-    implementation 'com.android.support:recyclerview-v7:28.0.0'
+   // implementation 'com.android.support:recyclerview-v7:28.0.0'
     testImplementation 'junit:junit:4.12'
 
     //  implementation 'com.amap.api:3dmap:latest.integration'

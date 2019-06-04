@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activity.SearchActivity">
 
     <com.qmuiteam.qmui.widget.QMUIWindowInsetLayout
@@ -12,10 +14,10 @@
         <com.qmuiteam.qmui.widget.QMUITopBar
             android:id="@+id/search_top_bar"
             android:layout_width="match_parent"
-            android:layout_height="46dp" >
+            android:layout_height="46dp">
 
-            <EditText
-                android:id="@+id/et_keyword"
+            <android.support.v7.widget.SearchView
+                android:id="@+id/search_search_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
@@ -29,9 +31,16 @@
                 android:paddingTop="2dp"
                 android:paddingEnd="5dp"
                 android:paddingBottom="2dp"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                app:queryHint="@string/search_tip" />
         </com.qmuiteam.qmui.widget.QMUITopBar>
     </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>
 
+    <ListView
+        android:id="@+id/search_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ListView>
 
 </LinearLayout>

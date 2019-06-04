@@ -7,15 +7,12 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.ThumbnailUtils;
 import android.support.v4.content.ContextCompat;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 
 import com.example.swan.R;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
-import com.qmuiteam.qmui.util.QMUIViewHelper;
-import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 public class CommonUtil {
     public static Drawable formatDrawable(Context context, int id) {
@@ -87,5 +84,8 @@ public class CommonUtil {
         }
 
         return bitmap;
+    }
+    public static boolean IsEmptyOrNullString(String s) {
+        return (s == null) || (s.trim().length() == 0);
     }
 }

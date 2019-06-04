@@ -1,17 +1,8 @@
 package com.example.swan;
 
-import android.content.Intent;
-
 import com.amap.api.maps.AMap;
-import com.amap.api.maps.AMapOptions;
-import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
-import com.amap.api.maps.model.CameraPosition;
-import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MyLocationStyle;
-import com.amap.api.services.poisearch.PoiSearch;
-
-import static android.support.v4.content.ContextCompat.startActivity;
 
 public class FuncOfMap {
     private static MyLocationStyle myLocationStyle;
@@ -21,6 +12,7 @@ public class FuncOfMap {
         myLocationStyle = new MyLocationStyle();
         myLocationStyle.interval(2000);
         aMap.setMyLocationStyle(myLocationStyle);
+        aMap.getUiSettings().setMyLocationButtonEnabled(true);  //设置默认定位按钮是否显示
         aMap.setMyLocationEnabled(true);
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);
         myLocationStyle.showMyLocation(true);

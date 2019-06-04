@@ -2,12 +2,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MenuActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".activity.MenuActivity">
+
+    <com.qmuiteam.qmui.widget.QMUITopBar
+        android:id="@+id/menu_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_icon_sample_back"
+            android:layout_marginTop="7dp"
+            android:layout_marginStart="10dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/menu_title"
+            android:textColor="@color/colorTextView"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="11dp"
+            android:textSize="16sp"
+            />
+    </com.qmuiteam.qmui.widget.QMUITopBar>
 
     <com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
         android:id="@+id/menu_group_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

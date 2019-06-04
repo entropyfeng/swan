@@ -1,7 +1,7 @@
 package com.example.swan.util;
 
-import android.content.Context;
-import android.content.res.Resources;
+//import android.content.Context;
+//import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -15,7 +15,7 @@ import com.example.swan.R;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 
 public class CommonUtil {
-    public static Drawable formatDrawable(Context context, int id) {
+    /*public static Drawable formatDrawable(Context context, int id) {
 
         return zoomImage(context, id, 100, 100);
     }
@@ -52,9 +52,9 @@ public class CommonUtil {
 
 
         return res;
-    }
+    }*/
 
-    /**
+    /*/**
      * 将本地资源图片大小缩放
      *
      * @param resId  资源id
@@ -62,22 +62,24 @@ public class CommonUtil {
      * @param height 图片长
      * @return {@link Drawable}
      */
-    public static Drawable zoomImage(Context context, int resId, int weight, int height) {
+    /*public static Drawable zoomImage(Context context, int resId, int weight, int height) {
         Resources res = context.getResources();
         Bitmap oldBmp = BitmapFactory.decodeResource(res, resId);
         Bitmap newBmp = Bitmap.createScaledBitmap(oldBmp, weight, height, true);
         return new BitmapDrawable(res, newBmp);
-    }
+    }*/
 
 
-    public static boolean isNullOrEmpty(String string){
-        return string==null||string.isEmpty();
+    public static boolean isNullOrEmpty(String string) {
+        return string == null || string.isEmpty();
     }
+
     public static Bitmap parseImage(String string) {
         Bitmap bitmap = null;
         try {
             byte[] bytes = Base64.decode(string, Base64.DEFAULT);
-            bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            Bitmap tmpBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            bitmap = bitmap.createScaledBitmap(tmpBitmap, 345, 103, true);
         } catch (Exception e) {
             e.printStackTrace();
             bitmap = null;

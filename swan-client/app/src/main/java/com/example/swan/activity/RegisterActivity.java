@@ -1,7 +1,6 @@
 package com.example.swan.activity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -9,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -61,8 +59,8 @@ public class RegisterActivity extends AppCompatActivity {
         confirmPasswordText = findViewById(R.id.register_confirm_password);
         captchaText = findViewById(R.id.register_captcha_edit);
         Button submitButton = findViewById(R.id.register_submit);
-        ImageView back=findViewById(R.id.register_back);
-        back.setOnClickListener(v-> finish());
+        ImageView back = findViewById(R.id.register_back);
+        back.setOnClickListener(v -> finish());
         captchaView = findViewById(R.id.register_captcha);
         captchaView.setOnClickListener(captchaListener);
         submitButton.setOnClickListener(submitListener);
@@ -80,7 +78,7 @@ public class RegisterActivity extends AppCompatActivity {
             Log.d("password", password);
             Log.d("confirmPassword", confirmPassword);*/
             if (CommonUtil.isNullOrEmpty(captchaToken)) {
-               tipDialog = QMUITipDialogUtil.getFailTipDialog(RegisterActivity.this, "请先获取验证码");
+                tipDialog = QMUITipDialogUtil.getFailTipDialog(RegisterActivity.this, "请先获取验证码");
                 handler.post(() -> {
                     tipDialog.show();
                     handler.postDelayed(tipDialog::dismiss, 1000);
@@ -151,31 +149,31 @@ public class RegisterActivity extends AppCompatActivity {
                                 Message message = JSON.parseObject(response.body().string(), Message.class);
                                 if (!message.isSuccess()) {
                                     res = message.getMsg();
-                                    Log.d("res",res);
+                                    Log.d("res", res);
                                 }
                             } catch (Exception e) {
                                 Log.d("onResponse", e.getMessage());
                                 res = "注册失败";
                             }
-                        }else {
-                            res="注册失败";
+                        } else {
+                            res = "注册失败";
                         }
-                    }else {
-                        res="注册失败";
+                    } else {
+                        res = "注册失败";
                     }
                     loadingDialog.dismiss();
-                    if(res==null){
+                    if (res == null) {
                         Looper.prepare();
-                        tipDialog=QMUITipDialogUtil.getSuccessTipDialog(RegisterActivity.this,"注册成功");
+                        tipDialog = QMUITipDialogUtil.getSuccessTipDialog(RegisterActivity.this, "注册成功");
                         tipDialog.show();
                         handler.postDelayed(tipDialog::dismiss, 1000);
                         Looper.loop();
-                        Intent intent=new Intent();
-                        intent.setClass(RegisterActivity.this,LoginActivity.class);
+                        Intent intent = new Intent();
+                        intent.setClass(RegisterActivity.this, LoginActivity.class);
                         startActivity(intent);
-                    }else {
+                    } else {
                         Looper.prepare();
-                        tipDialog=QMUITipDialogUtil.getFailTipDialog(RegisterActivity.this,res);
+                        tipDialog = QMUITipDialogUtil.getFailTipDialog(RegisterActivity.this, res);
                         tipDialog.show();
                         handler.postDelayed(tipDialog::dismiss, 1000);
                         Looper.loop();
@@ -198,7 +196,7 @@ public class RegisterActivity extends AppCompatActivity {
                     captchaToken = kaptchaToken;
                     //更新验证码
 
-                 handler.post(() -> captchaView.setImageBitmap(CommonUtil.parseImage(img)));
+                    handler.post(() -> captchaView.setImageBitmap(CommonUtil.parseImage(img)));
                 }
             }
         }).start();

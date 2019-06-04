@@ -7,11 +7,14 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 
 import com.example.swan.R;
 import com.example.swan.util.AccountHelper;
 import com.example.swan.util.CommonUtil;
 import com.example.swan.util.QMUITipDialogUtil;
+import com.qmuiteam.qmui.layout.QMUIButton;
+import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
@@ -23,14 +26,16 @@ public class MenuActivity extends AppCompatActivity {
     private final String LOGOUT_LABEL = "退出登录";
     private final String LOGIN_LABEL = "点击登录";
     private Handler handler = new Handler();
+    private QMUITopBar topBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         groupListView = findViewById(R.id.menu_group_list);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().hide();
+        initTopBar();
 
         QMUICommonListItemView myAccountItem = groupListView.createItemView("我的账户");
         myAccountItem.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
@@ -122,4 +127,9 @@ public class MenuActivity extends AppCompatActivity {
         intent.setClass(MenuActivity.this, com.amap.api.maps.offlinemap.OfflineMapActivity.class);
         startActivity(intent);
     };
+
+    private void initTopBar(){
+        topBar = findViewById(R.id.menu_top_bar);
+
+    }
 }

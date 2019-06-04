@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
 
 import com.example.swan.R;
@@ -127,10 +126,10 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(intent);
     };
 
-    private void initTopBar(){
+    private void initTopBar() {
         topBar = findViewById(R.id.menu_top_bar);
-        ImageView back=findViewById(R.id.menu_back);
-        back.setOnClickListener(v->finish());
+        ImageView back = findViewById(R.id.menu_back);
+        back.setOnClickListener(v -> finish());
 
     }
 }

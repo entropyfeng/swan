@@ -39,7 +39,6 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText usernameText;
     private EditText passwordText;
     private EditText confirmPasswordText;
-    private Button submitButton;
     private Handler handler = new Handler();
     private String captchaToken;
     private ImageView captchaView;
@@ -61,7 +60,9 @@ public class RegisterActivity extends AppCompatActivity {
         passwordText = findViewById(R.id.register_password);
         confirmPasswordText = findViewById(R.id.register_confirm_password);
         captchaText = findViewById(R.id.register_captcha_edit);
-        submitButton = findViewById(R.id.register_submit);
+        Button submitButton = findViewById(R.id.register_submit);
+        ImageView back=findViewById(R.id.register_back);
+        back.setOnClickListener(v-> finish());
         captchaView = findViewById(R.id.register_captcha);
         captchaView.setOnClickListener(captchaListener);
         submitButton.setOnClickListener(submitListener);

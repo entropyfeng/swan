@@ -29,8 +29,7 @@ public class SearchActivity extends AppCompatActivity {
     private void initTopBar(){
         topBar = findViewById(R.id.search_top_bar);
 
-        topBar.addLeftImageButton(R.drawable.ic_icon_back, 0);
-
+        topBar.addLeftImageButton(R.drawable.ic_icon_back, 0).setOnClickListener(v->finish());
         QMUIButton searchButton = new QMUIButton(this);
         topBar.addRightTextButton("搜索", searchButton.getId());
     }

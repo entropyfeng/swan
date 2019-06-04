@@ -11,7 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="46dp"
         >
-
+        <ImageView
+            android:id="@+id/main_clean_keywords"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_icon_close"
+            android:visibility="gone"
+            />
     </com.qmuiteam.qmui.widget.QMUITopBar>
     <com.amap.api.maps.MapView
         android:id="@+id/main_map"

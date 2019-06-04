@@ -10,7 +10,7 @@ public class FuncOfMap {
 
     protected static void appearBluePot(AMap aMap){
         myLocationStyle = new MyLocationStyle();
-        myLocationStyle.interval(2000);
+        myLocationStyle.interval(1000*60);
         aMap.setMyLocationStyle(myLocationStyle);
         aMap.getUiSettings().setMyLocationButtonEnabled(true);  //设置默认定位按钮是否显示
         aMap.setMyLocationEnabled(true);

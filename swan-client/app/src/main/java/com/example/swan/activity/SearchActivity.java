@@ -28,24 +28,10 @@ public class SearchActivity extends AppCompatActivity {
 
     private void initTopBar(){
         topBar = findViewById(R.id.search_top_bar);
-        /*topBar.addLeftBackImageButton();
-
-        QMUIButton backButton=new QMUIButton(topBar.getContext());
-        topBar.addLeftImageButton(R.drawable.ic_icon_back,backButton.getId());
-
-
-        ImageView imageView=new ImageView(this);
-        imageView.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.ic_icon_search));
-
-        topBar.addLeftView(imageView,imageView.getId());
-        EditText editText=new EditText(topBar.getContext());
-        topBar.addLeftView(editText,editText.getId());*/
 
         topBar.addLeftImageButton(R.drawable.ic_icon_back, 0);
 
-
         QMUIButton searchButton = new QMUIButton(this);
         topBar.addRightTextButton("搜索", searchButton.getId());
-
     }
 }

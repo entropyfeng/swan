@@ -1,17 +1,8 @@
 package com.example.swan;
 
-import android.content.Intent;
-
 import com.amap.api.maps.AMap;
-import com.amap.api.maps.AMapOptions;
-import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
-import com.amap.api.maps.model.CameraPosition;
-import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MyLocationStyle;
-import com.amap.api.services.poisearch.PoiSearch;
-
-import static android.support.v4.content.ContextCompat.startActivity;
 
 public class FuncOfMap {
     private static MyLocationStyle myLocationStyle;

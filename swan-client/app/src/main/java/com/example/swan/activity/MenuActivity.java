@@ -8,12 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 
 import com.example.swan.R;
 import com.example.swan.util.AccountHelper;
-import com.example.swan.util.CommonUtil;
 import com.example.swan.util.QMUITipDialogUtil;
-import com.qmuiteam.qmui.layout.QMUIButton;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
@@ -130,6 +129,8 @@ public class MenuActivity extends AppCompatActivity {
 
     private void initTopBar(){
         topBar = findViewById(R.id.menu_top_bar);
+        ImageView back=findViewById(R.id.menu_back);
+        back.setOnClickListener(v->finish());
 
     }
 }

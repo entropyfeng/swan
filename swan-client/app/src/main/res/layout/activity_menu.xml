@@ -11,6 +11,7 @@
         android:layout_height="46dp"
         >
         <ImageView
+            android:id="@+id/menu_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_icon_sample_back"

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -40,10 +41,8 @@ import okhttp3.Response;
 public class LoginActivity extends AppCompatActivity {
 
 
-    private TextView registerTextView;
     private EditText usernameText;
     private EditText passwordText;
-    private Button submitButton;
     private Handler handler = new Handler();
 
     @Override
@@ -57,22 +56,22 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void initWidget() {
-        registerTextView = findViewById(R.id.login_tv_reg);
+        TextView registerTextView = findViewById(R.id.login_tv_reg);
         registerTextView.setOnClickListener(registerListener);
         usernameText = findViewById(R.id.login_username);
         passwordText = findViewById(R.id.login_password);
-        submitButton = findViewById(R.id.login_submit);
+        ImageView back=findViewById(R.id.login_back);
+        back.setOnClickListener(v->finish());
+        Button submitButton = findViewById(R.id.login_submit);
         submitButton.setOnClickListener(submitListener);
     }
 
 
-    private View.OnClickListener registerListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent();
-            intent.setClass(LoginActivity.this, RegisterActivity.class);
-            startActivity(intent);
-        }
+
+    private View.OnClickListener registerListener = v -> {
+        Intent intent = new Intent();
+        intent.setClass(LoginActivity.this, RegisterActivity.class);
+        startActivity(intent);
     };
 
     private View.OnClickListener submitListener = new View.OnClickListener() {

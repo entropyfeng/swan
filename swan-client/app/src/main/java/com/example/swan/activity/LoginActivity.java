@@ -9,14 +9,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
-import com.amap.api.navi.view.SlidingTabLayout;
 import com.example.swan.R;
 import com.example.swan.domain.Message;
 import com.example.swan.util.AccountHelper;
@@ -60,12 +58,11 @@ public class LoginActivity extends AppCompatActivity {
         registerTextView.setOnClickListener(registerListener);
         usernameText = findViewById(R.id.login_username);
         passwordText = findViewById(R.id.login_password);
-        ImageView back=findViewById(R.id.login_back);
-        back.setOnClickListener(v->finish());
+        ImageView back = findViewById(R.id.login_back);
+        back.setOnClickListener(v -> finish());
         Button submitButton = findViewById(R.id.login_submit);
         submitButton.setOnClickListener(submitListener);
     }
-
 
 
     private View.OnClickListener registerListener = v -> {

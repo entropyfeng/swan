@@ -4,196 +4,197 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorBackground"
-        android:orientation="vertical">
-
-        <com.qmuiteam.qmui.widget.QMUITopBar
-            android:id="@+id/menu_top_bar"
-            android:layout_width="match_parent"
-            android:layout_height="46dp"
-            app:qmui_topbar_bg_color="@color/colorBackground"
-            >
-            <ImageView
-                android:id="@+id/register_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_icon_sample_back"
-                android:layout_marginTop="7dp"
-                android:layout_marginStart="10dp"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/register"
-                android:textColor="@color/colorTextView"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="11dp"
-                android:textSize="16sp"
-                />
-        </com.qmuiteam.qmui.widget.QMUITopBar>
-
-        <!--头部的logo和标题-->
+        android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:paddingTop="30dp">
+            android:background="@color/colorBackground"
+            android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/logo" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
-                android:text="@string/register_title"
-                android:textColor="@color/colorTitle"
-                android:textSize="24sp" />
-
-        </LinearLayout>
-
-        <!--注册信息输入框-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginRight="30dp"
-            android:background="@drawable/common_border"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:orientation="vertical"
-            android:paddingLeft="30dp"
-            android:paddingTop="25dp"
-            android:paddingRight="30dp">
-
-            <!--账号文字-->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/common_username_title"
-                android:textColor="@color/colorTextView"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-            <!--账号输入框-->
-            <EditText
-                android:id="@+id/register_username"
+            <com.qmuiteam.qmui.widget.QMUITopBar
+                android:id="@+id/menu_top_bar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/common_edit_text_border"
-                android:hint="@string/common_username_tip"
-                android:inputType="number|phone"
-                android:padding="8dp"
-                android:textSize="14sp" />
+                android:layout_height="46dp"
+                app:qmui_topbar_bg_color="@color/colorBackground"
+                >
+                <ImageView
+                    android:id="@+id/register_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_icon_sample_back"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginStart="10dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register"
+                    android:textColor="@color/colorTextView"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="11dp"
+                    android:textSize="16sp"
+                    />
+            </com.qmuiteam.qmui.widget.QMUITopBar>
 
-            <!--密码文字-->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/common_pwd_title"
-                android:textColor="@color/colorTextView"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <!--密码输入框-->
-            <EditText
-                android:id="@+id/register_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/common_edit_text_border"
-                android:hint="@string/common_pwd_tip"
-                android:inputType="textPassword"
-                android:padding="8dp"
-                android:textSize="14sp" />
-
-            <!--确认密码文字-->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/register_confirm_pwd_title"
-                android:textColor="@color/colorTextView"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <!--确认密码输入框-->
-            <EditText
-                android:id="@+id/register_confirm_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/common_edit_text_border"
-                android:hint="@string/register_confirm_pwd_tip"
-                android:inputType="textPassword"
-                android:padding="8dp"
-                android:textSize="14sp" />
-
-            <!--验证码文字-->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/register_captcha_title"
-                android:textColor="@color/colorTextView"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                />
-
+            <!--头部的logo和标题-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal"
-                android:paddingBottom="18dp"
-                >
-                <!--验证码输入框-->
-                <EditText
-                    android:id="@+id/register_captcha_edit"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/common_edit_text_border"
-                    android:hint="@string/register_captcha_tip"
-                    android:inputType="text"
-                    android:padding="8dp"
-                    android:textSize="14sp"
-                   />
-                <!--图形验证码-->
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingTop="30dp">
+
                 <ImageView
-                    android:id="@+id/register_captcha"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/logo" />
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_icon_captcha"
-                    android:scaleType="fitCenter"
-                    />
+                    android:layout_marginTop="22dp"
+                    android:text="@string/register_title"
+                    android:textColor="@color/colorTitle"
+                    android:textSize="24sp" />
+
             </LinearLayout>
 
-        </LinearLayout>
+            <!--注册信息输入框-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/common_border"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical"
+                android:paddingLeft="30dp"
+                android:paddingTop="25dp"
+                android:paddingRight="30dp">
 
-        <!--注册按钮-->
-        <Button
-            android:id="@+id/register_submit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="30dp"
-            android:background="@drawable/common_submit_border"
-            android:minHeight="0dp"
-            android:padding="8dp"
-            android:text="@string/register_submit_title"
-            android:textColor="@color/colorLight"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+                <!--账号文字-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/common_username_title"
+                    android:textColor="@color/colorTextView"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+                <!--账号输入框-->
+                <EditText
+                    android:id="@+id/register_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/common_edit_text_border"
+                    android:hint="@string/common_username_tip"
+                    android:inputType="number|phone"
+                    android:padding="8dp"
+                    android:textSize="14sp" />
+
+                <!--密码文字-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/common_pwd_title"
+                    android:textColor="@color/colorTextView"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <!--密码输入框-->
+                <EditText
+                    android:id="@+id/register_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/common_edit_text_border"
+                    android:hint="@string/common_pwd_tip"
+                    android:inputType="textPassword"
+                    android:padding="8dp"
+                    android:textSize="14sp" />
+
+                <!--确认密码文字-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register_confirm_pwd_title"
+                    android:textColor="@color/colorTextView"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <!--确认密码输入框-->
+                <EditText
+                    android:id="@+id/register_confirm_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/common_edit_text_border"
+                    android:hint="@string/register_confirm_pwd_tip"
+                    android:inputType="textPassword"
+                    android:padding="8dp"
+                    android:textSize="14sp" />
+
+                <!--验证码文字-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register_captcha_title"
+                    android:textColor="@color/colorTextView"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    android:paddingBottom="18dp">
+                    <!--验证码输入框-->
+                    <EditText
+                        android:id="@+id/register_captcha_edit"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/common_edit_text_border"
+                        android:hint="@string/register_captcha_tip"
+                        android:inputType="text"
+                        android:padding="8dp"
+                        android:textSize="14sp" />
+                    <!--图形验证码-->
+                    <ImageView
+                        android:id="@+id/register_captcha"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_icon_captcha" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!--注册按钮-->
+            <Button
+                android:id="@+id/register_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:background="@drawable/common_submit_border"
+                android:minHeight="0dp"
+                android:padding="8dp"
+                android:text="@string/register_submit_title"
+                android:textColor="@color/colorLight"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </ScrollView>
+
 
 </android.support.constraint.ConstraintLayout>

@@ -8,12 +8,17 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.AMapOptions;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.services.core.AMapException;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
@@ -42,8 +47,8 @@ public class MainActivity extends AppCompatActivity implements PoiSearch.OnPoiSe
     private PoiSearch.Query query;
     private PoiResult poiResult;
 
-    //private AMapLocationClient locationClient = null;
-    //private AMapLocationClientOption locationOption = null;
+    private AMapLocationClient locationClient = null;
+    private AMapLocationClientOption locationOption = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,14 +60,10 @@ public class MainActivity extends AppCompatActivity implements PoiSearch.OnPoiSe
         initTopBar();
         //在activity执行onCreate时执行mapView.onCreate(savedInstanceState)，创建地图
         mapView.onCreate(savedInstanceState);
-
-
         if (aMap == null) {
             aMap = mapView.getMap();
         }
         initMyLocation();
-
-
     }
 
     @Override
@@ -97,15 +98,6 @@ public class MainActivity extends AppCompatActivity implements PoiSearch.OnPoiSe
      * 初始化定位
      */
     private void initMyLocation() {
-        /*
-        //初始化client
-        locationClient = new AMapLocationClient(this.getApplicationContext());
-        locationOption = getDefaultOption();
-        //设置定位参数
-        locationClient.setLocationOption(locationOption);
-        // 设置定位监听
-        locationClient.setLocationListener(locationListener);
-        */
         FuncOfMap.appearBluePot(aMap);
         FuncOfMap.appearIndoorMap(aMap);
         FuncOfMap.appearControls(aMap);
@@ -114,16 +106,13 @@ public class MainActivity extends AppCompatActivity implements PoiSearch.OnPoiSe
 
     private void initTopBar() {
         topBar = findViewById(R.id.main_top_bar);
-
         topBar.addLeftImageButton(R.drawable.ic_icon_user, 0).setOnClickListener(v -> {
-
             Intent intent = new Intent();
             intent.setClass(MainActivity.this, MenuActivity.class);
             startActivity(intent);
         });
         TextView textView = new TextView(topBar.getContext());
         final String DEFAULT_LABEL_CONTENT = "查找地点、公交、地铁";
-
         textView.setOnClickListener(v -> {
             Intent intent = new Intent();
             intent.setClass(MainActivity.this, SearchActivity.class);
@@ -144,8 +133,10 @@ public class MainActivity extends AppCompatActivity implements PoiSearch.OnPoiSe
     }
 
 
-        @Override
+    @Override
     public void onPoiItemSearched(PoiItem poiItem, int i) {
 
     }
+
+
 }

@@ -9,7 +9,7 @@
     <com.qmuiteam.qmui.widget.QMUITopBar
         android:id="@+id/main_top_bar"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="46dp"
         >
 
     </com.qmuiteam.qmui.widget.QMUITopBar>

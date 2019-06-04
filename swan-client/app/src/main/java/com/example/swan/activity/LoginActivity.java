@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -49,7 +50,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().hide();
         initWidget();
 
     }
@@ -110,29 +112,29 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
 
-                    String errInfo=null;
+                    String errInfo = null;
                     if (response.isSuccessful() && response.body() != null) {
                         try {
 
                             Message message = JSON.parseObject(response.body().string(), Message.class);
                             if (message.isSuccess()) {
-                                AccountHelper.writeAuthToken(LoginActivity.this,message.getParams().get("auth_token"));
-                                Intent intent =new Intent();
-                                intent.setClass(LoginActivity.this,MenuActivity.class);
+                                AccountHelper.writeAuthToken(LoginActivity.this, message.getParams().get("auth_token"));
+                                Intent intent = new Intent();
+                                intent.setClass(LoginActivity.this, MenuActivity.class);
                                 startActivity(intent);
                                 return;
-                            }else {
-                              errInfo=message.getMsg();
+                            } else {
+                                errInfo = message.getMsg();
                             }
                         } catch (Exception e) {
-                         Log.d("request login",e.getMessage());
+                            Log.d("request login", e.getMessage());
                         }
                     }
-                    if(errInfo==null){
-                        errInfo="登录失败";
+                    if (errInfo == null) {
+                        errInfo = "登录失败";
                     }
                     Looper.prepare();
-                    QMUITipDialog tipDialog=QMUITipDialogUtil.getFailTipDialog(LoginActivity.this,errInfo);
+                    QMUITipDialog tipDialog = QMUITipDialogUtil.getFailTipDialog(LoginActivity.this, errInfo);
                     Looper.loop();
                     handler.post(() -> {
                         tipDialog.show();

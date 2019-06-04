@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -120,6 +121,9 @@ public class MainActivity extends AppCompatActivity implements PoiSearch.OnPoiSe
         });
         textView.setText(DEFAULT_LABEL_CONTENT);
         textView.setTextColor(Color.parseColor("#9E9E9E"));
+        textView.setHeight(80);
+        textView.setWidth(600);
+        textView.setGravity(Gravity.CENTER);
         textView.setBackgroundColor(Color.parseColor("#9E9E9E"));
         textView.setBackgroundResource(R.drawable.main_top_bar_text_view_border);
         topBar.setCenterView(textView);

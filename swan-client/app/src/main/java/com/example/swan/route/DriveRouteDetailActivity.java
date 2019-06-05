@@ -4,22 +4,17 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
  
 import com.amap.api.services.route.DrivePath;
 import com.amap.api.services.route.DriveRouteResult;
-import com.amap.api.services.route.DriveStep;
-import com.amap.api.services.route.TMC;
 import com.example.swan.R;
 import com.example.swan.util.AMapUtil;
 
-import java.util.List;
- 
 /**
- * Created by WangJinyong on 2018/10/31.
+ * Created by Zeng on 2019/06/05.
  * 公交路线详情
  */
  
@@ -34,7 +29,7 @@ public class DriveRouteDetailActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_driveroutedetail);
+        setContentView(R.layout.activity_route_detail);
         getIntentData();
         init();
     }

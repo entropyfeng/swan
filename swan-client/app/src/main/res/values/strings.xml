@@ -31,7 +31,10 @@
     <string name="search_tip">搜索...</string>
     <!--个人中心页面-->
     <string name="menu_title">个人中心</string>
-
-  <!--  Poi-->
+    <!--Poi-->
     <string name="poi_no_result">对不起，没有搜索到相关数据！</string>
+    <!--搜索地点后的建议-->
+    <string name="main_bottom_search_nearby_title">搜附近</string>
+    <string name="main_bottom_navigation_title">导航</string>
+    <string name="main_bottom_route_title">路线</string>
 </resources>

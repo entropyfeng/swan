@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClic
     private RouteSearch mRouteSearch;
     private DriveRouteResult mDriveRouteResult;
     private final int ROUTE_TYPE_DRIVE = 2;
-    private RelativeLayout mBottomLayout;
+    private LinearLayout mBottomLayout;
     private TextView mRotueTimeDes, mRouteDetailDes;
 
     public static final int REQUEST_CODE = 100;
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClic
     private void initRoute() {
         mRouteSearch = new RouteSearch(this);
         mRouteSearch.setRouteSearchListener(this);
-        mBottomLayout = findViewById(R.id.bottom_layout);
+        mBottomLayout = findViewById(R.id.main_bottom_layout);
         mRotueTimeDes = findViewById(R.id.firstline);
         mRouteDetailDes = findViewById(R.id.secondline);
     }

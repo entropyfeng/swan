@@ -36,7 +36,11 @@
         <activity
             android:name=".activity.RegisterActivity"
             android:parentActivityName=".activity.LoginActivity" />
+
+
         <activity android:name=".route.DriveRouteDetailActivity" />
+        <activity android:name=".route.WalkRouteDetailActivity" />
+
 
     </application>
     <!--允许程序打开网络套接字-->

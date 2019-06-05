@@ -32,9 +32,11 @@
             android:name="com.amap.api.maps.offlinemap.OfflineMapActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.AccountActivity" />
+
         <activity
             android:name=".activity.RegisterActivity"
             android:parentActivityName=".activity.LoginActivity" />
+        <activity android:name=".route.DriveRouteDetailActivity" />
 
     </application>
     <!--允许程序打开网络套接字-->

@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorBackground"
+    tools:context=".route.DriveRouteDetailActivity"
     android:orientation="vertical">
  
     <RelativeLayout
@@ -95,13 +97,13 @@
             android:id="@+id/bus_segment_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:cacheColorHint="@color/qmui_s_transparent"
-            android:divider="@color/qmui_s_transparent"
+            android:cacheColorHint="@color/colorTitleBg"
+            android:divider="@color/colorTitleBg"
             android:fadingEdge="none"
             android:fadingEdgeLength="0dp"
             android:footerDividersEnabled="false"
             android:headerDividersEnabled="false"
-            android:listSelector="@color/qmui_s_transparent"></ListView>
+            android:listSelector="@color/colorTitleBg"/>
     </LinearLayout>
  
 </LinearLayout>

@@ -55,11 +55,6 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClic
 
     private MapView mapView = null;
     private AMap aMap = null;
-    private String keyWords = "";// 要输入的poi搜索关键字
-    private int currentPage;
-    private QMUITopBar topBar;
-    private Marker poiMarker;
-    private PoiSearch poiSearch;
     private PoiSearch.Query query;
     private PoiResult poiResult;
     private TextView keywordsTextView;
@@ -152,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClic
     }
 
     private void initTopBar() {
-        topBar = findViewById(R.id.main_top_bar);
+        QMUITopBar topBar = findViewById(R.id.main_top_bar);
         topBar.addLeftImageButton(R.drawable.ic_icon_user, 0).setOnClickListener(v -> {
             Intent intent = new Intent();
             intent.setClass(MainActivity.this, MenuActivity.class);
@@ -196,7 +191,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClic
         if (tip == null) {
             return;
         }
-        poiMarker = aMap.addMarker(new MarkerOptions());
+        Marker poiMarker = aMap.addMarker(new MarkerOptions());
         LatLonPoint point = tip.getPoint();
         if (point != null) {
             LatLng markerPosition = new LatLng(point.getLatitude(), point.getLongitude());
@@ -266,7 +261,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClic
                 doSearchQuery(keywords);
             }
             keywordsTextView.setText(keywords);
-            if (!keywords.equals("")) {
+            if (!"".equals(keywords)) {
                 cleanKeyWords.setVisibility(View.VISIBLE);
             }
         }
@@ -277,7 +272,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClic
      */
     protected void doSearchQuery(String keywords) {
         showProgressDialog();// 显示进度框
-        currentPage = 1;
+        int currentPage = 1;
         // 第一个参数表示搜索字符串，第二个参数表示poi搜索类型，第三个参数表示poi搜索区域（空字符串代表全国）
         query = new PoiSearch.Query(keywords, "", Constants.DEFAULT_CITY);
         // 设置每页最多返回多少条poiitem
@@ -285,7 +280,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClic
         // 设置查第一页
         query.setPageNum(currentPage);
 
-        poiSearch = new PoiSearch(this, query);
+        PoiSearch poiSearch = new PoiSearch(this, query);
         poiSearch.setOnPoiSearchListener(poiSearchListener);
         poiSearch.searchPOIAsyn();
     }
@@ -345,7 +340,9 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClic
         progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progDialog.setIndeterminate(false);
         progDialog.setCancelable(false);
-        progDialog.setMessage("正在搜索:\n");
+        // 要输入的poi搜索关键字
+        String keyWords = "";
+        progDialog.setMessage("正在搜索:\n"+ keyWords);
         progDialog.show();
     }
 

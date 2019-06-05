@@ -14,14 +14,12 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
-import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
@@ -43,6 +41,7 @@ import com.amap.api.services.route.WalkRouteResult;
 import com.example.swan.activity.Constants;
 import com.example.swan.activity.MenuActivity;
 import com.example.swan.activity.SearchActivity;
+import com.example.swan.listener.PointTouchClickListener;
 import com.example.swan.overlay.DrivingRouteOverlay;
 import com.example.swan.overlay.PoiOverlay;
 import com.example.swan.overlay.WalkRouteOverlay;
@@ -51,9 +50,6 @@ import com.example.swan.route.WalkRouteDetailActivity;
 import com.example.swan.util.AMapUtil;
 import com.example.swan.util.ToastUtil;
 import com.qmuiteam.qmui.widget.QMUITopBar;
-import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
-import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
-
 import java.util.List;
 
 
@@ -239,6 +235,7 @@ public class MainActivity extends AppCompatActivity implements    RouteSearch.On
             title.setText(marker.getTitle());
             TextView snippet = view.findViewById(R.id.poi_keyword_search_snippet);
             snippet.setText(marker.getSnippet());
+            PointTouchClickListener pointTouchClickListener=new PointTouchClickListener(marker.getPosition(),MainActivity.this);
             view.setOnClickListener(pointTouchClickListener);
             return view;
         }
@@ -550,17 +547,7 @@ public class MainActivity extends AppCompatActivity implements    RouteSearch.On
         }
     }
 
-    //点击InfoWindow的监听器
-    View.OnClickListener pointTouchClickListener= v -> {
 
-        QMUIBottomSheet qmuiBottomSheet=new QMUIBottomSheet(MainActivity.this);
-        //导航按钮
-        QMUIRoundButton routeButton=new QMUIRoundButton(qmuiBottomSheet.getContext());
-        qmuiBottomSheet.setContentView(routeButton);
-        routeButton.setText("点我导航");
-        qmuiBottomSheet.show();
-
-    };
 
     @Override
     public void onMapClick(LatLng latLng) {

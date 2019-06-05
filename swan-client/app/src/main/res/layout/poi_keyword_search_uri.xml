@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/title"
+        android:layout_below="@id/poi_keyword_search_title"
         android:textColor="@android:color/black" />
 
 </RelativeLayout>

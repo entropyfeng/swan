@@ -420,11 +420,11 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClic
                     });
 
                 } else if (result != null && result.getPaths() == null) {
-                    Toast.makeText(this,"对不起，没有搜索到相关数据！",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,R.string.poi_no_result,Toast.LENGTH_SHORT).show();
                 }
 
             } else {
-                Toast.makeText(this,"对不起，没有搜索到相关数据！",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,R.string.poi_no_result,Toast.LENGTH_SHORT).show();
             }
         } else {
             Toast.makeText(this,errorCode,Toast.LENGTH_SHORT).show();

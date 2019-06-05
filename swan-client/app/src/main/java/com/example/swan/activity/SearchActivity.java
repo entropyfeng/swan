@@ -1,13 +1,19 @@
 package com.example.swan.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.amap.api.services.help.Inputtips;
 import com.amap.api.services.help.InputtipsQuery;
@@ -61,6 +67,16 @@ public class SearchActivity extends AppCompatActivity {
 
     private void initSearchView() {
         searchView = findViewById(R.id.search_search_view);
+
+        //找到SearchView显示文字的控件
+        TextView searchTextView = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        //设置字体大小
+        searchTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+
+        //去掉SearchView的下划线
+        View view = searchView.findViewById(android.support.v7.appcompat.R.id.search_plate);
+        view.setBackgroundColor(Color.TRANSPARENT);
+
         searchView.setOnQueryTextListener(queryTextListener);
         //设置SearchView默认为展开显示
         searchView.setIconified(false);

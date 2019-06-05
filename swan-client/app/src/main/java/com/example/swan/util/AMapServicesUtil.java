@@ -14,7 +14,7 @@ import android.graphics.Bitmap;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.services.core.LatLonPoint;
 
-class AMapServicesUtil {
+public class AMapServicesUtil {
 	public static int BUFFER_SIZE = 2048;
 
 	public static byte[] inputStreamToByte(InputStream in) throws IOException {

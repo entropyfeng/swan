@@ -38,13 +38,16 @@ import com.amap.api.services.route.DrivePath;
 import com.amap.api.services.route.DriveRouteResult;
 import com.amap.api.services.route.RideRouteResult;
 import com.amap.api.services.route.RouteSearch;
+import com.amap.api.services.route.WalkPath;
 import com.amap.api.services.route.WalkRouteResult;
 import com.example.swan.activity.Constants;
 import com.example.swan.activity.MenuActivity;
 import com.example.swan.activity.SearchActivity;
 import com.example.swan.overlay.DrivingRouteOverlay;
 import com.example.swan.overlay.PoiOverlay;
+import com.example.swan.overlay.WalkRouteOverlay;
 import com.example.swan.route.DriveRouteDetailActivity;
+import com.example.swan.route.WalkRouteDetailActivity;
 import com.example.swan.util.AMapUtil;
 import com.example.swan.util.ToastUtil;
 import com.qmuiteam.qmui.widget.QMUITopBar;
@@ -54,7 +57,7 @@ import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements    RouteSearch.OnRouteSearchListener {
+public class MainActivity extends AppCompatActivity implements    RouteSearch.OnRouteSearchListener, AMap.OnMapClickListener, AMap.OnInfoWindowClickListener, AMap.OnMarkerClickListener, AMap.InfoWindowAdapter {
 
     private MapView mapView = null;
     private AMap aMap = null;
@@ -68,7 +71,11 @@ public class MainActivity extends AppCompatActivity implements    RouteSearch.On
     private LatLonPoint mEndPoint = new LatLonPoint(39.995576,116.481288);//终点
     private RouteSearch mRouteSearch;
     private DriveRouteResult mDriveRouteResult;
+    private WalkRouteResult mWalkRouteResult;
+
     private final int ROUTE_TYPE_DRIVE = 2;
+    private final int ROUTE_TYPE_WALK = 3;
+
     private LinearLayout mBottomLayout;
     private TextView mRotueTimeDes, mRouteDetailDes;
 
@@ -95,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements    RouteSearch.On
         initSearch();
         initRoute();
         setfromandtoMarker();
-        searchRouteResult(ROUTE_TYPE_DRIVE, RouteSearch.DrivingDefault);
+        searchRouteResult(ROUTE_TYPE_WALK, RouteSearch.DrivingDefault);
     }
 
     private void initRoute() {
@@ -143,6 +150,16 @@ public class MainActivity extends AppCompatActivity implements    RouteSearch.On
         FuncOfMap.appearControls(aMap);
     }
 
+    /**
+     * 注册监听
+     */
+    private void registerListener() {
+        aMap.setOnMapClickListener(MainActivity.this);
+        aMap.setOnMarkerClickListener(MainActivity.this);
+        aMap.setOnInfoWindowClickListener(MainActivity.this);
+        aMap.setInfoWindowAdapter(MainActivity.this);
+
+    }
 
     private void initSearch() {
         cleanKeyWords = findViewById(R.id.main_clean_keywords);
@@ -446,8 +463,51 @@ public class MainActivity extends AppCompatActivity implements    RouteSearch.On
     }
 
     @Override
-    public void onWalkRouteSearched(WalkRouteResult walkRouteResult, int i) {
-
+    public void onWalkRouteSearched(WalkRouteResult result, int errorCode) {
+        dismissProgressDialog();
+        aMap.clear();// 清理地图上的所有覆盖物
+        if (errorCode == AMapException.CODE_AMAP_SUCCESS) {
+            if (result != null && result.getPaths() != null) {
+                if (result.getPaths().size() > 0) {
+                    mWalkRouteResult = result;
+                    final WalkPath walkPath = mWalkRouteResult.getPaths()
+                            .get(0);
+                    if(walkPath == null) {
+                        return;
+                    }
+                    WalkRouteOverlay walkRouteOverlay = new WalkRouteOverlay(
+                            this, aMap, walkPath,
+                            mWalkRouteResult.getStartPos(),
+                            mWalkRouteResult.getTargetPos());
+                    walkRouteOverlay.removeFromMap();
+                    walkRouteOverlay.addToMap();
+                    walkRouteOverlay.zoomToSpan();
+                    mBottomLayout.setVisibility(View.VISIBLE);
+                    int dis = (int) walkPath.getDistance();
+                    int dur = (int) walkPath.getDuration();
+                    String des = AMapUtil.getFriendlyTime(dur)+"("+AMapUtil.getFriendlyLength(dis)+")";
+                    mRotueTimeDes.setText(des);
+                    mRouteDetailDes.setVisibility(View.GONE);
+                    mBottomLayout.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(MainActivity.this,
+                                    WalkRouteDetailActivity.class);
+                            intent.putExtra("walk_path", walkPath);
+                            intent.putExtra("walk_result",
+                                    mWalkRouteResult);
+                            startActivity(intent);
+                        }
+                    });
+                } else if (result != null && result.getPaths() == null) {
+                    Toast.makeText(this,R.string.poi_no_result,Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this,R.string.poi_no_result,Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            ToastUtil.showerror(this.getApplicationContext(), errorCode);
+        }
     }
 
     @Override
@@ -484,6 +544,10 @@ public class MainActivity extends AppCompatActivity implements    RouteSearch.On
                     null, "");// 第一个参数表示路径规划的起点和终点，第二个参数表示驾车模式，第三个参数表示途经点，第四个参数表示避让区域，第五个参数表示避让道路
             mRouteSearch.calculateDriveRouteAsyn(query);// 异步路径规划驾车模式查询
         }
+        if (routeType == ROUTE_TYPE_WALK) {// 步行路径规划
+            RouteSearch.WalkRouteQuery query = new RouteSearch.WalkRouteQuery(fromAndTo, mode);
+            mRouteSearch.calculateWalkRouteAsyn(query);// 异步路径规划步行模式查询
+        }
     }
 
     //点击InfoWindow的监听器
@@ -498,4 +562,28 @@ public class MainActivity extends AppCompatActivity implements    RouteSearch.On
 
     };
 
+    @Override
+    public void onMapClick(LatLng latLng) {
+
+    }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        return false;
+    }
+
+    @Override
+    public View getInfoWindow(Marker marker) {
+        return null;
+    }
+
+    @Override
+    public View getInfoContents(Marker marker) {
+        return null;
+    }
 }

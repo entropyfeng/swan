@@ -6,7 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
+import android.widget.SearchView;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,6 +24,8 @@ import com.example.swan.adapter.InputTipsAdapter;
 import com.example.swan.util.ToastUtil;
 import com.qmuiteam.qmui.layout.QMUIButton;
 import com.qmuiteam.qmui.widget.QMUITopBar;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,20 +70,19 @@ public class SearchActivity extends AppCompatActivity {
     private void initSearchView() {
         searchView = findViewById(R.id.search_search_view);
 
-        //找到SearchView显示文字的控件
-        TextView searchTextView = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
-        //设置字体大小
-        searchTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
-
-        //去掉SearchView的下划线
-        View view = searchView.findViewById(android.support.v7.appcompat.R.id.search_plate);
-        view.setBackgroundColor(Color.TRANSPARENT);
+        //修改SearchView的样式
+        TextView searchText = (TextView) searchView.findViewById(searchView
+                .getContext()
+                .getResources()
+                .getIdentifier("android:id/search_src_text", null, null));
+        searchText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+        searchText.setTextColor(Color.parseColor("#365146"));
+        searchText.setHintTextColor(Color.parseColor("#9e9e9e"));
 
         searchView.setOnQueryTextListener(queryTextListener);
         //设置SearchView默认为展开显示
         searchView.setIconified(false);
         searchView.onActionViewExpanded();
-        searchView.setIconifiedByDefault(true);
         searchView.setSubmitButtonEnabled(false);
     }
 

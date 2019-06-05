@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="46dp">
 
-            <android.support.v7.widget.SearchView
+           <!-- <android.support.v7.widget.SearchView
                 android:id="@+id/search_search_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -25,7 +25,28 @@
                 android:background="@drawable/search_edit_text_border"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="8dp"
-                app:queryHint="@string/search_tip" />
+                android:searchIcon="@drawable/ic_icon_search"
+                app:queryHint="@string/search_tip" />-->
+
+            <SearchView
+                android:id="@+id/search_search_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:searchIcon="@drawable/ic_icon_search"
+                android:background="@drawable/search_edit_text_border"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="8dp"
+                android:iconifiedByDefault="false"
+                android:paddingStart="-10dp"
+                android:paddingEnd="-8dp"
+                android:queryBackground="@null"
+                android:showDividers="none"
+                android:queryHint="@string/search_tip"
+                >
+
+            </SearchView>
         </com.qmuiteam.qmui.widget.QMUITopBar>
     </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>
 

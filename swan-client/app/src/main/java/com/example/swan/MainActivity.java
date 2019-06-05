@@ -47,11 +47,13 @@ import com.example.swan.route.DriveRouteDetailActivity;
 import com.example.swan.util.AMapUtil;
 import com.example.swan.util.ToastUtil;
 import com.qmuiteam.qmui.widget.QMUITopBar;
+import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClickListener,  AMap.InfoWindowAdapter, RouteSearch.OnRouteSearchListener {
+public class MainActivity extends AppCompatActivity implements    RouteSearch.OnRouteSearchListener {
 
     private MapView mapView = null;
     private AMap aMap = null;
@@ -158,9 +160,9 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClic
         keywordsTextView.setOnClickListener(v -> {
             Intent intent = new Intent();
             intent.setClass(MainActivity.this, SearchActivity.class);
-            /**
-             * 向SearchActivity 请求数据
-             */
+
+            // 向SearchActivity 请求数据
+
             startActivityForResult(intent, REQUEST_CODE);
         });
         keywordsTextView.setText(DEFAULT_LABEL_CONTENT);
@@ -205,33 +207,38 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClic
         poiMarker.setSnippet(tip.getAddress());
     }
 
-    @Override
-    public boolean onMarkerClick(Marker marker) {
+
+    AMap.OnMarkerClickListener onMarkerClickListener= marker -> {
         marker.showInfoWindow();
         return false;
-    }
+    };
 
-    @Override
-    public View getInfoWindow(Marker marker) {
-        View view = getLayoutInflater().inflate(R.layout.poi_keyword_search_uri, null);
-        TextView title = view.findViewById(R.id.poi_keyword_search_title);
-        title.setText(marker.getTitle());
-        TextView snippet = view.findViewById(R.id.poi_keyword_search_snippet);
-        snippet.setText(marker.getSnippet());
-        return view;
-    }
+    AMap.InfoWindowAdapter infoWindowAdapter=new AMap.InfoWindowAdapter() {
+        @Override
+        public View getInfoWindow(Marker marker) {
+            View view = getLayoutInflater().inflate(R.layout.poi_keyword_search_uri, null);
+            TextView title = view.findViewById(R.id.poi_keyword_search_title);
+            title.setText(marker.getTitle());
+            TextView snippet = view.findViewById(R.id.poi_keyword_search_snippet);
+            snippet.setText(marker.getSnippet());
+            view.setOnClickListener(pointTouchClickListener);
+            return view;
+        }
 
-    @Override
-    public View getInfoContents(Marker marker) {
-        return null;
-    }
+        @Override
+        public View getInfoContents(Marker marker) {
+            return null;
+        }
+    };
+
+
 
     /**
      * 设置页面监听
      */
     private void setUpMap() {
-        aMap.setOnMarkerClickListener(this);// 添加点击marker监听事件
-        aMap.setInfoWindowAdapter(this);// 添加显示infowindow监听事件
+        aMap.setOnMarkerClickListener(onMarkerClickListener);// 添加点击marker监听事件
+        aMap.setInfoWindowAdapter(infoWindowAdapter);// 添加显示infowindow监听事件
         aMap.getUiSettings().setRotateGesturesEnabled(false);
     }
 
@@ -239,8 +246,8 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClic
      * 输入提示activity选择结果后的处理逻辑
      *向Search Activity 请求
      * @param requestCode 请求码 是 {@link MainActivity 的} REQUEST_CODE 属性
-     * @param resultCode
-     * @param data
+     * @param resultCode {@link SearchActivity }返回的状态码
+     * @param data 携带的数据
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -477,5 +484,17 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClic
             mRouteSearch.calculateDriveRouteAsyn(query);// 异步路径规划驾车模式查询
         }
     }
+
+    //点击InfoWindow的监听器
+    View.OnClickListener pointTouchClickListener= v -> {
+
+        QMUIBottomSheet qmuiBottomSheet=new QMUIBottomSheet(MainActivity.this);
+        //导航按钮
+        QMUIRoundButton routeButton=new QMUIRoundButton(qmuiBottomSheet.getContext());
+        qmuiBottomSheet.setContentView(routeButton);
+        routeButton.setText("点我导航");
+        qmuiBottomSheet.show();
+
+    };
 
 }

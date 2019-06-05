@@ -142,7 +142,6 @@ public class SearchActivity extends AppCompatActivity {
                 inputTipsAdapter.notifyDataSetChanged();
             } else {
                 ToastUtil.showerror(SearchActivity.this, rCode);
-
             }
         }
     };
@@ -158,6 +157,4 @@ public class SearchActivity extends AppCompatActivity {
             }
         }
     };
-
-
 }

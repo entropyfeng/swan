@@ -8,9 +8,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
  
 import com.amap.api.services.route.DriveStep;
-import com.junto.gdmaptest.R;
-import com.junto.gdmaptest.util.AMapUtil;
- 
+import com.example.swan.R;
+import com.example.swan.util.AMapUtil;
+
 import java.util.ArrayList;
 import java.util.List;
  
@@ -63,14 +63,14 @@ public class DriveSegmentListAdapter extends BaseAdapter {
 		}
 		final DriveStep item = mItemList.get(position);
 		if (position == 0) {
-			holder.driveDirIcon.setImageResource(R.mipmap.dir_start);
+			holder.driveDirIcon.setImageResource(R.drawable.dir_start);
 			holder.driveLineName.setText("出发");
 			holder.driveDirUp.setVisibility(View.GONE);
 			holder.driveDirDown.setVisibility(View.VISIBLE);
 			holder.splitLine.setVisibility(View.GONE);
 			return convertView;
 		} else if (position == mItemList.size() - 1) {
-			holder.driveDirIcon.setImageResource(R.mipmap.dir_end);
+			holder.driveDirIcon.setImageResource(R.drawable.dir_end);
 			holder.driveLineName.setText("到达终点");
 			holder.driveDirUp.setVisibility(View.VISIBLE);
 			holder.driveDirDown.setVisibility(View.GONE);

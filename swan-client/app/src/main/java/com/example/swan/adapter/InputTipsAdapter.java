@@ -53,8 +53,8 @@ public class InputTipsAdapter extends BaseAdapter {
         if (view == null) {
             holder = new Holder();
             view = LayoutInflater.from(mContext).inflate(R.layout.adapter_input_tips, null);
-            holder.mName = (TextView) view.findViewById(R.id.input_tips_name);
-            holder.mAddress = (TextView) view.findViewById(R.id.input_tips_address);
+            holder.name = view.findViewById(R.id.input_tips_name);
+            holder.address = view.findViewById(R.id.input_tips_address);
             view.setTag(holder);
         } else{
             holder = (Holder)view.getTag();
@@ -63,20 +63,20 @@ public class InputTipsAdapter extends BaseAdapter {
             return view;
         }
 
-        holder.mName.setText(mListTips.get(i).getName());
+        holder.name.setText(mListTips.get(i).getName());
         String address = mListTips.get(i).getAddress();
         if(address == null || address.equals("")){
-            holder.mAddress.setVisibility(View.GONE);
+            holder.address.setVisibility(View.GONE);
         }else{
-            holder.mAddress.setVisibility(View.VISIBLE);
-            holder.mAddress.setText(address);
+            holder.address.setVisibility(View.VISIBLE);
+            holder.address.setText(address);
         }
 
         return view;
     }
 
     class Holder {
-        TextView mName;
-        TextView mAddress;
+        TextView name;
+        TextView address;
     }
 }

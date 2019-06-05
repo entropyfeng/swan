@@ -158,6 +158,9 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClic
         keywordsTextView.setOnClickListener(v -> {
             Intent intent = new Intent();
             intent.setClass(MainActivity.this, SearchActivity.class);
+            /**
+             * 向SearchActivity 请求数据
+             */
             startActivityForResult(intent, REQUEST_CODE);
         });
         keywordsTextView.setText(DEFAULT_LABEL_CONTENT);
@@ -234,17 +237,20 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClic
 
     /**
      * 输入提示activity选择结果后的处理逻辑
-     *
-     * @param requestCode
+     *向Search Activity 请求
+     * @param requestCode 请求码 是 {@link MainActivity 的} REQUEST_CODE 属性
      * @param resultCode
      * @param data
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        //反回提示的具体的信息
         if (resultCode == RESULT_CODE_INPUT_TIPS && data != null) {
+
             aMap.clear();
             Tip tip = data.getParcelableExtra(Constants.EXTRA_TIP);
+            //如果返回提示为空
             if (tip.getPoiID() == null || tip.getPoiID().equals("")) {
                 doSearchQuery(tip.getName());
             } else {
@@ -254,6 +260,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClic
             if (!tip.getName().equals("")) {
                 cleanKeyWords.setVisibility(View.VISIBLE);
             }
+            //没有选择具体的提示信息，返回输入的信息返
         } else if (resultCode == RESULT_CODE_KEYWORDS && data != null) {
             aMap.clear();
             String keywords = data.getStringExtra(Constants.KEY_WORDS_NAME);
@@ -292,15 +299,14 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClic
          */
         @Override
         public void onPoiSearched(PoiResult result, int rCode) {
-            dissmissProgressDialog();// 隐藏对话框
+            dismissProgressDialog();// 隐藏对话框
             if (rCode == 1000) {
                 if (result != null && result.getQuery() != null) {// 搜索poi的结果
                     if (result.getQuery().equals(query)) {// 是否是同一条
                         poiResult = result;
                         // 取得搜索到的poiitems有多少页
                         List<PoiItem> poiItems = poiResult.getPois();// 取得第一页的poiitem数据，页数从数字0开始
-                        List<SuggestionCity> suggestionCities = poiResult
-                                .getSearchSuggestionCitys();// 当搜索不到poiitem数据时，会返回含有搜索关键字的城市信息
+                        List<SuggestionCity> suggestionCities = poiResult.getSearchSuggestionCitys();// 当搜索不到poiitem数据时，会返回含有搜索关键字的城市信息
 
                         if (poiItems != null && poiItems.size() > 0) {
                             aMap.clear();// 清理之前的图标
@@ -308,8 +314,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClic
                             poiOverlay.removeFromMap();
                             poiOverlay.addToMap();
                             poiOverlay.zoomToSpan();
-                        } else if (suggestionCities != null
-                                && suggestionCities.size() > 0) {
+                        } else if (suggestionCities != null && suggestionCities.size() > 0) {
                             showSuggestCity(suggestionCities);
                         } else {
                             ToastUtil.show(MainActivity.this,
@@ -350,7 +355,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClic
     /**
      * 隐藏进度框
      */
-    private void dissmissProgressDialog() {
+    private void dismissProgressDialog() {
         if (progDialog != null) {
             progDialog.dismiss();
         }
@@ -387,7 +392,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClic
 
     @Override
     public void onDriveRouteSearched(DriveRouteResult result, int errorCode) {
-        dissmissProgressDialog();
+        dismissProgressDialog();
         aMap.clear();// 清理地图上的所有覆盖物
         if (errorCode == AMapException.CODE_AMAP_SUCCESS) {
             if (result != null && result.getPaths() != null) {

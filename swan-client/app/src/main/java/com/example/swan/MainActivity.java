@@ -13,32 +13,45 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
+import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
+import com.amap.api.services.core.AMapException;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.core.SuggestionCity;
 import com.amap.api.services.help.Tip;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
+import com.amap.api.services.route.BusRouteResult;
+import com.amap.api.services.route.DrivePath;
+import com.amap.api.services.route.DriveRouteResult;
+import com.amap.api.services.route.RideRouteResult;
+import com.amap.api.services.route.RouteSearch;
+import com.amap.api.services.route.WalkRouteResult;
 import com.example.swan.activity.Constants;
 import com.example.swan.activity.MenuActivity;
 import com.example.swan.activity.SearchActivity;
+import com.example.swan.overlay.DrivingRouteOverlay;
 import com.example.swan.overlay.PoiOverlay;
+import com.example.swan.route.DriveRouteDetailActivity;
+import com.example.swan.util.AMapUtil;
 import com.example.swan.util.ToastUtil;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClickListener, PoiSearch.OnPoiSearchListener, AMap.InfoWindowAdapter {
+public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClickListener, PoiSearch.OnPoiSearchListener, AMap.InfoWindowAdapter, RouteSearch.OnRouteSearchListener {
 
     private MapView mapView = null;
     private AMap aMap = null;
@@ -52,6 +65,14 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClic
     private TextView keywordsTextView;
     private ImageView cleanKeyWords;
     private ProgressDialog progDialog = null;// 搜索时进度条
+
+    private LatLonPoint mStartPoint = new LatLonPoint(39.942295,116.335891);//起点
+    private LatLonPoint mEndPoint = new LatLonPoint(39.995576,116.481288);//终点
+    private RouteSearch mRouteSearch;
+    private DriveRouteResult mDriveRouteResult;
+    private final int ROUTE_TYPE_DRIVE = 2;
+    private RelativeLayout mBottomLayout;
+    private TextView mRotueTimeDes, mRouteDetailDes;
 
     public static final int REQUEST_CODE = 100;
     public static final int RESULT_CODE_INPUT_TIPS = 101;
@@ -74,6 +95,17 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClic
         }
         initMyLocation();
         initSearch();
+        initRoute();
+        setfromandtoMarker();
+        searchRouteResult(ROUTE_TYPE_DRIVE, RouteSearch.DrivingDefault);
+    }
+
+    private void initRoute() {
+        mRouteSearch = new RouteSearch(this);
+        mRouteSearch.setRouteSearchListener(this);
+        mBottomLayout = findViewById(R.id.bottom_layout);
+        mRotueTimeDes = findViewById(R.id.firstline);
+        mRouteDetailDes = findViewById(R.id.secondline);
     }
 
     @Override
@@ -271,7 +303,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClic
         progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progDialog.setIndeterminate(false);
         progDialog.setCancelable(false);
-        progDialog.setMessage("正在搜索:\n" + keyWords);
+        progDialog.setMessage("正在搜索:\n");
         progDialog.show();
     }
 
@@ -346,4 +378,98 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClic
         ToastUtil.show(MainActivity.this, information);
 
     }
+
+    @Override
+    public void onBusRouteSearched(BusRouteResult busRouteResult, int i) {
+
+    }
+
+    @Override
+    public void onDriveRouteSearched(DriveRouteResult result, int errorCode) {
+        dissmissProgressDialog();
+        aMap.clear();// 清理地图上的所有覆盖物
+        if (errorCode == AMapException.CODE_AMAP_SUCCESS) {
+            if (result != null && result.getPaths() != null) {
+                if (result.getPaths().size() > 0) {
+                    mDriveRouteResult = result;
+                    final DrivePath drivePath = mDriveRouteResult.getPaths().get(0);
+                    DrivingRouteOverlay drivingRouteOverlay = new DrivingRouteOverlay(
+                            this, aMap, drivePath,
+                            mDriveRouteResult.getStartPos(),
+                            mDriveRouteResult.getTargetPos(), null);
+                    drivingRouteOverlay.setNodeIconVisibility(false);//设置节点marker是否显示
+                    drivingRouteOverlay.setIsColorfulline(true);//是否用颜色展示交通拥堵情况，默认true
+                    drivingRouteOverlay.removeFromMap();
+                    drivingRouteOverlay.addToMap();
+                    drivingRouteOverlay.zoomToSpan();
+                    int dis = (int) drivePath.getDistance();
+                    int dur = (int) drivePath.getDuration();
+                    String des = AMapUtil.getFriendlyTime(dur)+"("+AMapUtil.getFriendlyLength(dis)+")";
+                    mRotueTimeDes.setText(des);
+                    mRouteDetailDes.setVisibility(View.VISIBLE);
+                    int taxiCost = (int) mDriveRouteResult.getTaxiCost();
+                    mRouteDetailDes.setText("打车约"+taxiCost+"元");
+                    mBottomLayout.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(MainActivity.this,DriveRouteDetailActivity.class);
+                            intent.putExtra("drive_path", drivePath);
+                            intent.putExtra("drive_result",mDriveRouteResult);
+                            startActivity(intent);
+                        }
+                    });
+
+                } else if (result != null && result.getPaths() == null) {
+                    Toast.makeText(this,"对不起，没有搜索到相关数据！",Toast.LENGTH_SHORT).show();
+                }
+
+            } else {
+                Toast.makeText(this,"对不起，没有搜索到相关数据！",Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this,errorCode,Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onWalkRouteSearched(WalkRouteResult walkRouteResult, int i) {
+
+    }
+
+    @Override
+    public void onRideRouteSearched(RideRouteResult rideRouteResult, int i) {
+
+    }
+
+    private void setfromandtoMarker() {
+        aMap.addMarker(new MarkerOptions()
+                .position(AMapUtil.convertToLatLng(mStartPoint))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.start)));
+        aMap.addMarker(new MarkerOptions()
+                .position(AMapUtil.convertToLatLng(mEndPoint))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.end)));
+    }
+
+
+    /**
+     * 开始搜索路径规划方案
+     */
+    public void searchRouteResult(int routeType, int mode) {
+        if (mStartPoint == null) {
+            Toast.makeText(this,"定位中，稍后再试...",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (mEndPoint == null) {
+            Toast.makeText(this,"终点未设置",Toast.LENGTH_SHORT).show();
+        }
+        showProgressDialog();
+        final RouteSearch.FromAndTo fromAndTo = new RouteSearch.FromAndTo(
+                mStartPoint, mEndPoint);
+        if (routeType == ROUTE_TYPE_DRIVE) {// 驾车路径规划
+            RouteSearch.DriveRouteQuery query = new RouteSearch.DriveRouteQuery(fromAndTo, mode, null,
+                    null, "");// 第一个参数表示路径规划的起点和终点，第二个参数表示驾车模式，第三个参数表示途经点，第四个参数表示避让区域，第五个参数表示避让道路
+            mRouteSearch.calculateDriveRouteAsyn(query);// 异步路径规划驾车模式查询
+        }
+    }
+
 }

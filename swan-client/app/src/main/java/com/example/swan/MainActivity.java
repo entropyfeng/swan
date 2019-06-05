@@ -51,7 +51,7 @@ import com.qmuiteam.qmui.widget.QMUITopBar;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClickListener, PoiSearch.OnPoiSearchListener, AMap.InfoWindowAdapter, RouteSearch.OnRouteSearchListener {
+public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClickListener,  AMap.InfoWindowAdapter, RouteSearch.OnRouteSearchListener {
 
     private MapView mapView = null;
     private AMap aMap = null;
@@ -176,10 +176,6 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClic
     }
 
 
-    @Override
-    public void onPoiItemSearched(PoiItem poiItem, int i) {
-
-    }
 
     //检查权限
     private void checkPermission() {
@@ -290,10 +286,56 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClic
         query.setPageNum(currentPage);
 
         poiSearch = new PoiSearch(this, query);
-        poiSearch.setOnPoiSearchListener(this);
+        poiSearch.setOnPoiSearchListener(poiSearchListener);
         poiSearch.searchPOIAsyn();
     }
 
+    PoiSearch.OnPoiSearchListener poiSearchListener=new PoiSearch.OnPoiSearchListener() {
+
+        /**
+         * POI信息查询回调方法
+         */
+        @Override
+        public void onPoiSearched(PoiResult result, int rCode) {
+            dissmissProgressDialog();// 隐藏对话框
+            if (rCode == 1000) {
+                if (result != null && result.getQuery() != null) {// 搜索poi的结果
+                    if (result.getQuery().equals(query)) {// 是否是同一条
+                        poiResult = result;
+                        // 取得搜索到的poiitems有多少页
+                        List<PoiItem> poiItems = poiResult.getPois();// 取得第一页的poiitem数据，页数从数字0开始
+                        List<SuggestionCity> suggestionCities = poiResult
+                                .getSearchSuggestionCitys();// 当搜索不到poiitem数据时，会返回含有搜索关键字的城市信息
+
+                        if (poiItems != null && poiItems.size() > 0) {
+                            aMap.clear();// 清理之前的图标
+                            PoiOverlay poiOverlay = new PoiOverlay(aMap, poiItems);
+                            poiOverlay.removeFromMap();
+                            poiOverlay.addToMap();
+                            poiOverlay.zoomToSpan();
+                        } else if (suggestionCities != null
+                                && suggestionCities.size() > 0) {
+                            showSuggestCity(suggestionCities);
+                        } else {
+                            ToastUtil.show(MainActivity.this,
+                                    R.string.poi_no_result);
+                        }
+                    }
+                } else {
+                    ToastUtil.show(MainActivity.this,
+                            R.string.poi_no_result);
+                }
+            } else {
+                ToastUtil.showerror(MainActivity.this, rCode);
+            }
+
+        }
+
+        @Override
+        public void onPoiItemSearched(PoiItem poiItem, int i) {
+
+        }
+    };
     /**
      * 显示进度框
      */
@@ -317,44 +359,6 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMarkerClic
         }
     }
 
-    /**
-     * POI信息查询回调方法
-     */
-    @Override
-    public void onPoiSearched(PoiResult result, int rCode) {
-        dissmissProgressDialog();// 隐藏对话框
-        if (rCode == 1000) {
-            if (result != null && result.getQuery() != null) {// 搜索poi的结果
-                if (result.getQuery().equals(query)) {// 是否是同一条
-                    poiResult = result;
-                    // 取得搜索到的poiitems有多少页
-                    List<PoiItem> poiItems = poiResult.getPois();// 取得第一页的poiitem数据，页数从数字0开始
-                    List<SuggestionCity> suggestionCities = poiResult
-                            .getSearchSuggestionCitys();// 当搜索不到poiitem数据时，会返回含有搜索关键字的城市信息
-
-                    if (poiItems != null && poiItems.size() > 0) {
-                        aMap.clear();// 清理之前的图标
-                        PoiOverlay poiOverlay = new PoiOverlay(aMap, poiItems);
-                        poiOverlay.removeFromMap();
-                        poiOverlay.addToMap();
-                        poiOverlay.zoomToSpan();
-                    } else if (suggestionCities != null
-                            && suggestionCities.size() > 0) {
-                        showSuggestCity(suggestionCities);
-                    } else {
-                        ToastUtil.show(MainActivity.this,
-                                R.string.poi_no_result);
-                    }
-                }
-            } else {
-                ToastUtil.show(MainActivity.this,
-                        R.string.poi_no_result);
-            }
-        } else {
-            ToastUtil.showerror(this, rCode);
-        }
-
-    }
 
     View.OnClickListener cleanKeyWordListener = new View.OnClickListener() {
         @Override

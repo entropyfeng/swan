@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorBackground"
-    tools:context=".route.DriveRouteDetailActivity"
-    android:orientation="vertical">
- 
+    android:orientation="vertical"
+    tools:context=".route.DriveRouteDetailActivity">
+
     <RelativeLayout
         android:id="@+id/route_title"
         android:layout_width="match_parent"
         android:layout_height="44dp">
- 
+
         <LinearLayout
             android:id="@+id/title_back"
             android:layout_width="70dp"
             android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:descendantFocusability="beforeDescendants"
             android:gravity="center_vertical"
             android:onClick="onBackClick"
             android:orientation="vertical"
-            android:paddingLeft="5dp"
-            android:paddingStart="5dp">
- 
+            android:paddingStart="5dp"
+            android:paddingLeft="5dp">
+
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
@@ -32,14 +32,14 @@
                 android:scaleType="center"
                 android:src="@drawable/back" />
         </LinearLayout>
- 
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:gravity="center"
             android:orientation="vertical">
- 
+
             <TextView
                 android:id="@+id/title_center"
                 android:layout_width="wrap_content"
@@ -49,15 +49,15 @@
                 android:textSize="15sp"
                 android:textStyle="bold" />
         </LinearLayout>
- 
+
     </RelativeLayout>
- 
+
     <LinearLayout
         android:id="@+id/bus_path"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
- 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"
@@ -65,7 +65,7 @@
             android:gravity="center_vertical"
             android:orientation="vertical"
             android:padding="5dp">
- 
+
             <TextView
                 android:id="@+id/firstline"
                 android:layout_width="wrap_content"
@@ -74,7 +74,7 @@
                 android:singleLine="true"
                 android:textColor="#333333"
                 android:textSize="16sp" />
- 
+
             <TextView
                 android:id="@+id/secondline"
                 android:layout_width="wrap_content"
@@ -87,12 +87,12 @@
                 android:textSize="13sp"
                 android:visibility="gone" />
         </LinearLayout>
- 
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#e0e0e0" />
- 
+
         <ListView
             android:id="@+id/bus_segment_list"
             android:layout_width="match_parent"
@@ -103,7 +103,7 @@
             android:fadingEdgeLength="0dp"
             android:footerDividersEnabled="false"
             android:headerDividersEnabled="false"
-            android:listSelector="@color/colorTitleBg"/>
+            android:listSelector="@color/colorTitleBg" />
     </LinearLayout>
- 
+
 </LinearLayout>

@@ -488,6 +488,7 @@ public class MainActivity extends AppCompatActivity implements RouteSearch.OnRou
                     mBottomRoute.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            System.out.println("start walkroutedetailactivity");
                             Intent intent = new Intent(MainActivity.this,
                                     WalkRouteDetailActivity.class);
                             intent.putExtra("walk_path", walkPath);

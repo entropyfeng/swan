@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements RouteSearch.OnRou
     private final int ROUTE_TYPE_DRIVE = 2;
     private final int ROUTE_TYPE_WALK = 3;
 
-    private LinearLayout mBottomLayout;
+    private TextView mBottomRoute;
     private TextView mRotueTimeDes, mRouteDetailDes;
 
     public static final int REQUEST_CODE = 100;
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements RouteSearch.OnRou
     private void initRoute() {
         mRouteSearch = new RouteSearch(this);
         mRouteSearch.setRouteSearchListener(this);
-        mBottomLayout = findViewById(R.id.main_bottom_layout);
+        mBottomRoute = findViewById(R.id.main_bottom_route);
         mRotueTimeDes = findViewById(R.id.firstline);
         mRouteDetailDes = findViewById(R.id.secondline);
     }
@@ -437,7 +437,7 @@ public class MainActivity extends AppCompatActivity implements RouteSearch.OnRou
                     mRouteDetailDes.setVisibility(View.VISIBLE);
                     int taxiCost = (int) mDriveRouteResult.getTaxiCost();
                     mRouteDetailDes.setText("打车约"+taxiCost+"元");
-                    mBottomLayout.setOnClickListener(new View.OnClickListener() {
+                    mBottomRoute.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(MainActivity.this,DriveRouteDetailActivity.class);
@@ -479,13 +479,13 @@ public class MainActivity extends AppCompatActivity implements RouteSearch.OnRou
                     walkRouteOverlay.removeFromMap();
                     walkRouteOverlay.addToMap();
                     walkRouteOverlay.zoomToSpan();
-                    mBottomLayout.setVisibility(View.VISIBLE);
+                    mBottomRoute.setVisibility(View.VISIBLE);
                     int dis = (int) walkPath.getDistance();
                     int dur = (int) walkPath.getDuration();
                     String des = AMapUtil.getFriendlyTime(dur)+"("+AMapUtil.getFriendlyLength(dis)+")";
                     mRotueTimeDes.setText(des);
                     mRouteDetailDes.setVisibility(View.GONE);
-                    mBottomLayout.setOnClickListener(new View.OnClickListener() {
+                    mBottomRoute.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(MainActivity.this,

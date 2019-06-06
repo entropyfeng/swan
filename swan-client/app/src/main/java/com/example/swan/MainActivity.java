@@ -53,7 +53,7 @@ import com.qmuiteam.qmui.widget.QMUITopBar;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements    RouteSearch.OnRouteSearchListener, AMap.OnMapClickListener, AMap.OnInfoWindowClickListener, AMap.OnMarkerClickListener, AMap.InfoWindowAdapter {
+public class MainActivity extends AppCompatActivity implements RouteSearch.OnRouteSearchListener, AMap.OnMapClickListener, AMap.OnInfoWindowClickListener, AMap.OnMarkerClickListener, AMap.InfoWindowAdapter {
 
     private MapView mapView = null;
     private AMap aMap = null;

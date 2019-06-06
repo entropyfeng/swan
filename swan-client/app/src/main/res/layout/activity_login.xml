@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activity.LoginActivity">
 
     <LinearLayout
@@ -16,25 +16,24 @@
             android:id="@+id/menu_top_bar"
             android:layout_width="match_parent"
             android:layout_height="46dp"
-            app:qmui_topbar_bg_color="@color/colorBackground"
-            >
+            app:qmui_topbar_bg_color="@color/colorBackground">
+
             <ImageView
                 android:id="@+id/login_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_icon_sample_back"
-                android:layout_marginTop="7dp"
                 android:layout_marginStart="10dp"
-                />
+                android:layout_marginTop="7dp"
+                android:src="@drawable/ic_icon_sample_back" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/login"
-                android:textColor="@color/colorTextView"
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="11dp"
-                android:textSize="16sp"
-                />
+                android:text="@string/login"
+                android:textColor="@color/colorTextView"
+                android:textSize="16sp" />
         </com.qmuiteam.qmui.widget.QMUITopBar>
 
         <!--头部的logo和标题-->

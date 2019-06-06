@@ -11,7 +11,7 @@
         android:theme="@style/QMUI.Compat">
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="b9b4431d4beab68d49fe86b9f96899bf" />
+            android:value="d84deaa28323a36c131a3fdbfbe8fd49" />
         <service android:name="com.amap.api.location.APSService"></service>
 
         <activity android:name=".MainActivity">
@@ -40,7 +40,6 @@
 
         <activity android:name=".route.DriveRouteDetailActivity" />
         <activity android:name=".route.WalkRouteDetailActivity" />
-
 
     </application>
     <!--允许程序打开网络套接字-->

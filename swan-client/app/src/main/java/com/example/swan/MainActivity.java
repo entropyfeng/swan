@@ -10,6 +10,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,6 +19,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
@@ -51,6 +56,9 @@ import com.example.swan.route.WalkRouteDetailActivity;
 import com.example.swan.util.AMapUtil;
 import com.example.swan.util.ToastUtil;
 import com.qmuiteam.qmui.widget.QMUITopBar;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -63,6 +71,11 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
     private TextView keywordsTextView;
     private ImageView cleanKeyWords;
     private ProgressDialog progDialog = null;// 搜索时进度条
+    //声明AMapLocationClientOption对象
+    private AMapLocationClientOption mLocationOption = null;
+    //声明AMapLocationClient类对象
+    private AMapLocationClient mLocationClient = null;
+    //声明定位回调监听器
 
     private LatLonPoint aStartPoint = new LatLonPoint(39.942295,116.335891);//起点
     private static LatLonPoint aEndPoint= new LatLonPoint(39.995576,116.481288);//终点
@@ -98,7 +111,6 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
         initMyLocation();
         initSearch();
         initRoute();
-        setfromandtoMarker(aStartPoint,aEndPoint);
     }
 
     private void initRoute() {
@@ -144,6 +156,32 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
         FuncOfMap.appearBluePot(aMap);
         FuncOfMap.appearIndoorMap(aMap);
         FuncOfMap.appearControls(aMap);
+        acquireLatLonofBluePot();
+    }
+
+    /**
+     * 获取当前定位点相关信息
+     */
+    private void acquireLatLonofBluePot(){
+        //初始化定位
+        mLocationClient = new AMapLocationClient(getApplicationContext());
+        //设置定位回调监听
+        mLocationClient.setLocationListener(mLocationListener);
+        //初始化AMapLocationClientOption对象
+        mLocationOption = new AMapLocationClientOption();
+        //设置定位模式为AMapLocationMode.Hight_Accuracy，高精度模式。
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        //设置定位间隔,单位毫秒,默认为2000ms，最低1000ms。
+        mLocationOption.setInterval(1000);
+        //设置是否返回地址信息（默认返回地址信息）
+        mLocationOption.setNeedAddress(true);
+        //单位是毫秒，默认30000毫秒，建议超时时间不要低于8000毫秒。
+        mLocationOption.setHttpTimeOut(20000);
+        //给定位客户端对象设置定位参数
+        mLocationClient.setLocationOption(mLocationOption);
+        //启动定位
+        mLocationClient.startLocation();
+
     }
 
     /**
@@ -420,6 +458,34 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
         searchRouteResult(mStartPoint,mEndPoint,ROUTE_TYPE_WALK, RouteSearch.DrivingDefault);
     }
 
+
+        public AMapLocationListener mLocationListener = new AMapLocationListener() {
+            @Override
+            public void onLocationChanged(AMapLocation amapLocation) {
+                if (amapLocation != null) {
+                    if (amapLocation.getErrorCode() == 0) {
+//可在其中解析amapLocation获取相应内容。
+                        amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
+                        amapLocation.getLatitude();//获取纬度
+                        amapLocation.getLongitude();//获取经度
+                        aStartPoint = new LatLonPoint(amapLocation.getLatitude(),amapLocation.getLongitude());
+                        amapLocation.getAccuracy();//获取精度信息
+//获取定位时间
+                        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        Date date = new Date(amapLocation.getTime());
+                        df.format(date);
+
+                    } else {
+                        //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
+                        Log.e("AmapError", "location Error, ErrCode:"
+                                + amapLocation.getErrorCode() + ", errInfo:"
+                                + amapLocation.getErrorInfo());
+                    }
+                }
+
+            }
+        };
+
 public void searchForDestination(LatLonPoint endPoint){
 
         setfromandtoMarker(aStartPoint,endPoint);
@@ -532,7 +598,6 @@ public void searchForDestination(LatLonPoint endPoint){
         @Override
         public void onWalkRouteSearched(WalkRouteResult result, int errorCode) {
             dismissProgressDialog();
-            System.out.println("调用onWalkRouteSearched");
             aMap.clear();// 清理地图上的所有覆盖物
             if (errorCode == AMapException.CODE_AMAP_SUCCESS) {
                 if (result != null && result.getPaths() != null) {

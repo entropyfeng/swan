@@ -37,7 +37,7 @@
             android:name=".activity.RegisterActivity"
             android:parentActivityName=".activity.LoginActivity" />
 
-
+        <activity android:name=".activity.RouteActivity" />
         <activity android:name=".route.DriveRouteDetailActivity" />
         <activity android:name=".route.WalkRouteDetailActivity" />
 

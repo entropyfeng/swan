@@ -1,26 +1,27 @@
 package com.example.swan.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.SearchView;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.amap.api.services.help.Inputtips;
 import com.amap.api.services.help.InputtipsQuery;
 import com.amap.api.services.help.Tip;
 import com.example.swan.MainActivity;
 import com.example.swan.R;
+import com.example.swan.adapter.HistorySearchAdapter;
 import com.example.swan.adapter.InputTipsAdapter;
+import com.example.swan.util.AccountHelper;
 import com.example.swan.util.ToastUtil;
 import com.qmuiteam.qmui.layout.QMUIButton;
 import com.qmuiteam.qmui.widget.QMUITopBar;
@@ -28,7 +29,10 @@ import com.qmuiteam.qmui.widget.QMUITopBar;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import static com.example.swan.util.CommonUtil.IsEmptyOrNullString;
 
@@ -39,6 +43,7 @@ public class SearchActivity extends AppCompatActivity {
     private List<Tip> currentTipList;
     private InputTipsAdapter inputTipsAdapter;
     private ListView inputListView;
+    private TextView clearHistoryView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,6 +59,7 @@ public class SearchActivity extends AppCompatActivity {
 
         inputListView = findViewById(R.id.search_list);
         inputListView.setOnItemClickListener(itemClickListener);
+
         initTopBar();
         initSearchView();
     }
@@ -69,7 +75,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private void initSearchView() {
         searchView = findViewById(R.id.search_search_view);
-
+        clearHistoryView = findViewById(R.id.search_list_clear);
         //修改SearchView的样式
         TextView searchText = (TextView) searchView.findViewById(searchView
                 .getContext()
@@ -84,6 +90,37 @@ public class SearchActivity extends AppCompatActivity {
         searchView.setIconified(false);
         searchView.onActionViewExpanded();
         searchView.setSubmitButtonEnabled(false);
+        initHistory();
+
+    }
+
+    private void initHistory() {
+        LinkedList<String> stringList = AccountHelper.getHistorySearch(this);
+        LinkedList<Tip> tempTipList = new LinkedList<Tip>();
+        stringList.forEach(s -> {
+            Tip tip=null;
+            try {
+              tip=  JSON.parseObject(s,Tip.class);
+            }catch (Exception e){
+                //如果反序列化失败
+
+             tip=new Tip();
+             tip.setName(s);
+             tip.setTypeCode("o(╯□╰)o");
+            }
+            tempTipList.add(tip);
+        });
+
+        inputTipsAdapter = new InputTipsAdapter(
+                getApplicationContext(),
+                tempTipList);
+        inputListView.setAdapter(inputTipsAdapter);
+        inputTipsAdapter.notifyDataSetChanged();
+        inputListView.setOnItemClickListener(itemClickListener);
+        clearHistoryView.setOnClickListener(v -> {
+            inputListView.setAdapter(null);
+            AccountHelper.clearHistorySearch(this);
+        });
     }
 
 
@@ -99,6 +136,7 @@ public class SearchActivity extends AppCompatActivity {
             Intent intent = new Intent();
             intent.putExtra(Constants.KEY_WORDS_NAME, query);
             setResult(MainActivity.RESULT_CODE_KEYWORDS, intent);
+            AccountHelper.writeHistorySearch(SearchActivity.this, query);
             finish();
             return false;
         }
@@ -111,6 +149,8 @@ public class SearchActivity extends AppCompatActivity {
          */
         @Override
         public boolean onQueryTextChange(String newText) {
+
+            Log.i("query触发了", newText);
             if (!IsEmptyOrNullString(newText)) {
                 InputtipsQuery inputQuery = new InputtipsQuery(newText, Constants.DEFAULT_CITY);
                 Inputtips inputTips = new Inputtips(SearchActivity.this.getApplicationContext(), inputQuery);
@@ -152,9 +192,30 @@ public class SearchActivity extends AppCompatActivity {
                 Tip tip = (Tip) adapterView.getItemAtPosition(position);
                 Intent intent = new Intent();
                 intent.putExtra(Constants.EXTRA_TIP, tip);
+                AccountHelper.writeHistorySearch(SearchActivity.this,  JSON.toJSONString(tip));
+
                 setResult(MainActivity.RESULT_CODE_INPUT_TIPS, intent);
                 finish();
+            }else {
+
+                //在初始化历史纪录时
+                Tip tip = (Tip) adapterView.getItemAtPosition(position);
+                if(!tip.getTypeCode().equals("o(╯□╰)o")){
+                    Intent intent = new Intent();
+                    intent.putExtra(Constants.EXTRA_TIP, tip);
+                    AccountHelper.writeHistorySearch(SearchActivity.this, tip.getName());
+                    setResult(MainActivity.RESULT_CODE_INPUT_TIPS, intent);
+                    finish();
+                }else {
+                    Intent intent = new Intent();
+                    intent.putExtra(Constants.KEY_WORDS_NAME, tip.getName());
+                    setResult(MainActivity.RESULT_CODE_KEYWORDS, intent);
+                    AccountHelper.writeHistorySearch(SearchActivity.this, tip.getName());
+                    finish();
+                }
+
             }
+
         }
     };
 }

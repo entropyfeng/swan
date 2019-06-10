@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.amap.api.services.help.Tip;
 import com.example.swan.R;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 
 import java.util.List;
 
@@ -19,7 +20,6 @@ import java.util.List;
 public class InputTipsAdapter extends BaseAdapter {
     private Context mContext;
     private List<Tip> mListTips;
-
     public InputTipsAdapter(Context context, List<Tip> tipList) {
         mContext = context;
         mListTips = tipList;
@@ -47,8 +47,10 @@ public class InputTipsAdapter extends BaseAdapter {
         return i;
     }
 
+
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
+
         Holder holder;
         if (view == null) {
             holder = new Holder();

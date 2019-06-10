@@ -19,7 +19,6 @@ import com.amap.api.services.help.InputtipsQuery;
 import com.amap.api.services.help.Tip;
 import com.example.swan.MainActivity;
 import com.example.swan.R;
-import com.example.swan.adapter.HistorySearchAdapter;
 import com.example.swan.adapter.InputTipsAdapter;
 import com.example.swan.util.AccountHelper;
 import com.example.swan.util.ToastUtil;

@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -49,17 +48,16 @@ import com.amap.api.services.route.WalkPath;
 import com.amap.api.services.route.WalkRouteResult;
 import com.example.swan.activity.Constants;
 import com.example.swan.activity.MenuActivity;
-import com.example.swan.activity.RouteActivity;
+import com.example.swan.route.RouteActivity;
 import com.example.swan.activity.SearchActivity;
 import com.example.swan.listener.PointTouchClickListener;
+import com.example.swan.navi.NaviActivity;
 import com.example.swan.overlay.DrivingRouteOverlay;
 import com.example.swan.overlay.PoiOverlay;
 import com.example.swan.overlay.RideRouteOverlay;
 import com.example.swan.overlay.WalkRouteOverlay;
 import com.example.swan.route.BusResultListAdapter;
 import com.example.swan.route.DriveRouteDetailActivity;
-import com.example.swan.route.RideRouteDetailActivity;
-import com.example.swan.route.WalkRouteDetailActivity;
 import com.example.swan.util.AMapUtil;
 import com.example.swan.util.ToastUtil;
 import com.qmuiteam.qmui.widget.QMUITopBar;
@@ -112,8 +110,6 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
 
         getSupportActionBar().hide();
         checkPermission();
@@ -526,6 +522,17 @@ public void searchForDestination(LatLonPoint endPoint){
         intent.putExtra("mCurrentCityName",mCurrentCityName);
         startActivity(intent);
 }
+
+    public void searchForDestinationOfNavi(LatLonPoint endPoint){
+        //setfromandtoMarker(aStartPoint,endPoint);
+
+        Intent intent = new Intent(MainActivity.this,NaviActivity.class);
+        intent.putExtra("startPointLat",aStartPoint.getLatitude());
+        intent.putExtra("startPointLon",aStartPoint.getLongitude());
+        intent.putExtra("endPointLat",endPoint.getLatitude());
+        intent.putExtra("endPointLon",endPoint.getLongitude());
+        startActivity(intent);
+    }
     /**
      * 开始搜索路径规划方案
      */

@@ -1,7 +1,5 @@
 package com.example.swan.listener;
 
-import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +9,6 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.services.core.LatLonPoint;
 import com.example.swan.MainActivity;
 import com.example.swan.R;
-import com.example.swan.activity.RouteActivity;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
 
 public class PointTouchClickListener implements View.OnClickListener {
@@ -42,6 +39,12 @@ public class PointTouchClickListener implements View.OnClickListener {
         routeView.setOnClickListener(view -> {
             endPoint = new LatLonPoint(position.latitude, position.longitude);
             mainActivity.searchForDestination(endPoint);
+        });
+
+        TextView naviView = bottomView.findViewById(R.id.main_bottom_navigation);
+        naviView.setOnClickListener(view -> {
+            endPoint = new LatLonPoint(position.latitude, position.longitude);
+            mainActivity.searchForDestinationOfNavi(endPoint);
         });
         qmuiBottomSheet.setContentView(bottomView);
         qmuiBottomSheet.show();

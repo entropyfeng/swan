@@ -1,11 +1,10 @@
-package com.example.swan.activity;
+package com.example.swan.route;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -38,13 +37,9 @@ import com.amap.api.services.route.RouteSearch.OnRouteSearchListener;
 import com.amap.api.services.route.RouteSearch.WalkRouteQuery;
 import com.amap.api.services.route.WalkPath;
 import com.amap.api.services.route.WalkRouteResult;
-import com.example.swan.MainActivity;
 import com.example.swan.R;
 import com.example.swan.overlay.DrivingRouteOverlay;
 import com.example.swan.overlay.WalkRouteOverlay;
-import com.example.swan.route.BusResultListAdapter;
-import com.example.swan.route.DriveRouteDetailActivity;
-import com.example.swan.route.WalkRouteDetailActivity;
 import com.example.swan.util.AMapUtil;
 import com.example.swan.util.ToastUtil;
 

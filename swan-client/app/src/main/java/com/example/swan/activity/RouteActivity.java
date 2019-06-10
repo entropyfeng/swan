@@ -93,6 +93,9 @@ OnMarkerClickListener, OnInfoWindowClickListener, InfoWindowAdapter, OnRouteSear
 		Intent it = getIntent();
 		mStartPoint = new LatLonPoint(it.getDoubleExtra("startPointLat",39.942295),it.getDoubleExtra("startPointLon",116.335891));
 		mEndPoint = new LatLonPoint(it.getDoubleExtra("endPointLat",39.942295),it.getDoubleExtra("endPointLon",116.335891));
+		mCurrentCityName = it.getStringExtra("mCurrentCityName");
+		mStartPoint_bus = mStartPoint;
+		mEndPoint_bus = mEndPoint;
 		setfromandtoMarker();
 
 		

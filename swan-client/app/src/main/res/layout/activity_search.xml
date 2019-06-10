@@ -16,18 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="46dp">
 
-           <!-- <android.support.v7.widget.SearchView
-                android:id="@+id/search_search_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginEnd="50dp"
-                android:background="@drawable/search_edit_text_border"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="8dp"
-                android:searchIcon="@drawable/ic_icon_search"
-                app:queryHint="@string/search_tip" />-->
-
             <SearchView
                 android:id="@+id/search_search_view"
                 android:layout_width="match_parent"
@@ -54,7 +42,12 @@
         android:id="@+id/search_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
     </ListView>
+    <TextView
+        android:text="@string/search_clear"
+        android:id="@+id/search_list_clear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 
 </LinearLayout>

@@ -38,11 +38,12 @@ public class PointTouchClickListener implements View.OnClickListener {
         TextView routeView = bottomView.findViewById(R.id.main_bottom_route);
         routeView.setOnClickListener(view -> {
             mainActivity.searchForDestination(new LatLonPoint(position.latitude, position.longitude));
+            if(qmuiBottomSheet.isShowing()){
+                qmuiBottomSheet.dismiss();
+            }
         });
         qmuiBottomSheet.setContentView(bottomView);
         qmuiBottomSheet.show();
-
-
     }
 
 }

@@ -40,6 +40,7 @@
         <activity android:name=".activity.RouteActivity" />
         <activity android:name=".route.DriveRouteDetailActivity" />
         <activity android:name=".route.WalkRouteDetailActivity" />
+        <activity android:name=".route.BusRouteDetailActivity" />
 
     </application>
     <!--允许程序打开网络套接字-->

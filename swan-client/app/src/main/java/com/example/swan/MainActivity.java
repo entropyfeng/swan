@@ -499,6 +499,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
                         aStartPoint = new LatLonPoint(amapLocation.getLatitude(),amapLocation.getLongitude());
                         amapLocation.getAccuracy();//获取精度信息
 //获取定位时间
+                        mCurrentCityName = amapLocation.getCity();//城市信息
                         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         Date date = new Date(amapLocation.getTime());
                         df.format(date);
@@ -519,9 +520,10 @@ public void searchForDestination(LatLonPoint endPoint){
 
         Intent intent = new Intent(MainActivity.this,RouteActivity.class);
         intent.putExtra("startPointLat",aStartPoint.getLatitude());
-        intent.putExtra("startPointon",aStartPoint.getLongitude());
+        intent.putExtra("startPointLon",aStartPoint.getLongitude());
         intent.putExtra("endPointLat",endPoint.getLatitude());
         intent.putExtra("endPointLon",endPoint.getLongitude());
+        intent.putExtra("mCurrentCityName",mCurrentCityName);
         startActivity(intent);
 }
     /**

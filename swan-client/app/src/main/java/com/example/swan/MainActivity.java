@@ -15,6 +15,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,19 +41,23 @@ import com.amap.api.services.poisearch.PoiSearch;
 import com.amap.api.services.route.BusRouteResult;
 import com.amap.api.services.route.DrivePath;
 import com.amap.api.services.route.DriveRouteResult;
+import com.amap.api.services.route.RidePath;
 import com.amap.api.services.route.RideRouteResult;
 import com.amap.api.services.route.RouteSearch;
 import com.amap.api.services.route.WalkPath;
 import com.amap.api.services.route.WalkRouteResult;
 import com.example.swan.activity.Constants;
 import com.example.swan.activity.MenuActivity;
+import com.example.swan.route.RouteActivity;
 import com.example.swan.activity.SearchActivity;
 import com.example.swan.listener.PointTouchClickListener;
+import com.example.swan.navi.NaviActivity;
 import com.example.swan.overlay.DrivingRouteOverlay;
 import com.example.swan.overlay.PoiOverlay;
+import com.example.swan.overlay.RideRouteOverlay;
 import com.example.swan.overlay.WalkRouteOverlay;
+import com.example.swan.route.BusResultListAdapter;
 import com.example.swan.route.DriveRouteDetailActivity;
-import com.example.swan.route.WalkRouteDetailActivity;
 import com.example.swan.util.AMapUtil;
 import com.example.swan.util.ToastUtil;
 import com.qmuiteam.qmui.widget.QMUITopBar;
@@ -77,15 +82,23 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
     private AMapLocationClient mLocationClient = null;
     //声明定位回调监听器
 
-    private LatLonPoint aStartPoint = new LatLonPoint(39.942295,116.335891);//起点
-    private static LatLonPoint aEndPoint= new LatLonPoint(39.995576,116.481288);//终点
+    private LatLonPoint aStartPoint = new LatLonPoint(25.063734,110.300496);//起点
+    private static LatLonPoint aEndPoint= new LatLonPoint(25.261406,110.28231);//终点
+    private String mCurrentCityName = "桂林";
+
     private RouteSearch mRouteSearch;
     private DriveRouteResult mDriveRouteResult;
     private WalkRouteResult mWalkRouteResult;
+    private RideRouteResult mRideRouteResult;
+    private BusRouteResult mBusRouteResult;
 
+    private final int ROUTE_TYPE_BUS = 1;
     private final int ROUTE_TYPE_DRIVE = 2;
     private final int ROUTE_TYPE_WALK = 3;
+    private final int ROUTE_TYPE_RIDE = 4;
 
+    private LinearLayout mBusResultLayout;
+    private ListView mBusResultList;
     private RelativeLayout mBottomRoute;
     private TextView mRotueTimeDes, mRouteDetailDes;
 
@@ -97,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         getSupportActionBar().hide();
         checkPermission();
         //获取地图控件引用
@@ -116,9 +130,13 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
     private void initRoute() {
         mRouteSearch = new RouteSearch(this);
         mRouteSearch.setRouteSearchListener(onRouteSearchListener);
-        mBottomRoute = findViewById(R.id.bottom_layout);
+        //mBottomRoute = findViewById(R.id.bottom_layout);
         mRotueTimeDes = findViewById(R.id.firstline);
         mRouteDetailDes = findViewById(R.id.secondline);
+        //mBusResultLayout = (LinearLayout) findViewById(R.id.bus_result);
+        //mBusResultList = (ListView) findViewById(R.id.bus_result_list);
+        //mBottomRoute = (RelativeLayout) findViewById(R.id.routemap_header);
+        //mBottomRoute.setVisibility(View.GONE);
     }
 
     @Override
@@ -334,6 +352,10 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
         }
     }
 
+    public LatLonPoint getStartLatLonPoint(){
+        return aStartPoint;
+    }
+
     /**
      * 开始进行poi搜索
      */
@@ -390,6 +412,8 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
             }
 
         }
+
+
 
         @Override
         public void onPoiItemSearched(PoiItem poiItem, int i) {
@@ -455,7 +479,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
                 .position(AMapUtil.convertToLatLng(mEndPoint))
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.end)));
 
-        searchRouteResult(mStartPoint,mEndPoint,ROUTE_TYPE_WALK, RouteSearch.DrivingDefault);
+        searchRouteResult(mStartPoint,mEndPoint,ROUTE_TYPE_BUS, RouteSearch.DrivingDefault);
     }
 
 
@@ -471,6 +495,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
                         aStartPoint = new LatLonPoint(amapLocation.getLatitude(),amapLocation.getLongitude());
                         amapLocation.getAccuracy();//获取精度信息
 //获取定位时间
+                        mCurrentCityName = amapLocation.getCity();//城市信息
                         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         Date date = new Date(amapLocation.getTime());
                         df.format(date);
@@ -487,9 +512,27 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
         };
 
 public void searchForDestination(LatLonPoint endPoint){
+        //setfromandtoMarker(aStartPoint,endPoint);
 
-        setfromandtoMarker(aStartPoint,endPoint);
+        Intent intent = new Intent(MainActivity.this,RouteActivity.class);
+        intent.putExtra("startPointLat",aStartPoint.getLatitude());
+        intent.putExtra("startPointLon",aStartPoint.getLongitude());
+        intent.putExtra("endPointLat",endPoint.getLatitude());
+        intent.putExtra("endPointLon",endPoint.getLongitude());
+        intent.putExtra("mCurrentCityName",mCurrentCityName);
+        startActivity(intent);
 }
+
+    public void searchForDestinationOfNavi(LatLonPoint endPoint){
+        //setfromandtoMarker(aStartPoint,endPoint);
+
+        Intent intent = new Intent(MainActivity.this,NaviActivity.class);
+        intent.putExtra("startPointLat",aStartPoint.getLatitude());
+        intent.putExtra("startPointLon",aStartPoint.getLongitude());
+        intent.putExtra("endPointLat",endPoint.getLatitude());
+        intent.putExtra("endPointLon",endPoint.getLongitude());
+        startActivity(intent);
+    }
     /**
      * 开始搜索路径规划方案
      */
@@ -512,6 +555,15 @@ public void searchForDestination(LatLonPoint endPoint){
         if (routeType == ROUTE_TYPE_WALK) {// 步行路径规划
             RouteSearch.WalkRouteQuery query = new RouteSearch.WalkRouteQuery(fromAndTo, mode);
             mRouteSearch.calculateWalkRouteAsyn(query);// 异步路径规划步行模式查询
+        }
+        if (routeType == ROUTE_TYPE_RIDE) {// 骑行路径规划
+            RouteSearch.RideRouteQuery query = new RouteSearch.RideRouteQuery(fromAndTo, mode);
+            mRouteSearch.calculateRideRouteAsyn(query);// 异步路径规划骑行模式查询
+        }
+        if (routeType == ROUTE_TYPE_BUS) {// 公交路径规划
+            RouteSearch.BusRouteQuery query = new RouteSearch.BusRouteQuery(fromAndTo, mode,
+                    mCurrentCityName, 0);// 第一个参数表示路径规划的起点和终点，第二个参数表示公交查询模式，第三个参数表示公交查询城市区号，第四个参数表示是否计算夜班车，0表示不计算
+            mRouteSearch.calculateBusRouteAsyn(query);// 异步路径规划公交模式查询
         }
     }
 
@@ -544,8 +596,24 @@ public void searchForDestination(LatLonPoint endPoint){
 
     RouteSearch.OnRouteSearchListener onRouteSearchListener=new RouteSearch.OnRouteSearchListener() {
         @Override
-        public void onBusRouteSearched(BusRouteResult busRouteResult, int i) {
-
+        public void onBusRouteSearched(BusRouteResult result, int errorCode) {
+            dismissProgressDialog();
+            aMap.clear();// 清理地图上的所有覆盖物
+            if (errorCode == AMapException.CODE_AMAP_SUCCESS) {
+                if (result != null && result.getPaths() != null) {
+                    if (result.getPaths().size() > 0) {
+                        mBusRouteResult = result;
+                        BusResultListAdapter mBusResultListAdapter = new BusResultListAdapter(MainActivity.this, mBusRouteResult);
+                        mBusResultList.setAdapter(mBusResultListAdapter);
+                    } else if (result != null && result.getPaths() == null) {
+                        Toast.makeText(MainActivity.this,R.string.poi_no_result,Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(MainActivity.this,R.string.poi_no_result,Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(MainActivity.this,errorCode,Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override
@@ -647,8 +715,52 @@ public void searchForDestination(LatLonPoint endPoint){
 
         @Override
         public void onRideRouteSearched(RideRouteResult result, int errorCode) {
-
+            dismissProgressDialog();
+            aMap.clear();// 清理地图上的所有覆盖物
+            if (errorCode == AMapException.CODE_AMAP_SUCCESS) {
+                if (result != null && result.getPaths() != null) {
+                    if (result.getPaths().size() > 0) {
+                        mRideRouteResult = result;
+                        final RidePath ridePath = mRideRouteResult.getPaths()
+                                .get(0);
+                        if(ridePath == null) {
+                            return;
+                        }
+                        RideRouteOverlay rideRouteOverlay = new RideRouteOverlay(
+                                MainActivity.this, aMap, ridePath,
+                                mRideRouteResult.getStartPos(),
+                                mRideRouteResult.getTargetPos());
+                        rideRouteOverlay.removeFromMap();
+                        rideRouteOverlay.addToMap();
+                        rideRouteOverlay.zoomToSpan();
+                        //mBottomLayout.setVisibility(View.VISIBLE);
+                        int dis = (int) ridePath.getDistance();
+                        int dur = (int) ridePath.getDuration();
+                        String des = AMapUtil.getFriendlyTime(dur)+"("+AMapUtil.getFriendlyLength(dis)+")";
+                        //mRotueTimeDes.setText(des);
+                        //mRouteDetailDes.setVisibility(View.GONE);
+                        /*mBottomLayout.setOnClickListener(new OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(mContext,
+                                        RideRouteDetailActivity.class);
+                                intent.putExtra("ride_path", ridePath);
+                                intent.putExtra("ride_result",
+                                        mRideRouteResult);
+                                startActivity(intent);
+                            }
+                        });*/
+                    } else if (result != null && result.getPaths() == null) {
+                        Toast.makeText(MainActivity.this,R.string.poi_no_result,Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(MainActivity.this,R.string.poi_no_result,Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                ToastUtil.showerror(MainActivity.this.getApplicationContext(), errorCode);
+            }
         }
+
     };
 
 }

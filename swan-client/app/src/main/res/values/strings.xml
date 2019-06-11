@@ -38,6 +38,9 @@
     <string name="main_bottom_search_nearby_title">搜附近</string>
     <string name="main_bottom_navigation_title">导航</string>
     <string name="main_bottom_route_title">路线</string>
+    <!--路线页面-->
+    <string name="route_cross_city_bus">跨城公交</string>
+    <string name="route_details">详情</string>
     <!--导航页面-->
     <string name="navigation_start_point_tip">我的位置</string>
     <string name="navigation_end_point_tip">输入终点</string>

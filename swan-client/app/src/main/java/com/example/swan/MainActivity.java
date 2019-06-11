@@ -378,7 +378,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
         System.out.println(aStartPoint.getLongitude());
         System.out.println("搜索");
         PoiSearch poiSearch = new PoiSearch(this, query);
-        poiSearch.setBound(new PoiSearch.SearchBound(lp, 5000, true));
+        poiSearch.setBound(new PoiSearch.SearchBound(lp, 500000, true));
         poiSearch.setOnPoiSearchListener(poiSearchListener);
         poiSearch.searchPOIAsyn();
     }

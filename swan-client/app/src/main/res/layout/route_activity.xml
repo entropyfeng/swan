@@ -64,7 +64,7 @@
     <RelativeLayout
         android:id="@+id/bottom_layout"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:gravity="center_vertical"
         android:padding="5dp"
@@ -73,11 +73,13 @@
         <TextView
             android:id="@+id/firstline"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:singleLine="true"
-            android:textColor="#333333"
-            android:textSize="16sp" />
+            android:textColor="@color/colorTextView"
+            android:textSize="16sp"
+            android:layout_marginBottom="5dp"
+            />
 
         <TextView
             android:id="@+id/secondline"
@@ -87,7 +89,7 @@
             android:layout_marginStart="12dp"
             android:gravity="end"
             android:singleLine="true"
-            android:textColor="#999999"
+            android:textColor="@color/colorHint"
             android:textSize="13sp"
             android:visibility="gone" />
 

@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.help.Inputtips;
 import com.amap.api.services.help.InputtipsQuery;
 import com.amap.api.services.help.Tip;
@@ -43,11 +44,14 @@ public class SearchActivity extends AppCompatActivity {
     private InputTipsAdapter inputTipsAdapter;
     private ListView inputListView;
     private TextView clearHistoryView;
-
+    private String mCurrentCityName;
+    private LatLonPoint latLonPoint;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Intent it = getIntent();
+        mCurrentCityName = it.getStringExtra("mCurrentCityName");
+        latLonPoint = new LatLonPoint(it.getDoubleExtra("startPointLat",25.063734),it.getDoubleExtra("startPointLon",110.300496));
         setContentView(R.layout.activity_search);
         getSupportActionBar().hide();
         init();
@@ -133,7 +137,7 @@ public class SearchActivity extends AppCompatActivity {
         @Override
         public boolean onQueryTextSubmit(String query) {
             Intent intent = new Intent();
-            intent.putExtra(Constants.KEY_WORDS_NAME, query);
+            intent.putExtra("KeyWord", query);
             setResult(MainActivity.RESULT_CODE_KEYWORDS, intent);
             AccountHelper.writeHistorySearch(SearchActivity.this, query);
             finish();
@@ -151,7 +155,8 @@ public class SearchActivity extends AppCompatActivity {
 
             Log.i("query触发了", newText);
             if (!IsEmptyOrNullString(newText)) {
-                InputtipsQuery inputQuery = new InputtipsQuery(newText, Constants.DEFAULT_CITY);
+                InputtipsQuery inputQuery = new InputtipsQuery(newText, mCurrentCityName);
+                inputQuery.setLocation(latLonPoint);
                 Inputtips inputTips = new Inputtips(SearchActivity.this.getApplicationContext(), inputQuery);
                 inputTips.setInputtipsListener(inputTipsListener);
                 inputTips.requestInputtipsAsyn();
@@ -190,7 +195,7 @@ public class SearchActivity extends AppCompatActivity {
             if (currentTipList != null) {
                 Tip tip = (Tip) adapterView.getItemAtPosition(position);
                 Intent intent = new Intent();
-                intent.putExtra(Constants.EXTRA_TIP, tip);
+                intent.putExtra("ExtraTip", tip);
                 AccountHelper.writeHistorySearch(SearchActivity.this,  JSON.toJSONString(tip));
 
                 setResult(MainActivity.RESULT_CODE_INPUT_TIPS, intent);
@@ -201,13 +206,13 @@ public class SearchActivity extends AppCompatActivity {
                 Tip tip = (Tip) adapterView.getItemAtPosition(position);
                 if(!tip.getTypeCode().equals("o(╯□╰)o")){
                     Intent intent = new Intent();
-                    intent.putExtra(Constants.EXTRA_TIP, tip);
+                    intent.putExtra("ExtraTip", tip);
                     AccountHelper.writeHistorySearch(SearchActivity.this, tip.getName());
                     setResult(MainActivity.RESULT_CODE_INPUT_TIPS, intent);
                     finish();
                 }else {
                     Intent intent = new Intent();
-                    intent.putExtra(Constants.KEY_WORDS_NAME, tip.getName());
+                    intent.putExtra("KeyWord", tip.getName());
                     setResult(MainActivity.RESULT_CODE_KEYWORDS, intent);
                     AccountHelper.writeHistorySearch(SearchActivity.this, tip.getName());
                     finish();

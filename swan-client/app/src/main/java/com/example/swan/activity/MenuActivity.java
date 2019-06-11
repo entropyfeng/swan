@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.swan.MainActivity;
 import com.example.swan.R;
 import com.example.swan.util.AccountHelper;
 import com.example.swan.util.QMUITipDialogUtil;
@@ -129,7 +130,12 @@ public class MenuActivity extends AppCompatActivity {
     private void initTopBar() {
         topBar = findViewById(R.id.menu_top_bar);
         ImageView back = findViewById(R.id.menu_back);
-        back.setOnClickListener(v -> finish());
+        //back.setOnClickListener(v -> finish());
+        back.setOnClickListener(v -> {
+            Intent intent = new Intent();
+            intent.setClass(MenuActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
 
     }
 }

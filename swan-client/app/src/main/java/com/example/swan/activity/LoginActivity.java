@@ -118,6 +118,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Intent intent = new Intent();
                                 intent.setClass(LoginActivity.this, MenuActivity.class);
                                 startActivity(intent);
+                                finish();
                                 return;
                             } else {
                                 errInfo = message.getMsg();

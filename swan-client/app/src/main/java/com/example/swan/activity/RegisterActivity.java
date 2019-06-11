@@ -31,7 +31,7 @@ import okhttp3.Response;
 /**
  * 注册activity
  *
- * @author xu
+ * @author feng
  */
 public class RegisterActivity extends AppCompatActivity {
     private EditText usernameText;
@@ -167,10 +167,13 @@ public class RegisterActivity extends AppCompatActivity {
                         tipDialog = QMUITipDialogUtil.getSuccessTipDialog(RegisterActivity.this, "注册成功");
                         tipDialog.show();
                         handler.postDelayed(tipDialog::dismiss, 1000);
+                        handler.postDelayed(() -> {
+                            Intent intent = new Intent();
+                            intent.setClass(RegisterActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                        },300);
                         Looper.loop();
-                        Intent intent = new Intent();
-                        intent.setClass(RegisterActivity.this, LoginActivity.class);
-                        startActivity(intent);
+
                     } else {
                         Looper.prepare();
                         tipDialog = QMUITipDialogUtil.getFailTipDialog(RegisterActivity.this, res);
@@ -202,4 +205,5 @@ public class RegisterActivity extends AppCompatActivity {
         }).start();
 
     };
+
 }

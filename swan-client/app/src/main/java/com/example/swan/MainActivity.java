@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
 
     private LatLonPoint aStartPoint = new LatLonPoint(25.063734,110.300496);//起点
     private static LatLonPoint aEndPoint= new LatLonPoint(25.261406,110.28231);//终点
-    private String mCurrentCityName = "桂林";
+    private String mCurrentCityName = "桂林市";
 
     private RouteSearch mRouteSearch;
     private DriveRouteResult mDriveRouteResult;
@@ -229,6 +229,9 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
         final String DEFAULT_LABEL_CONTENT = "查找地点、公交、地铁";
         keywordsTextView.setOnClickListener(v -> {
             Intent intent = new Intent();
+            intent.putExtra("mCurrentCityName",mCurrentCityName);
+            intent.putExtra("startPointLat",aStartPoint.getLatitude());
+            intent.putExtra("startPointLon",aStartPoint.getLongitude());
             intent.setClass(MainActivity.this, SearchActivity.class);
 
             // 向SearchActivity 请求数据
@@ -327,7 +330,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
         if (resultCode == RESULT_CODE_INPUT_TIPS && data != null) {
 
             aMap.clear();
-            Tip tip = data.getParcelableExtra(Constants.EXTRA_TIP);
+            Tip tip = data.getParcelableExtra("ExtraTip");
             //如果返回提示为空
             if (tip.getPoiID() == null || tip.getPoiID().equals("")) {
                 doSearchQuery(tip.getName());
@@ -341,7 +344,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
             //没有选择具体的提示信息，返回输入的信息返
         } else if (resultCode == RESULT_CODE_KEYWORDS && data != null) {
             aMap.clear();
-            String keywords = data.getStringExtra(Constants.KEY_WORDS_NAME);
+            String keywords = data.getStringExtra("KeyWord");
             if (keywords != null && !keywords.equals("")) {
                 doSearchQuery(keywords);
             }
@@ -360,16 +363,22 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
      * 开始进行poi搜索
      */
     protected void doSearchQuery(String keywords) {
+        System.out.println("搜索1");
         showProgressDialog();// 显示进度框
         int currentPage = 1;
         // 第一个参数表示搜索字符串，第二个参数表示poi搜索类型，第三个参数表示poi搜索区域（空字符串代表全国）
-        query = new PoiSearch.Query(keywords, "", Constants.DEFAULT_CITY);
+        query = new PoiSearch.Query(keywords, "", mCurrentCityName);
         // 设置每页最多返回多少条poiitem
         query.setPageSize(10);
         // 设置查第一页
         query.setPageNum(currentPage);
 
+        LatLonPoint lp = aStartPoint;
+        System.out.println(aStartPoint.getLatitude());
+        System.out.println(aStartPoint.getLongitude());
+        System.out.println("搜索");
         PoiSearch poiSearch = new PoiSearch(this, query);
+        poiSearch.setBound(new PoiSearch.SearchBound(lp, 500000, true));
         poiSearch.setOnPoiSearchListener(poiSearchListener);
         poiSearch.searchPOIAsyn();
     }
@@ -511,7 +520,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
             }
         };
 
-public void searchForDestination(LatLonPoint endPoint){
+    public void searchForDestination(LatLonPoint endPoint){
         //setfromandtoMarker(aStartPoint,endPoint);
 
         Intent intent = new Intent(MainActivity.this,RouteActivity.class);
@@ -520,6 +529,9 @@ public void searchForDestination(LatLonPoint endPoint){
         intent.putExtra("endPointLat",endPoint.getLatitude());
         intent.putExtra("endPointLon",endPoint.getLongitude());
         intent.putExtra("mCurrentCityName",mCurrentCityName);
+        System.out.println(aStartPoint.getLatitude());
+        System.out.println(aStartPoint.getLongitude());
+        System.out.println("路径规划");
         startActivity(intent);
 }
 

@@ -2,82 +2,62 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground" >
+    android:background="@color/colorBackground">
 
     <RelativeLayout
         android:id="@+id/routemap_header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/title_background" >
+        android:layout_height="wrap_content">
+
         <LinearLayout
             android:id="@+id/routemap_choose"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:background="@drawable/title_background"
+            android:layout_height="46dp"
+            android:baselineAligned="false"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp" >
+            android:paddingRight="10dp">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+
+            <ImageView
+                android:id="@+id/route_drive"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:onClick="onDriveClick" >
+                android:onClick="onDriveClick"
+                android:src="@drawable/route_drive_normal" />
 
-                <ImageView
-                    android:id="@+id/route_drive"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="center"
-                    android:src="@drawable/route_drive_normal"/>
-            </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            <ImageView
+                android:id="@+id/route_bus"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:onClick="onBusClick" >
+                android:onClick="onBusClick"
+                android:src="@drawable/route_bus_normal" />
 
-                <ImageView
-                    android:id="@+id/route_bus"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:src="@drawable/route_bus_normal" />
-            </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            <ImageView
+                android:id="@+id/route_walk"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:onClick="onWalkClick" >
+                android:onClick="onWalkClick"
+                android:src="@drawable/route_walk_normal" />
 
-                <ImageView
-                    android:id="@+id/route_walk"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:src="@drawable/route_walk_normal" />
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            <TextView
+                android:id="@+id/route_CrosstownBus"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:onClick="onCrosstownBusClick" >
+                android:gravity="center"
+                android:onClick="onCrosstownBusClick"
+                android:text="@string/route_cross_city_bus"
+                android:textColor="@color/colorTextView" />
 
-                <TextView
-                    android:id="@+id/route_CrosstownBus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="22dp"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="center"
-                    android:textColor="@color/qmui_config_color_gray_1"
-                    android:text="跨城公交"/>
-            </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>
 
@@ -86,16 +66,15 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_alignParentBottom="true"
-        android:padding="5dp"
-        android:background="@drawable/bg_bottom_bar"
         android:gravity="center_vertical"
-        android:visibility="gone" >
+        android:padding="5dp"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/firstline"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
             android:singleLine="true"
             android:textColor="#333333"
             android:textSize="16sp" />
@@ -105,34 +84,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/firstline"
-            android:layout_marginLeft="12dp"
-            android:gravity="right"
+            android:layout_marginStart="12dp"
+            android:gravity="end"
             android:singleLine="true"
             android:textColor="#999999"
             android:textSize="13sp"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <LinearLayout
             android:id="@+id/detail"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="详情"
+                android:gravity="center"
+                android:text="@string/route_details"
                 android:textColor="@color/btn_filled_blue_bg_normal"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:layout_marginEnd="5dp"
+                />
 
             <Button
                 android:layout_width="7dp"
                 android:layout_height="13dp"
-                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
                 android:background="@drawable/arrow_right_blue"
                 android:gravity="center_vertical" />
         </LinearLayout>
@@ -143,9 +124,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_layout"
-        android:layout_below="@id/routemap_header" >
-    </com.amap.api.maps.MapView>
-
+        android:layout_below="@id/routemap_header"></com.amap.api.maps.MapView>
 
     <LinearLayout
         android:id="@+id/bus_result"
@@ -154,7 +133,7 @@
         android:layout_below="@id/routemap_header"
         android:background="@color/qmui_config_color_white"
         android:orientation="vertical"
-        android:visibility="gone" >
+        android:visibility="gone">
 
         <ListView
             android:id="@+id/bus_result_list"
@@ -166,9 +145,7 @@
             android:fadingEdgeLength="0dp"
             android:footerDividersEnabled="false"
             android:headerDividersEnabled="false"
-            android:listSelector="#00000000" >
-        </ListView>
+            android:listSelector="#00000000"></ListView>
     </LinearLayout>
-
 
 </RelativeLayout>

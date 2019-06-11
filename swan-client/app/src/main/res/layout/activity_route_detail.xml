@@ -2,107 +2,103 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/route_title"
         android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:background="@drawable/title_background">
-        <LinearLayout
-            android:id="@+id/title_back"
-            android:layout_width="70dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:background="@color/colorBackground"
-            android:descendantFocusability="beforeDescendants"
-            android:gravity="center_vertical"
-            android:onClick="onBackClick"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/offset_title"
-            android:paddingStart="@dimen/offset_title" >
+        android:layout_height="46dp"
+        android:background="@color/colorLight"
+        >
 
-            <ImageView
-                android:layout_width="@dimen/width_title_leftImg"
-                android:layout_height="match_parent"
-                android:clickable="false"
-                android:scaleType="center"
-                android:src="@drawable/back" />
-        </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_centerInParent="true"
+            android:orientation="horizontal"
             android:gravity="center"
-            android:orientation="vertical" >
+            >
+
+            <ImageView
+                android:id="@+id/title_back"
+                android:onClick="onBackClick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:scaleType="center"
+                android:src="@drawable/ic_icon_sample_back"
+                android:descendantFocusability="beforeDescendants"
+                android:layout_marginStart="10dp"
+                />
 
             <TextView
                 android:id="@+id/title_center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
-                android:textColor="@color/qmui_config_color_black"
+                android:text="@string/drive_route_details"
+                android:textColor="@color/colorTextView"
                 android:textSize="@dimen/title_text_size"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginStart="100dp"
+                />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/title_map"
-            android:layout_width="70dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:background="@color/colorBackground"
             android:descendantFocusability="beforeDescendants"
             android:gravity="center_vertical"
             android:onClick="onMapClick"
             android:orientation="vertical"
-            android:paddingRight="@dimen/offset_title"
             android:paddingEnd="@dimen/offset_title"
-            android:visibility="gone" >
+            android:paddingStart="5dp"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/map"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="地图"
-                android:textColor="@color/qmui_config_color_black"
+                android:text="@string/drive_route_details_map"
+                android:textColor="@color/colorTextView"
                 android:textSize="@dimen/poi_field_size" />
         </LinearLayout>
 
     </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/bus_path"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:gravity="center_vertical"
-            android:padding="5dp"
-            android:background="@drawable/bg_bottom_bar"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:padding="5dp">
+
             <TextView
                 android:id="@+id/firstline"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
-                android:layout_marginLeft="12dp"
+                android:layout_marginStart="12dp"
                 android:singleLine="true"
-                android:textColor="#333333"
+                android:textColor="@color/colorTextView"
                 android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/secondline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/firstline"
-                android:layout_marginLeft="12dp"
+                android:layout_below="@id/firstline"
+                android:layout_marginStart="12dp"
                 android:gravity="right"
                 android:singleLine="true"
-                android:textColor="#999999"
+                android:textColor="@color/colorHint"
                 android:textSize="13sp"
                 android:visibility="gone" />
         </LinearLayout>
@@ -110,7 +106,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#e0e0e0"/>
+            android:background="#e0e0e0" />
 
         <ListView
             android:id="@+id/bus_segment_list"
@@ -122,15 +118,14 @@
             android:fadingEdgeLength="0dp"
             android:footerDividersEnabled="false"
             android:headerDividersEnabled="false"
-            android:listSelector="@color/colorTitleBg" >
-        </ListView>
+            android:listSelector="@color/colorTitleBg"></ListView>
     </LinearLayout>
+
     <com.amap.api.maps.MapView
         android:id="@+id/route_map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/bus_path"
-        android:visibility="gone">
-    </com.amap.api.maps.MapView>
+        android:visibility="gone"></com.amap.api.maps.MapView>
 
 </LinearLayout>

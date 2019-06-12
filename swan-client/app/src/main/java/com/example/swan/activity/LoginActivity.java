@@ -15,12 +15,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.example.swan.MainActivity;
 import com.example.swan.R;
 import com.example.swan.domain.Message;
 import com.example.swan.util.AccountHelper;
 import com.example.swan.util.CommonUtil;
 import com.example.swan.util.HttpUtil;
 import com.example.swan.util.QMUITipDialogUtil;
+import com.example.swan.util.ToastUtil;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 import java.io.IOException;
@@ -131,12 +133,10 @@ public class LoginActivity extends AppCompatActivity {
                         errInfo = "登录失败";
                     }
                     Looper.prepare();
-                    QMUITipDialog tipDialog = QMUITipDialogUtil.getFailTipDialog(LoginActivity.this, errInfo);
+                    ToastUtil.showError(LoginActivity.this,errInfo);
                     Looper.loop();
-                    handler.post(() -> {
-                        tipDialog.show();
-                        handler.postDelayed(tipDialog::dismiss, 1000);
-                    });
+
+
                 }
             });
 

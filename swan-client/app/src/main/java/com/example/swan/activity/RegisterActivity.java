@@ -18,6 +18,7 @@ import com.example.swan.domain.Message;
 import com.example.swan.util.CommonUtil;
 import com.example.swan.util.HttpUtil;
 import com.example.swan.util.QMUITipDialogUtil;
+import com.example.swan.util.ToastUtil;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 import java.io.IOException;
@@ -164,15 +165,11 @@ public class RegisterActivity extends AppCompatActivity {
                     loadingDialog.dismiss();
                     if (res == null) {
                         Looper.prepare();
-                        tipDialog = QMUITipDialogUtil.getSuccessTipDialog(RegisterActivity.this, "注册成功");
-                        tipDialog.show();
-                        handler.postDelayed(tipDialog::dismiss, 1000);
-                        handler.postDelayed(() -> {
-                            Intent intent = new Intent();
-                            intent.setClass(RegisterActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                            finish();
-                        },300);
+                        ToastUtil.showError(RegisterActivity.this,"注册成功");
+                        Intent intent=new Intent();
+                        intent.setClass(RegisterActivity.this,LoginActivity.class);
+                        startActivity(intent);
+                        finish();
                         Looper.loop();
 
                     } else {

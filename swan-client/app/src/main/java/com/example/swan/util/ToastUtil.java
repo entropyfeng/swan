@@ -126,4 +126,7 @@ public class ToastUtil {
             Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
+    public static void showError(Context context,String message){
+        Toast.makeText(context,message,Toast.LENGTH_LONG).show();
+    }
 }

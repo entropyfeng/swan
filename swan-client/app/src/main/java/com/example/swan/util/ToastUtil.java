@@ -1,4 +1,5 @@
 package com.example.swan.util;
+
 import com.amap.api.services.core.AMapException;
 
 import android.content.Context;
@@ -14,7 +15,7 @@ public class ToastUtil {
         Toast.makeText(context, info, Toast.LENGTH_LONG).show();
     }
 
-    public static void showerror(Context context, int rCode){
+    public static void showerror(Context context, int rCode) {
         try {
             switch (rCode) {
                 //服务错误码
@@ -119,14 +120,15 @@ public class ToastUtil {
                 case 4001:
                     throw new AMapException(AMapException.AMAP_SHARE_FAILURE);
                 default:
-                    Toast.makeText(context,"查询失败："+rCode , Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "查询失败：" + rCode, Toast.LENGTH_LONG).show();
                     break;
             }
         } catch (Exception e) {
             Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
-    public static void showError(Context context,String message){
-        Toast.makeText(context,message,Toast.LENGTH_LONG).show();
+
+    public static void showError(Context context, String message) {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 }

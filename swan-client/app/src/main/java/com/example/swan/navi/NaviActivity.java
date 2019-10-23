@@ -35,16 +35,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by WangJinyong on 2018/11/7.
+ * Created by
  * 路线导航
  */
 
-public class NaviActivity extends Activity implements AMapNaviListener,AMapNaviViewListener {
+public class NaviActivity extends Activity implements AMapNaviListener, AMapNaviViewListener {
 
     protected AMapNaviView mAMapNaviView;
     protected AMapNavi mAMapNavi;
-    protected NaviLatLng mEndLatlng = new NaviLatLng(40.084894,116.603039);//终点经纬度
-    protected NaviLatLng mStartLatlng = new NaviLatLng(39.825934,116.342972);//起点经纬度
+    protected NaviLatLng mEndLatlng = new NaviLatLng(40.084894, 116.603039);//终点经纬度
+    protected NaviLatLng mStartLatlng = new NaviLatLng(39.825934, 116.342972);//起点经纬度
     protected final List<NaviLatLng> sList = new ArrayList<NaviLatLng>();//起点经纬度集合
     protected final List<NaviLatLng> eList = new ArrayList<NaviLatLng>();//终点经纬度集合
     protected List<NaviLatLng> mWayPointList;//途经点经纬度集合
@@ -56,8 +56,8 @@ public class NaviActivity extends Activity implements AMapNaviListener,AMapNaviV
         setContentView(R.layout.activity_navi);
 
         Intent it = getIntent();
-        mStartLatlng = new NaviLatLng(it.getDoubleExtra("startPointLat",39.942295),it.getDoubleExtra("startPointLon",116.335891));
-        mEndLatlng = new NaviLatLng(it.getDoubleExtra("endPointLat",39.942295),it.getDoubleExtra("endPointLon",116.335891));
+        mStartLatlng = new NaviLatLng(it.getDoubleExtra("startPointLat", 39.942295), it.getDoubleExtra("startPointLon", 116.335891));
+        mEndLatlng = new NaviLatLng(it.getDoubleExtra("endPointLat", 39.942295), it.getDoubleExtra("endPointLon", 116.335891));
 
         mAMapNaviView = findViewById(R.id.navi_view);
         mAMapNaviView.onCreate(savedInstanceState);
@@ -85,8 +85,8 @@ public class NaviActivity extends Activity implements AMapNaviListener,AMapNaviV
     protected void onPause() {
         super.onPause();
         mAMapNaviView.onPause();
-//        停止导航之后，会触及底层stop，然后就不会再有回调了，但是讯飞当前还是没有说完的半句话还是会说完
-//        mAMapNavi.stopNavi();
+        //        停止导航之后，会触及底层stop，然后就不会再有回调了，但是讯飞当前还是没有说完的半句话还是会说完
+        //        mAMapNavi.stopNavi();
     }
 
     @Override
@@ -127,14 +127,14 @@ public class NaviActivity extends Activity implements AMapNaviListener,AMapNaviV
             e.printStackTrace();
         }
         mAMapNavi.calculateDriveRoute(sList, eList, mWayPointList, strategy);//起始点坐标、终点坐标、途经点坐标、strategy
-//        mAMapNavi.calculateWalkRoute(new NaviLatLng(39.925846, 116.435765), new NaviLatLng(39.925846, 116.532765));//步行导航
-//        mAMapNavi.calculateRideRoute(new NaviLatLng(39.925846, 116.435765), new NaviLatLng(39.925846, 116.532765));//骑行导航
+        //        mAMapNavi.calculateWalkRoute(new NaviLatLng(39.925846, 116.435765), new NaviLatLng(39.925846, 116.532765));//步行导航
+        //        mAMapNavi.calculateRideRoute(new NaviLatLng(39.925846, 116.435765), new NaviLatLng(39.925846, 116.532765));//骑行导航
     }
 
     @Override
     public void onCalculateRouteSuccess(int[] ints) {
         //多路径算路成功回调
-//        mAMapNavi.startNavi(NaviType.EMULATOR);//模拟导航
+        //        mAMapNavi.startNavi(NaviType.EMULATOR);//模拟导航
         mAMapNavi.startNavi(NaviType.GPS);//实时导航
     }
 

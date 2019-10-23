@@ -14,7 +14,7 @@ public class QMUITipDialogUtil {
     }
 
 
-    public static QMUITipDialog getLoadingTipDialog(Context context, String message){
+    public static QMUITipDialog getLoadingTipDialog(Context context, String message) {
         return new QMUITipDialog.Builder(context).setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING).setTipWord(message).create();
 
     }

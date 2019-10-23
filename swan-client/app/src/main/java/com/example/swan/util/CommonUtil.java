@@ -2,6 +2,7 @@ package com.example.swan.util;
 
 //import android.content.Context;
 //import android.content.res.Resources;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -87,6 +88,7 @@ public class CommonUtil {
 
         return bitmap;
     }
+
     public static boolean IsEmptyOrNullString(String s) {
         return (s == null) || (s.trim().length() == 0);
     }

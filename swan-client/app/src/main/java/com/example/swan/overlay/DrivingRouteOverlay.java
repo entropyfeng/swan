@@ -25,9 +25,9 @@ import com.example.swan.util.AMapUtil;
 /**
  * 导航路线图层类。
  */
-public class DrivingRouteOverlay extends RouteOverlay{
+public class DrivingRouteOverlay extends RouteOverlay {
 
-	private DrivePath drivePath;
+    private DrivePath drivePath;
     private List<LatLonPoint> throughPointList;
     private List<Marker> throughPointMarkerList = new ArrayList<Marker>();
     private boolean throughPointMarkerVisible = true;
@@ -39,22 +39,22 @@ public class DrivingRouteOverlay extends RouteOverlay{
     private float mWidth = 25;
     private List<LatLng> mLatLngsOfPath;
 
-	public void setIsColorfulline(boolean iscolorfulline) {
-		this.isColorfulline = iscolorfulline;
-	}
+    public void setIsColorfulline(boolean iscolorfulline) {
+        this.isColorfulline = iscolorfulline;
+    }
 
-	/**
+    /**
      * 根据给定的参数，构造一个导航路线图层类对象。
      *
-     * @param amap      地图对象。
-     * @param path 导航路线规划方案。
-     * @param context   当前的activity对象。
+     * @param amap    地图对象。
+     * @param path    导航路线规划方案。
+     * @param context 当前的activity对象。
      */
     public DrivingRouteOverlay(Context context, AMap amap, DrivePath path,
-            LatLonPoint start, LatLonPoint end, List<LatLonPoint> throughPointList) {
-    	super(context);
-    	mContext = context; 
-        mAMap = amap; 
+                               LatLonPoint start, LatLonPoint end, List<LatLonPoint> throughPointList) {
+        super(context);
+        mContext = context;
+        mAMap = amap;
         this.drivePath = path;
         startPoint = AMapUtil.convertToLatLng(start);
         endPoint = AMapUtil.convertToLatLng(end);
@@ -77,8 +77,8 @@ public class DrivingRouteOverlay extends RouteOverlay{
     /**
      * 添加驾车路线添加到地图上显示。
      */
-	public void addToMap() {
-		initPolylineOptions();
+    public void addToMap() {
+        initPolylineOptions();
         try {
             if (mAMap == null) {
                 return;
@@ -96,9 +96,9 @@ public class DrivingRouteOverlay extends RouteOverlay{
                 tmcs.addAll(tmclist);
                 addDrivingStationMarkers(step, convertToLatLng(latlonPoints.get(0)));
                 for (LatLonPoint latlonpoint : latlonPoints) {
-                	mPolylineOptions.add(convertToLatLng(latlonpoint));
-                	mLatLngsOfPath.add(convertToLatLng(latlonpoint));
-				}
+                    mPolylineOptions.add(convertToLatLng(latlonpoint));
+                    mLatLngsOfPath.add(convertToLatLng(latlonpoint));
+                }
             }
             if (startMarker != null) {
                 startMarker.remove();
@@ -110,19 +110,19 @@ public class DrivingRouteOverlay extends RouteOverlay{
             }
             addStartAndEndMarker();
             addThroughPointMarker();
-            if (isColorfulline && tmcs.size()>0 ) {
-            	colorWayUpdate(tmcs);
-            	showcolorPolyline();
-			}else {
-				showPolyline();
-			}            
-            
+            if (isColorfulline && tmcs.size() > 0) {
+                colorWayUpdate(tmcs);
+                showcolorPolyline();
+            } else {
+                showPolyline();
+            }
+
         } catch (Throwable e) {
-        	e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
-	/**
+    /**
      * 初始化线段属性
      */
     private void initPolylineOptions() {
@@ -136,11 +136,11 @@ public class DrivingRouteOverlay extends RouteOverlay{
     private void showPolyline() {
         addPolyLine(mPolylineOptions);
     }
-    
+
     private void showcolorPolyline() {
-    	addPolyLine(mPolylineOptionscolor);
-		
-	}
+        addPolyLine(mPolylineOptionscolor);
+
+    }
 
     /**
      * 根据不同的路段拥堵情况展示不同的颜色
@@ -162,37 +162,37 @@ public class DrivingRouteOverlay extends RouteOverlay{
         mPolylineOptionscolor.add(AMapUtil.convertToLatLng(tmcSection.get(0).getPolyline().get(0)));
         colorList.add(getDriveColor());
         for (int i = 0; i < tmcSection.size(); i++) {
-        	segmentTrafficStatus = tmcSection.get(i);
-        	int color = getcolor(segmentTrafficStatus.getStatus());
-        	List<LatLonPoint> mployline = segmentTrafficStatus.getPolyline();
-			for (int j = 1; j < mployline.size(); j++) {
-				mPolylineOptionscolor.add(AMapUtil.convertToLatLng(mployline.get(j)));
-				colorList.add(color);
-			}
-		}
+            segmentTrafficStatus = tmcSection.get(i);
+            int color = getcolor(segmentTrafficStatus.getStatus());
+            List<LatLonPoint> mployline = segmentTrafficStatus.getPolyline();
+            for (int j = 1; j < mployline.size(); j++) {
+                mPolylineOptionscolor.add(AMapUtil.convertToLatLng(mployline.get(j)));
+                colorList.add(color);
+            }
+        }
         colorList.add(getDriveColor());
         mPolylineOptionscolor.colorValues(colorList);
     }
-    
+
     private int getcolor(String status) {
 
-    	if (status.equals("畅通")) {
-    		return Color.GREEN;
-		} else if (status.equals("缓行")) {
-			 return Color.YELLOW;
-		} else if (status.equals("拥堵")) {
-			return Color.RED;
-		} else if (status.equals("严重拥堵")) {
-			return Color.parseColor("#990033");
-		} else {
-			return Color.parseColor("#537edc");
-		}	
-	}
+        if (status.equals("畅通")) {
+            return Color.GREEN;
+        } else if (status.equals("缓行")) {
+            return Color.YELLOW;
+        } else if (status.equals("拥堵")) {
+            return Color.RED;
+        } else if (status.equals("严重拥堵")) {
+            return Color.parseColor("#990033");
+        } else {
+            return Color.parseColor("#537edc");
+        }
+    }
 
-	public LatLng convertToLatLng(LatLonPoint point) {
-        return new LatLng(point.getLatitude(),point.getLongitude());
-  }
-    
+    public LatLng convertToLatLng(LatLonPoint point) {
+        return new LatLng(point.getLatitude(), point.getLongitude());
+    }
+
     /**
      * @param driveStep
      * @param latLng
@@ -234,7 +234,7 @@ public class DrivingRouteOverlay extends RouteOverlay{
             e.printStackTrace();
         }
     }
-    
+
     private void addThroughPointMarker() {
         if (this.throughPointList != null && this.throughPointList.size() > 0) {
             LatLonPoint latLonPoint = null;
@@ -254,10 +254,10 @@ public class DrivingRouteOverlay extends RouteOverlay{
             }
         }
     }
-    
+
     private BitmapDescriptor getThroughPointBitDes() {
-    	return BitmapDescriptorFactory.fromResource(R.drawable.amap_through);
-       
+        return BitmapDescriptorFactory.fromResource(R.drawable.amap_through);
+
     }
 
     /**
@@ -305,6 +305,7 @@ public class DrivingRouteOverlay extends RouteOverlay{
         double preResult = dis / lSegLength;
         return new LatLng((ePt.latitude - sPt.latitude) * preResult + sPt.latitude, (ePt.longitude - sPt.longitude) * preResult + sPt.longitude);
     }
+
     /**
      * 去掉DriveLineOverlay上的线段和标记。
      */

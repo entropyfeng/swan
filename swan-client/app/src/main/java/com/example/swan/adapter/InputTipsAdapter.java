@@ -15,11 +15,11 @@ import java.util.List;
 
 /**
  * 输入提示adapter，展示item名称和地址
- *
  */
 public class InputTipsAdapter extends BaseAdapter {
     private Context mContext;
     private List<Tip> mListTips;
+
     public InputTipsAdapter(Context context, List<Tip> tipList) {
         mContext = context;
         mListTips = tipList;
@@ -58,18 +58,18 @@ public class InputTipsAdapter extends BaseAdapter {
             holder.name = view.findViewById(R.id.input_tips_name);
             holder.address = view.findViewById(R.id.input_tips_address);
             view.setTag(holder);
-        } else{
-            holder = (Holder)view.getTag();
+        } else {
+            holder = (Holder) view.getTag();
         }
-        if(mListTips == null){
+        if (mListTips == null) {
             return view;
         }
 
         holder.name.setText(mListTips.get(i).getName());
         String address = mListTips.get(i).getAddress();
-        if(address == null || address.equals("")){
+        if (address == null || address.equals("")) {
             holder.address.setVisibility(View.GONE);
-        }else{
+        } else {
             holder.address.setVisibility(View.VISIBLE);
             holder.address.setText(address);
         }

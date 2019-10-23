@@ -29,8 +29,9 @@ public class HttpUtil {
 
     /**
      * 异步post 请求
-     * @param address 地址
-     * @param data 数据
+     *
+     * @param address  地址
+     * @param data     数据
      * @param callback 回调
      */
     public static void asynPost(String address, Map<String, String> data, Callback callback) {
@@ -83,14 +84,14 @@ public class HttpUtil {
         return resParams;
     }
 
-    public static void synPost(String address, Map<String,String> data, okhttp3.Callback callback){
+    public static void synPost(String address, Map<String, String> data, okhttp3.Callback callback) {
 
 
-        OkHttpClient client=new OkHttpClient();
+        OkHttpClient client = new OkHttpClient();
 
-        FormBody.Builder builder=new FormBody.Builder();
+        FormBody.Builder builder = new FormBody.Builder();
         data.forEach(builder::add);
-        Request request=new Request.Builder().url(address).post(builder.build()).build();
+        Request request = new Request.Builder().url(address).post(builder.build()).build();
         client.newCall(request).enqueue(callback);
 
     }

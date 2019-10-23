@@ -46,12 +46,13 @@ public class SearchActivity extends AppCompatActivity {
     private TextView clearHistoryView;
     private String mCurrentCityName;
     private LatLonPoint latLonPoint;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent it = getIntent();
         mCurrentCityName = it.getStringExtra("mCurrentCityName");
-        latLonPoint = new LatLonPoint(it.getDoubleExtra("startPointLat",25.063734),it.getDoubleExtra("startPointLon",110.300496));
+        latLonPoint = new LatLonPoint(it.getDoubleExtra("startPointLat", 25.063734), it.getDoubleExtra("startPointLon", 110.300496));
         setContentView(R.layout.activity_search);
         getSupportActionBar().hide();
         init();
@@ -101,15 +102,15 @@ public class SearchActivity extends AppCompatActivity {
         LinkedList<String> stringList = AccountHelper.getHistorySearch(this);
         LinkedList<Tip> tempTipList = new LinkedList<Tip>();
         stringList.forEach(s -> {
-            Tip tip=null;
+            Tip tip = null;
             try {
-              tip=  JSON.parseObject(s,Tip.class);
-            }catch (Exception e){
+                tip = JSON.parseObject(s, Tip.class);
+            } catch (Exception e) {
                 //如果反序列化失败
 
-             tip=new Tip();
-             tip.setName(s);
-             tip.setTypeCode("o(╯□╰)o");
+                tip = new Tip();
+                tip.setName(s);
+                tip.setTypeCode("o(╯□╰)o");
             }
             tempTipList.add(tip);
         });
@@ -196,21 +197,21 @@ public class SearchActivity extends AppCompatActivity {
                 Tip tip = (Tip) adapterView.getItemAtPosition(position);
                 Intent intent = new Intent();
                 intent.putExtra("ExtraTip", tip);
-                AccountHelper.writeHistorySearch(SearchActivity.this,  JSON.toJSONString(tip));
+                AccountHelper.writeHistorySearch(SearchActivity.this, JSON.toJSONString(tip));
 
                 setResult(MainActivity.RESULT_CODE_INPUT_TIPS, intent);
                 finish();
-            }else {
+            } else {
 
                 //在初始化历史纪录时
                 Tip tip = (Tip) adapterView.getItemAtPosition(position);
-                if(!tip.getTypeCode().equals("o(╯□╰)o")){
+                if (!tip.getTypeCode().equals("o(╯□╰)o")) {
                     Intent intent = new Intent();
                     intent.putExtra("ExtraTip", tip);
                     AccountHelper.writeHistorySearch(SearchActivity.this, tip.getName());
                     setResult(MainActivity.RESULT_CODE_INPUT_TIPS, intent);
                     finish();
-                }else {
+                } else {
                     Intent intent = new Intent();
                     intent.putExtra("KeyWord", tip.getName());
                     setResult(MainActivity.RESULT_CODE_KEYWORDS, intent);

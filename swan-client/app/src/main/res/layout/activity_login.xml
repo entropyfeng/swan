@@ -9,176 +9,177 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorBackground"
-        android:orientation="vertical">
 
-        <com.qmuiteam.qmui.widget.QMUITopBar
-            android:id="@+id/menu_top_bar"
-            android:layout_width="match_parent"
-            android:layout_height="46dp"
-            app:qmui_topbar_bg_color="@color/colorBackground">
-
-            <ImageView
-                android:id="@+id/login_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="7dp"
-                android:src="@drawable/ic_icon_sample_back" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="11dp"
-                android:text="@string/login"
-                android:textColor="@color/colorTextView"
-                android:textSize="16sp" />
-        </com.qmuiteam.qmui.widget.QMUITopBar>
-
-        <!--头部的logo和标题-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:paddingTop="30dp">
+            android:background="@color/colorBackground"
+            android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/logo" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
-                android:text="@string/login_title"
-                android:textColor="@color/colorTitle"
-                android:textSize="24sp" />
-
-        </LinearLayout>
-
-        <!--登录信息输入框-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginRight="30dp"
-            android:background="@drawable/common_border"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:orientation="vertical"
-            android:paddingLeft="30dp"
-            android:paddingTop="25dp"
-            android:paddingRight="30dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/common_username_title"
-                android:textColor="@color/colorTextView"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/login_username"
+            <com.qmuiteam.qmui.widget.QMUITopBar
+                android:id="@+id/menu_top_bar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/common_edit_text_border"
-                android:hint="@string/common_username_tip"
-                android:inputType="text"
-                android:padding="8dp"
-                android:textSize="14sp" />
+                android:layout_height="46dp"
+                app:qmui_topbar_bg_color="@color/colorBackground">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
+                <ImageView
+                    android:id="@+id/login_back"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/common_pwd_title"
-                    android:textColor="@color/colorTextView"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="7dp"
+                    android:src="@drawable/ic_icon_sample_back" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/login_forget_pwd_title"
-                    android:textColor="@color/colorForget"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="11dp"
+                    android:text="@string/login"
+                    android:textColor="@color/colorTextView"
+                    android:textSize="16sp" />
+            </com.qmuiteam.qmui.widget.QMUITopBar>
+
+            <!--头部的logo和标题-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingTop="30dp">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/logo" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
+                    android:text="@string/login_title"
+                    android:textColor="@color/colorTitle"
+                    android:textSize="24sp" />
 
             </LinearLayout>
 
-            <EditText
-                android:id="@+id/login_password"
+            <!--登录信息输入框-->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/common_edit_text_border"
-                android:hint="@string/common_pwd_tip"
-                android:inputType="textPassword"
-                android:padding="8dp"
-                android:textSize="14sp" />
-
-            <Button
-                android:id="@+id/login_submit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:layout_marginBottom="18dp"
-                android:background="@drawable/common_submit_border"
-                android:minHeight="0dp"
-                android:padding="8dp"
-                android:text="@string/login_submit_title"
-                android:textColor="@color/colorLight"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <!--新用户注册-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginRight="30dp"
-            android:background="@drawable/edit_text_border_normal"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/login_new_user"
-                android:textColor="@color/colorTextView"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/login_tv_reg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/common_border"
                 android:focusable="true"
-                android:text="@string/login_register"
-                android:textColor="@color/colorForget"
-                android:textSize="14sp" />
+                android:focusableInTouchMode="true"
+                android:orientation="vertical"
+                android:paddingLeft="30dp"
+                android:paddingTop="25dp"
+                android:paddingRight="30dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/common_username_title"
+                    android:textColor="@color/colorTextView"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/login_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/common_edit_text_border"
+                    android:hint="@string/common_username_tip"
+                    android:inputType="text"
+                    android:padding="8dp"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/common_pwd_title"
+                        android:textColor="@color/colorTextView"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/login_forget_pwd_title"
+                        android:textColor="@color/colorForget"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/login_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/common_edit_text_border"
+                    android:hint="@string/common_pwd_tip"
+                    android:inputType="textPassword"
+                    android:padding="8dp"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/login_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="18dp"
+                    android:background="@drawable/common_submit_border"
+                    android:minHeight="0dp"
+                    android:padding="8dp"
+                    android:text="@string/login_submit_title"
+                    android:textColor="@color/colorLight"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!--新用户注册-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/edit_text_border_normal"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/login_new_user"
+                    android:textColor="@color/colorTextView"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/login_tv_reg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="@string/login_register"
+                    android:textColor="@color/colorForget"
+                    android:textSize="14sp" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
     </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

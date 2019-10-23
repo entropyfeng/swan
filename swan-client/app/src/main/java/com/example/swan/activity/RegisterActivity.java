@@ -165,9 +165,9 @@ public class RegisterActivity extends AppCompatActivity {
                     loadingDialog.dismiss();
                     if (res == null) {
                         Looper.prepare();
-                        ToastUtil.showError(RegisterActivity.this,"注册成功");
-                        Intent intent=new Intent();
-                        intent.setClass(RegisterActivity.this,LoginActivity.class);
+                        ToastUtil.showError(RegisterActivity.this, "注册成功");
+                        Intent intent = new Intent();
+                        intent.setClass(RegisterActivity.this, LoginActivity.class);
                         startActivity(intent);
                         finish();
                         Looper.loop();

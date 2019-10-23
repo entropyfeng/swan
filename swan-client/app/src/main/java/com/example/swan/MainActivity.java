@@ -46,7 +46,6 @@ import com.amap.api.services.route.RideRouteResult;
 import com.amap.api.services.route.RouteSearch;
 import com.amap.api.services.route.WalkPath;
 import com.amap.api.services.route.WalkRouteResult;
-import com.example.swan.activity.Constants;
 import com.example.swan.activity.MenuActivity;
 import com.example.swan.route.RouteActivity;
 import com.example.swan.activity.SearchActivity;
@@ -82,8 +81,8 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
     private AMapLocationClient mLocationClient = null;
     //声明定位回调监听器
 
-    private LatLonPoint aStartPoint = new LatLonPoint(25.063734,110.300496);//起点
-    private static LatLonPoint aEndPoint= new LatLonPoint(25.261406,110.28231);//终点
+    private LatLonPoint aStartPoint = new LatLonPoint(25.063734, 110.300496);//起点
+    private static LatLonPoint aEndPoint = new LatLonPoint(25.261406, 110.28231);//终点
     private String mCurrentCityName = "桂林市";
 
     private RouteSearch mRouteSearch;
@@ -180,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
     /**
      * 获取当前定位点相关信息
      */
-    private void acquireLatLonofBluePot(){
+    private void acquireLatLonofBluePot() {
         //初始化定位
         mLocationClient = new AMapLocationClient(getApplicationContext());
         //设置定位回调监听
@@ -229,9 +228,9 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
         final String DEFAULT_LABEL_CONTENT = "查找地点、公交、地铁";
         keywordsTextView.setOnClickListener(v -> {
             Intent intent = new Intent();
-            intent.putExtra("mCurrentCityName",mCurrentCityName);
-            intent.putExtra("startPointLat",aStartPoint.getLatitude());
-            intent.putExtra("startPointLon",aStartPoint.getLongitude());
+            intent.putExtra("mCurrentCityName", mCurrentCityName);
+            intent.putExtra("startPointLat", aStartPoint.getLatitude());
+            intent.putExtra("startPointLon", aStartPoint.getLongitude());
             intent.setClass(MainActivity.this, SearchActivity.class);
 
             // 向SearchActivity 请求数据
@@ -247,7 +246,6 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
         keywordsTextView.setBackgroundResource(R.drawable.main_top_bar_text_view_border);
         topBar.setCenterView(keywordsTextView);
     }
-
 
 
     //检查权限
@@ -281,12 +279,12 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
     }
 
 
-    AMap.OnMarkerClickListener onMarkerClickListener= marker -> {
+    AMap.OnMarkerClickListener onMarkerClickListener = marker -> {
         marker.showInfoWindow();
         return false;
     };
 
-    AMap.InfoWindowAdapter infoWindowAdapter=new AMap.InfoWindowAdapter() {
+    AMap.InfoWindowAdapter infoWindowAdapter = new AMap.InfoWindowAdapter() {
         @Override
         public View getInfoWindow(Marker marker) {
             View view = getLayoutInflater().inflate(R.layout.poi_keyword_search_uri, null);
@@ -294,7 +292,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
             title.setText(marker.getTitle());
             TextView snippet = view.findViewById(R.id.poi_keyword_search_snippet);
             snippet.setText(marker.getSnippet());
-            PointTouchClickListener pointTouchClickListener=new PointTouchClickListener(marker.getPosition(),MainActivity.this);
+            PointTouchClickListener pointTouchClickListener = new PointTouchClickListener(marker.getPosition(), MainActivity.this);
             view.setOnClickListener(pointTouchClickListener);
             return view;
         }
@@ -304,7 +302,6 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
             return null;
         }
     };
-
 
 
     /**
@@ -318,10 +315,11 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
 
     /**
      * 输入提示activity选择结果后的处理逻辑
-     *向Search Activity 请求
+     * 向Search Activity 请求
+     *
      * @param requestCode 请求码 是 {@link MainActivity 的} REQUEST_CODE 属性
-     * @param resultCode {@link SearchActivity }返回的状态码
-     * @param data 携带的数据
+     * @param resultCode  {@link SearchActivity }返回的状态码
+     * @param data        携带的数据
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -355,7 +353,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
         }
     }
 
-    public LatLonPoint getStartLatLonPoint(){
+    public LatLonPoint getStartLatLonPoint() {
         return aStartPoint;
     }
 
@@ -383,7 +381,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
         poiSearch.searchPOIAsyn();
     }
 
-    PoiSearch.OnPoiSearchListener poiSearchListener=new PoiSearch.OnPoiSearchListener() {
+    PoiSearch.OnPoiSearchListener poiSearchListener = new PoiSearch.OnPoiSearchListener() {
 
         /**
          * POI信息查询回调方法
@@ -423,12 +421,12 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
         }
 
 
-
         @Override
         public void onPoiItemSearched(PoiItem poiItem, int i) {
 
         }
     };
+
     /**
      * 显示进度框
      */
@@ -440,7 +438,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
         progDialog.setCancelable(false);
         // 要输入的poi搜索关键字
         String keyWords = "";
-        progDialog.setMessage("正在搜索:\n"+ keyWords);
+        progDialog.setMessage("正在搜索:\n" + keyWords);
         progDialog.show();
     }
 
@@ -479,8 +477,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
     }
 
 
-
-    public void setfromandtoMarker(LatLonPoint mStartPoint ,LatLonPoint mEndPoint) {
+    public void setfromandtoMarker(LatLonPoint mStartPoint, LatLonPoint mEndPoint) {
         aMap.addMarker(new MarkerOptions()
                 .position(AMapUtil.convertToLatLng(mStartPoint))
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.start)));
@@ -488,73 +485,74 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
                 .position(AMapUtil.convertToLatLng(mEndPoint))
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.end)));
 
-        searchRouteResult(mStartPoint,mEndPoint,ROUTE_TYPE_BUS, RouteSearch.DrivingDefault);
+        searchRouteResult(mStartPoint, mEndPoint, ROUTE_TYPE_BUS, RouteSearch.DrivingDefault);
     }
 
 
-        public AMapLocationListener mLocationListener = new AMapLocationListener() {
-            @Override
-            public void onLocationChanged(AMapLocation amapLocation) {
-                if (amapLocation != null) {
-                    if (amapLocation.getErrorCode() == 0) {
-//可在其中解析amapLocation获取相应内容。
-                        amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
-                        amapLocation.getLatitude();//获取纬度
-                        amapLocation.getLongitude();//获取经度
-                        aStartPoint = new LatLonPoint(amapLocation.getLatitude(),amapLocation.getLongitude());
-                        amapLocation.getAccuracy();//获取精度信息
-//获取定位时间
-                        mCurrentCityName = amapLocation.getCity();//城市信息
-                        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        Date date = new Date(amapLocation.getTime());
-                        df.format(date);
+    public AMapLocationListener mLocationListener = new AMapLocationListener() {
+        @Override
+        public void onLocationChanged(AMapLocation amapLocation) {
+            if (amapLocation != null) {
+                if (amapLocation.getErrorCode() == 0) {
+                    //可在其中解析amapLocation获取相应内容。
+                    amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
+                    amapLocation.getLatitude();//获取纬度
+                    amapLocation.getLongitude();//获取经度
+                    aStartPoint = new LatLonPoint(amapLocation.getLatitude(), amapLocation.getLongitude());
+                    amapLocation.getAccuracy();//获取精度信息
+                    //获取定位时间
+                    mCurrentCityName = amapLocation.getCity();//城市信息
+                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    Date date = new Date(amapLocation.getTime());
+                    df.format(date);
 
-                    } else {
-                        //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
-                        Log.e("AmapError", "location Error, ErrCode:"
-                                + amapLocation.getErrorCode() + ", errInfo:"
-                                + amapLocation.getErrorInfo());
-                    }
+                } else {
+                    //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
+                    Log.e("AmapError", "location Error, ErrCode:"
+                            + amapLocation.getErrorCode() + ", errInfo:"
+                            + amapLocation.getErrorInfo());
                 }
-
             }
-        };
 
-    public void searchForDestination(LatLonPoint endPoint){
+        }
+    };
+
+    public void searchForDestination(LatLonPoint endPoint) {
         //setfromandtoMarker(aStartPoint,endPoint);
 
-        Intent intent = new Intent(MainActivity.this,RouteActivity.class);
-        intent.putExtra("startPointLat",aStartPoint.getLatitude());
-        intent.putExtra("startPointLon",aStartPoint.getLongitude());
-        intent.putExtra("endPointLat",endPoint.getLatitude());
-        intent.putExtra("endPointLon",endPoint.getLongitude());
-        intent.putExtra("mCurrentCityName",mCurrentCityName);
+        Intent intent = new Intent(MainActivity.this, RouteActivity.class);
+        intent.putExtra("startPointLat", aStartPoint.getLatitude());
+        intent.putExtra("startPointLon", aStartPoint.getLongitude());
+        intent.putExtra("endPointLat", endPoint.getLatitude());
+        intent.putExtra("endPointLon", endPoint.getLongitude());
+        intent.putExtra("mCurrentCityName", mCurrentCityName);
         System.out.println(aStartPoint.getLatitude());
         System.out.println(aStartPoint.getLongitude());
         System.out.println("路径规划");
         startActivity(intent);
-}
+    }
 
-    public void searchForDestinationOfNavi(LatLonPoint endPoint){
+    public void searchForDestinationOfNavi(LatLonPoint endPoint) {
         //setfromandtoMarker(aStartPoint,endPoint);
 
-        Intent intent = new Intent(MainActivity.this,NaviActivity.class);
-        intent.putExtra("startPointLat",aStartPoint.getLatitude());
-        intent.putExtra("startPointLon",aStartPoint.getLongitude());
-        intent.putExtra("endPointLat",endPoint.getLatitude());
-        intent.putExtra("endPointLon",endPoint.getLongitude());
+        Intent intent = new Intent(MainActivity.this, NaviActivity.class);
+        intent.putExtra("startPointLat", aStartPoint.getLatitude());
+        intent.putExtra("startPointLon", aStartPoint.getLongitude());
+        intent.putExtra("endPointLat", endPoint.getLatitude());
+        intent.putExtra("endPointLon", endPoint.getLongitude());
         startActivity(intent);
     }
+
     /**
      * 开始搜索路径规划方案
      */
-    public void searchRouteResult(LatLonPoint mStartPoint ,LatLonPoint mEndPoint,int routeType, int mode) {
+    public void searchRouteResult(LatLonPoint mStartPoint, LatLonPoint mEndPoint, int routeType, int mode) {
         if (mStartPoint == null) {
-            Toast.makeText(this,"定位中，稍后再试...",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "定位中，稍后再试...", Toast.LENGTH_SHORT).show();
             return;
         }
         if (mEndPoint == null) {
-            Toast.makeText(this,"终点未设置",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "终点未设置", Toast.LENGTH_SHORT).show();
         }
         showProgressDialog();
         final RouteSearch.FromAndTo fromAndTo = new RouteSearch.FromAndTo(
@@ -578,7 +576,6 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
             mRouteSearch.calculateBusRouteAsyn(query);// 异步路径规划公交模式查询
         }
     }
-
 
 
     @Override
@@ -606,7 +603,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
         return null;
     }
 
-    RouteSearch.OnRouteSearchListener onRouteSearchListener=new RouteSearch.OnRouteSearchListener() {
+    RouteSearch.OnRouteSearchListener onRouteSearchListener = new RouteSearch.OnRouteSearchListener() {
         @Override
         public void onBusRouteSearched(BusRouteResult result, int errorCode) {
             dismissProgressDialog();
@@ -618,13 +615,13 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
                         BusResultListAdapter mBusResultListAdapter = new BusResultListAdapter(MainActivity.this, mBusRouteResult);
                         mBusResultList.setAdapter(mBusResultListAdapter);
                     } else if (result != null && result.getPaths() == null) {
-                        Toast.makeText(MainActivity.this,R.string.poi_no_result,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, R.string.poi_no_result, Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(MainActivity.this,R.string.poi_no_result,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, R.string.poi_no_result, Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(MainActivity.this,errorCode,Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, errorCode, Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -648,30 +645,30 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
                         drivingRouteOverlay.zoomToSpan();
                         int dis = (int) drivePath.getDistance();
                         int dur = (int) drivePath.getDuration();
-                        String des = AMapUtil.getFriendlyTime(dur)+"("+AMapUtil.getFriendlyLength(dis)+")";
+                        String des = AMapUtil.getFriendlyTime(dur) + "(" + AMapUtil.getFriendlyLength(dis) + ")";
                         mRotueTimeDes.setText(des);
                         mRouteDetailDes.setVisibility(View.VISIBLE);
                         int taxiCost = (int) mDriveRouteResult.getTaxiCost();
-                        mRouteDetailDes.setText("打车约"+taxiCost+"元");
+                        mRouteDetailDes.setText("打车约" + taxiCost + "元");
                         mBottomRoute.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Intent intent = new Intent(MainActivity.this,DriveRouteDetailActivity.class);
+                                Intent intent = new Intent(MainActivity.this, DriveRouteDetailActivity.class);
                                 intent.putExtra("drive_path", drivePath);
-                                intent.putExtra("drive_result",mDriveRouteResult);
+                                intent.putExtra("drive_result", mDriveRouteResult);
                                 startActivity(intent);
                             }
                         });
 
                     } else if (result != null && result.getPaths() == null) {
-                        Toast.makeText(MainActivity.this,R.string.poi_no_result,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, R.string.poi_no_result, Toast.LENGTH_SHORT).show();
                     }
 
                 } else {
-                    Toast.makeText(MainActivity.this,R.string.poi_no_result,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, R.string.poi_no_result, Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(MainActivity.this,errorCode,Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, errorCode, Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -685,7 +682,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
                         mWalkRouteResult = result;
                         final WalkPath walkPath = mWalkRouteResult.getPaths()
                                 .get(0);
-                        if(walkPath == null) {
+                        if (walkPath == null) {
                             return;
                         }
                         WalkRouteOverlay walkRouteOverlay = new WalkRouteOverlay(
@@ -699,7 +696,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
                         //mBottomRoute.setVisibility(View.VISIBLE);
                         int dis = (int) walkPath.getDistance();
                         int dur = (int) walkPath.getDuration();
-                        String des = AMapUtil.getFriendlyTime(dur)+"("+AMapUtil.getFriendlyLength(dis)+")";
+                        String des = AMapUtil.getFriendlyTime(dur) + "(" + AMapUtil.getFriendlyLength(dis) + ")";
                         //mRotueTimeDes.setText(des);
                         //mRouteDetailDes.setVisibility(View.GONE);
                     /*mBottomRoute.setOnClickListener(new View.OnClickListener() {
@@ -715,10 +712,10 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
                     });*/
 
                     } else if (result != null && result.getPaths() == null) {
-                        Toast.makeText(MainActivity.this,R.string.poi_no_result,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, R.string.poi_no_result, Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(MainActivity.this,R.string.poi_no_result,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, R.string.poi_no_result, Toast.LENGTH_SHORT).show();
                 }
             } else {
                 ToastUtil.showerror(MainActivity.this.getApplicationContext(), errorCode);
@@ -735,7 +732,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
                         mRideRouteResult = result;
                         final RidePath ridePath = mRideRouteResult.getPaths()
                                 .get(0);
-                        if(ridePath == null) {
+                        if (ridePath == null) {
                             return;
                         }
                         RideRouteOverlay rideRouteOverlay = new RideRouteOverlay(
@@ -748,7 +745,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
                         //mBottomLayout.setVisibility(View.VISIBLE);
                         int dis = (int) ridePath.getDistance();
                         int dur = (int) ridePath.getDuration();
-                        String des = AMapUtil.getFriendlyTime(dur)+"("+AMapUtil.getFriendlyLength(dis)+")";
+                        String des = AMapUtil.getFriendlyTime(dur) + "(" + AMapUtil.getFriendlyLength(dis) + ")";
                         //mRotueTimeDes.setText(des);
                         //mRouteDetailDes.setVisibility(View.GONE);
                         /*mBottomLayout.setOnClickListener(new OnClickListener() {
@@ -763,10 +760,10 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMapClickLi
                             }
                         });*/
                     } else if (result != null && result.getPaths() == null) {
-                        Toast.makeText(MainActivity.this,R.string.poi_no_result,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, R.string.poi_no_result, Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(MainActivity.this,R.string.poi_no_result,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, R.string.poi_no_result, Toast.LENGTH_SHORT).show();
                 }
             } else {
                 ToastUtil.showerror(MainActivity.this.getApplicationContext(), errorCode);

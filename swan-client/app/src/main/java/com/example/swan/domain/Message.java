@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class Message {
     private boolean success;
     private String msg;
-    private HashMap<String,String> params=new HashMap<>();
+    private HashMap<String, String> params = new HashMap<>();
 
     public boolean isSuccess() {
         return success;

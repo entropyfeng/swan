@@ -1,4 +1,5 @@
 package com.example.swan.activity;
+
 import com.amap.api.maps.model.LatLng;
 
 public class Constants {

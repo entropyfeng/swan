@@ -8,9 +8,9 @@ public class FuncOfMap {
     private static MyLocationStyle myLocationStyle;
     private static UiSettings mUiSettings;
 
-    protected static void appearBluePot(AMap aMap){
+    protected static void appearBluePot(AMap aMap) {
         myLocationStyle = new MyLocationStyle();
-        myLocationStyle.interval(1000*60);
+        myLocationStyle.interval(1000 * 60);
         aMap.setMyLocationStyle(myLocationStyle);
         aMap.getUiSettings().setMyLocationButtonEnabled(true);  //设置默认定位按钮是否显示
         aMap.setMyLocationEnabled(true);
@@ -18,20 +18,20 @@ public class FuncOfMap {
         myLocationStyle.showMyLocation(true);
     }
 
-    protected static void appearIndoorMap(AMap aMap){
+    protected static void appearIndoorMap(AMap aMap) {
         aMap.showIndoorMap(true);
     }
 
-    protected static void changeLanguage(AMap aMap){
+    protected static void changeLanguage(AMap aMap) {
         aMap.setMapLanguage("en");
     }
 
-    protected static void appearControls(AMap aMap){
+    protected static void appearControls(AMap aMap) {
         mUiSettings = aMap.getUiSettings();
         mUiSettings.setZoomControlsEnabled(true);
     }
 
-    protected static void searchPoi(AMap aMap){
+    protected static void searchPoi(AMap aMap) {
 
     }
 }

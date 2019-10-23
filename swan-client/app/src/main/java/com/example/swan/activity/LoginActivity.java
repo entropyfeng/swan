@@ -133,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
                         errInfo = "登录失败";
                     }
                     Looper.prepare();
-                    ToastUtil.showError(LoginActivity.this,errInfo);
+                    ToastUtil.showError(LoginActivity.this, errInfo);
                     Looper.loop();
 
 

@@ -27,7 +27,8 @@ public class AccountHelper {
     public static String readAuthToken(Context context) {
         return context.getSharedPreferences("data", Context.MODE_PRIVATE).getString("auth_token", "");
     }
-    public static void clearHistorySearch(Context context){
+
+    public static void clearHistorySearch(Context context) {
         context.getSharedPreferences("data", Context.MODE_PRIVATE).edit().remove(HISTORY_SEARCH).apply();
     }
 
@@ -36,9 +37,9 @@ public class AccountHelper {
 
         Set<String> tempSet = context.getSharedPreferences("data", Context.MODE_PRIVATE).getStringSet(HISTORY_SEARCH, null);
         LinkedHashSet<String> stringSet;
-        if(tempSet==null){
-         stringSet=new LinkedHashSet<>();
-        }else {
+        if (tempSet == null) {
+            stringSet = new LinkedHashSet<>();
+        } else {
             stringSet = new LinkedHashSet<>(tempSet);
         }
 
@@ -50,12 +51,12 @@ public class AccountHelper {
     }
 
     public static LinkedList<String> getHistorySearch(Context context) {
-      Set<String> stringSet=   context.getSharedPreferences("data", Context.MODE_PRIVATE).getStringSet(HISTORY_SEARCH, null);
-      if(stringSet==null){
-          return   new LinkedList<>();
-      }else {
-          return new LinkedList<>(stringSet);
-      }
+        Set<String> stringSet = context.getSharedPreferences("data", Context.MODE_PRIVATE).getStringSet(HISTORY_SEARCH, null);
+        if (stringSet == null) {
+            return new LinkedList<>();
+        } else {
+            return new LinkedList<>(stringSet);
+        }
     }
 
 }

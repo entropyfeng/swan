@@ -1,14 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/colorBackground"
         android:orientation="vertical"
         >
+
+        <com.qmuiteam.qmui.widget.QMUITopBar
+            android:id="@+id/menu_top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            app:qmui_topbar_bg_color="@color/colorBackground"
+            >
+            <ImageView
+                android:id="@+id/register_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_icon_sample_back"
+                android:layout_marginTop="7dp"
+                android:layout_marginStart="10dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/forget"
+                android:textColor="@color/colorTextView"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="11dp"
+                android:textSize="16sp"
+                />
+        </com.qmuiteam.qmui.widget.QMUITopBar>
 
         <!--头部的logo和标题-->
         <LinearLayout
@@ -62,6 +91,7 @@
                 android:textStyle="bold" />
             <!--账号输入框-->
             <EditText
+                android:id="@+id/forget_pwd_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -86,6 +116,7 @@
 
             <!--新密码输入框-->
             <EditText
+                android:id="@+id/forget_pwd_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -110,6 +141,7 @@
 
             <!--确认新密码输入框-->
             <EditText
+                android:id="@+id/forget_pwd_confirm_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -125,6 +157,7 @@
 
         <!--修改密码按钮-->
         <Button
+            android:id="@+id/forget_pwd_submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/forget_pwd_title"
@@ -137,4 +170,5 @@
             android:textStyle="bold"
             />
     </LinearLayout>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>

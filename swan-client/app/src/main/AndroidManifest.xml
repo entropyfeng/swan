@@ -37,6 +37,10 @@
             android:name=".activity.RegisterActivity"
             android:parentActivityName=".activity.LoginActivity" />
 
+        <activity
+            android:name=".activity.ForgetPwdActivity"
+            android:parentActivityName=".activity.LoginActivity" />
+
         <activity android:name=".route.RouteActivity" />
         <activity android:name=".route.DriveRouteDetailActivity" />
         <activity android:name=".route.WalkRouteDetailActivity" />

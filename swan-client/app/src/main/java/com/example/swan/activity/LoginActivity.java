@@ -64,12 +64,21 @@ public class LoginActivity extends AppCompatActivity {
         back.setOnClickListener(v -> finish());
         Button submitButton = findViewById(R.id.login_submit);
         submitButton.setOnClickListener(submitListener);
+
+        TextView forgetPwdTextView = findViewById(R.id.login_tv_forget_pwd);
+        forgetPwdTextView.setOnClickListener(forgetPwdListener);
     }
 
 
     private View.OnClickListener registerListener = v -> {
         Intent intent = new Intent();
         intent.setClass(LoginActivity.this, RegisterActivity.class);
+        startActivity(intent);
+    };
+
+    private View.OnClickListener forgetPwdListener = v -> {
+        Intent intent = new Intent();
+        intent.setClass(LoginActivity.this, ForgetPwdActivity.class);
         startActivity(intent);
     };
 

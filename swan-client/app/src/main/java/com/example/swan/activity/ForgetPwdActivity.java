@@ -43,7 +43,7 @@ public class ForgetPwdActivity extends AppCompatActivity {
         setContentView(R.layout.activity_forget_pwd);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().hide();
-       initWidget();
+        initWidget();
 
     }
 

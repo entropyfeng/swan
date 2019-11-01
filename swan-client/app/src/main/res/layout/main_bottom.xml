@@ -12,7 +12,7 @@
         android:layout_alignParentBottom="true"
         android:id="@+id/main_bottom_layout"
         >
-
+        <!-- 搜附近 -->
         <TextView
             android:id="@+id/main_bottom_search_nearby"
             android:layout_width="0dp"
@@ -33,7 +33,7 @@
             android:layout_height="20dp"
             android:layout_marginTop="10dp"
             android:background="@color/colorBorder" />
-
+        <!-- 导航 -->
         <TextView
             android:id="@+id/main_bottom_navigation"
             android:layout_width="0dp"
@@ -54,7 +54,7 @@
             android:layout_height="20dp"
             android:layout_marginTop="10dp"
             android:background="@color/colorBorder" />
-
+        <!-- 路线 -->
         <TextView
             android:id="@+id/main_bottom_route"
             android:layout_width="0dp"
@@ -69,7 +69,5 @@
             android:text="@string/main_bottom_route_title"
             android:textColor="@color/colorTextView"
             android:textSize="16sp" />
-
-
     </LinearLayout>
 </RelativeLayout>
